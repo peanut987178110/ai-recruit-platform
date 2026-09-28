@@ -38,6 +38,7 @@ ROOT = Path(__file__).resolve().parent.parent
 EXCLUDE_DIRS = {
     ".venv", "node_modules", "__pycache__", ".git", ".idea", ".vscode",
     "dist_pack", ".pytest_cache", "echarts", ".mypy_cache", ".ruff_cache",
+    "_pdfout", "_tmp", "_scratch",
 }
 
 # 任何包里都不该出现的东西：运行期数据与密钥
