@@ -1,5 +1,19 @@
 @echo off
-chcp 65001 >nul
+REM ============================================================
+REM ASCII-only bootstrap -- do not put non-ASCII bytes above the
+REM marker line below. cmd.exe mis-parses multi-byte UTF-8 lines
+REM when the code page changes while the script is already running
+REM (Chinese Windows starts at 936). So: switch code page, then
+REM re-enter this file in a NEW cmd process, now decoded as UTF-8.
+REM A same-process `call` does NOT work -- the parser snapshots its
+REM code page at process start. Verified by experiment.
+REM ============================================================
+if not "%~1"=="__utf8" (
+    chcp 65001 >nul
+    cmd /d /c call "%~f0" __utf8
+    exit /b %errorlevel%
+)
+REM ==================== end of bootstrap =====================
 title AI 招聘与人才发展平台
 
 cd /d "%~dp0.."

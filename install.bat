@@ -1,5 +1,19 @@
 @echo off
-chcp 65001 >nul
+REM ============================================================
+REM ASCII-only bootstrap -- do not put non-ASCII bytes above the
+REM marker line below. cmd.exe mis-parses multi-byte UTF-8 lines
+REM when the code page changes while the script is already running
+REM (Chinese Windows starts at 936). So: switch code page, then
+REM re-enter this file in a NEW cmd process, now decoded as UTF-8.
+REM A same-process `call` does NOT work -- the parser snapshots its
+REM code page at process start. Verified by experiment.
+REM ============================================================
+if not "%~1"=="__utf8" (
+    chcp 65001 >nul
+    cmd /d /c call "%~f0" __utf8
+    exit /b %errorlevel%
+)
+REM ==================== end of bootstrap =====================
 setlocal enabledelayedexpansion
 title AI 招聘与人才发展平台 - 安装
 
@@ -82,10 +96,10 @@ if not exist ".venv\Scripts\python.exe" (
 )
 echo     安装 Python 包（使用清华镜像加速）...
 ".venv\Scripts\python.exe" -m pip install --upgrade pip -q -i https://pypi.tuna.tsinghua.edu.cn/simple
-".venv\Scripts\python.exe" -m pip install -q -i https://pypi.tuna.tsinghua.edu.cn/simple -r backendequirements.txt
+".venv\Scripts\python.exe" -m pip install -q -i https://pypi.tuna.tsinghua.edu.cn/simple -r backend\requirements.txt
 if errorlevel 1 (
     echo     镜像源安装失败，改用官方源重试...
-    ".venv\Scripts\python.exe" -m pip install -q -r backendequirements.txt
+    ".venv\Scripts\python.exe" -m pip install -q -r backend\requirements.txt
     if errorlevel 1 (
         echo   [错误] 后端依赖安装失败，请检查网络。
         pause
