@@ -1,0 +1,7 @@
+# Windows 批处理必须保持 CRLF 换行。
+# cmd.exe 按字节切行，LF 换行的 .bat 遇到中文会把字符串碎片当命令执行，
+# 表现为 'cho' is not recognized 之类的报错。
+# -text 表示原样存取，不让 Git 按 core.autocrlf 转换 ——
+# 这样 git clone 和 GitHub 网页上的「Download ZIP」拿到的都是 CRLF。
+*.bat -text
+*.cmd -text

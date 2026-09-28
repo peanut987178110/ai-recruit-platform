@@ -1,0 +1,29 @@
+# Backend dependencies.
+# Install:  .venv\Scripts\python.exe -m pip install -r requirements.txt
+# China mirror:  add  -i https://pypi.tuna.tsinghua.edu.cn/simple
+#
+# Keep this file ASCII-only: pip reads it with the system default encoding,
+# which on Chinese Windows is GBK, and non-ASCII comments break the install.
+
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-multipart
+httpx
+
+pydantic>=2.9
+pydantic-settings>=2.6
+
+sqlalchemy[asyncio]>=2.0
+aiosqlite
+greenlet
+
+langchain>=0.3
+langchain-core>=0.3
+langchain-community>=0.3
+langchain-openai>=0.3
+langgraph>=0.2
+
+pypdf
+python-docx
+openpyxl
+jinja2

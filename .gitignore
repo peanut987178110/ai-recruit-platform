@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# 数据与密钥
+backend/data/app.db
+backend/data/app.db-*
+# 令牌签名密钥：首次启动自动生成，泄露后任何人都能伪造登录态
+backend/data/secret.key
+backend/data/uploads/*
+backend/data/samples/*
+backend/.env
+!backend/data/uploads/.gitkeep
+!backend/data/samples/.gitkeep
+!backend/data/knowledge/.gitkeep
+
+# 前端
+node_modules/
+frontend/dist/
+*.log
+
+# 分发包产物（本身由 scripts/pack.py 生成，不该进仓库）
+dist_pack/
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
