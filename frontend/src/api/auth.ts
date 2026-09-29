@@ -62,6 +62,8 @@ export const auth = {
   resetPassword: (uid: string, new_password: string) =>
     http.post(`/auth/users/${uid}/reset-password`, { new_password }).then((r) => r.data),
   deleteAccount: (uid: string) => http.delete(`/auth/users/${uid}`).then((r) => r.data),
+  updateAccount: (uid: string, p: Record<string, unknown>) =>
+    http.put(`/auth/users/${uid}`, p).then((r) => r.data),
   changePassword: (old_password: string, new_password: string) =>
     http.post('/auth/change-password', { old_password, new_password }).then((r) => r.data),
 }

@@ -198,8 +198,16 @@ def main() -> int:
 
     # ---------- 6. 面试题生成 ----------
     print("\n【6】安排面试并生成分层题目（真实模型调用）")
+    # 面试官与时间必须显式指定（此前缺省会静默挂到第一个面试官名下）
+    from datetime import datetime, timedelta
+    itvs = c.get(f"{BASE}/interview/interviewers", params={"candidate_id": cid},
+                 headers=hdr()).json()["items"]
+    itv1 = next(i for i in itvs if i["userid"] == "interviewer1")
     sch = c.post(f"{BASE}/interview/schedules",
-                 json={"candidate_id": cid, "round_name": "初面", "plan_minutes": 30},
+                 json={"candidate_id": cid, "round_name": "初面", "plan_minutes": 30,
+                       "interviewer_id": itv1["id"], "mode": "视频",
+                       "meeting_url": "https://meeting.example.com/it-test",
+                       "scheduled_at": (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%dT%H:%M")},
                  headers=hdr()).json()
     check(bool(sch.get("schedule_id")), "面试已安排")
     sid = sch["schedule_id"]
@@ -457,6 +465,11 @@ def main() -> int:
         pa = inv3["data"].get("pending_action")
         check(pa is not None and pa["type"] == "rescue",
               "捞回只生成待确认动作，未直接改变状态")
+
+    # 清理：取消本次创建的面试场次。否则每跑一次联调，面试官日程里就多一场「张伟」，
+    # 反复运行后日程被测试数据淹没，也会让「待面试场次」这个推荐依据失真。
+    c.post(f"{BASE}/interview/schedules/{sid}/cancel", json={"reason": "联调测试清理"},
+           headers=hdr())
 
     print("\n" + "=" * 78)
     print(f"  联调完成：{'全部通过' if not fails else f'{fails} 项未通过'}")

@@ -268,8 +268,45 @@ class InterviewSchedule(Base, TimestampMixin):
     interviewer_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"), nullable=True, index=True)
     scheduled_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     plan_minutes: Mapped[int] = mapped_column(Integer, default=30)
-    status: Mapped[str] = mapped_column(String(16), default="待面试")  # 待面试/已完成
+    status: Mapped[str] = mapped_column(String(16), default="待面试")  # 待面试/已完成/已取消
     consent_recorded: Mapped[bool] = mapped_column(Boolean, default=False)  # 录音需候选人明示同意
+
+    # ---------- 面试方式 ----------
+    # 视频面试不自建音视频，接入公司已有会议工具（腾讯会议、飞书、Zoom 等）。
+    # 自建 WebRTC 要解决穿透、录制存储、弱网，且与「本期不做 AI 面试官与无人化视频面试」
+    # 的范围约定无关；平台只负责把会议链接、时间、身份安全地送到双方手里。
+    mode: Mapped[str] = mapped_column(String(8), default="视频")  # 视频/现场/电话
+    meeting_url: Mapped[str] = mapped_column(String(512), default="")
+    meeting_code: Mapped[str] = mapped_column(String(64), default="")  # 会议号或入会密码
+    location: Mapped[str] = mapped_column(String(128), default="")      # 现场面试地点
+    note: Mapped[str] = mapped_column(String(256), default="")
+    scheduled_by: Mapped[str] = mapped_column(String(64), default="")
+
+    # 候选人没有平台账号，凭一次性邀请链接查看面试信息并确认录音意愿。
+    # 令牌是随机串而非自增 id，不可枚举；取消或重发后旧链接立即失效。
+    invite_token: Mapped[str] = mapped_column(String(64), default="")
+    invite_expires_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    # 「不同意」与「还没回复」对面试官意味着不同的动作：前者直接走手动摘要，
+    # 后者开场要当面再问一次。所以单独记录，而不只用 consent_recorded 一个布尔值。
+    consent_status: Mapped[str] = mapped_column(String(8), default="未回复")  # 未回复/同意/不同意
+    consent_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+
+
+class BusinessLine(Base, TimestampMixin):
+    """业务线字典。
+
+    业务线是数据隔离的边界（用人经理按业务线看候选人、知识库按业务线检索），
+    所以不能是自由文本 —— 一个账号填「电商业务线」、一个岗位填「电商线」，
+    隔离就悄悄失效了。账号、岗位、知识库的业务线都必须从这里选。
+    """
+
+    __tablename__ = "business_lines"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    description: Mapped[str] = mapped_column(String(256), default="")
+    sort: Mapped[int] = mapped_column(Integer, default=0)
+    active: Mapped[bool] = mapped_column(Boolean, default=True)
 
 
 class QuestionRecord(Base):

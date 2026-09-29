@@ -34,14 +34,15 @@ ALL_ROLES = [ROLE_HR, ROLE_HR_LEAD, ROLE_MANAGER, ROLE_INTERVIEWER,
 PERMISSIONS: dict[str, dict[str, set[str]]] = {
     ROLE_HR: {
         "model": {"view"}, "screen": {"view", "edit", "adopt", "reject", "rescue", "import"},
-        "interview": {"view"}, "training": {"view"}, "board": {"view_own"},
+        "interview": {"view", "schedule"}, "training": {"view"}, "board": {"view_own"},
     },
     ROLE_HR_LEAD: {
         "model": {"view", "edit"}, "screen": {"view", "edit", "adopt", "reject", "rescue", "import"},
-        "interview": {"view"}, "training": {"view"}, "board": {"view_all"},
+        "interview": {"view", "schedule"}, "training": {"view"}, "board": {"view_all"},
     },
     ROLE_MANAGER: {
-        "model": {"nominate"}, "screen": {"view_review"}, "interview": {"view", "edit"},
+        "model": {"nominate"}, "screen": {"view_review"},
+        "interview": {"view", "edit", "schedule"},
         "training": {"view"}, "board": {"view_dept"},
     },
     ROLE_INTERVIEWER: {
@@ -82,7 +83,7 @@ SUPER_PERMISSIONS: dict[str, set[str]] = {
     "model": {"view", "edit", "config", "nominate"},
     "screen": {"view", "view_review", "view_assigned", "view_log", "edit",
                "adopt", "reject", "rescue", "import", "config"},
-    "interview": {"view", "view_log", "edit", "config"},
+    "interview": {"view", "view_log", "edit", "config", "schedule"},
     "training": {"view", "edit", "publish", "config", "learn", "take_exam",
                  "grade", "assign"},
     "board": {"view_all", "view_own", "view_dept"},

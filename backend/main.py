@@ -22,8 +22,8 @@ from fastapi.staticfiles import StaticFiles
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from app.api.v1 import (  # noqa: E402
-    agent_api, auth_api, board_api, candidates_api, exam_api, interview_api,
-    models_api, training_api,
+    agent_api, auth_api, board_api, business_line_api, candidates_api, exam_api,
+    interview_api, invite_api, models_api, training_api,
 )
 from app.core.config import settings  # noqa: E402
 from app.db.session import init_db  # noqa: E402
@@ -171,7 +171,8 @@ app.add_middleware(
 
 for r in (auth_api.router, models_api.router, candidates_api.router,
           interview_api.router, training_api.router, exam_api.router,
-          board_api.router, agent_api.router):
+          board_api.router, agent_api.router, business_line_api.router,
+          invite_api.router):
     app.include_router(r, prefix="/api")
 
 

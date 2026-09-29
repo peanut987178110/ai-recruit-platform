@@ -85,7 +85,9 @@ async def list_candidates(status: str = "", tier: str = "", position_id: int = 0
     elif user.role in ("招聘HR",):
         q = q.where(or_(Candidate.hr_id == user.id,
                         Candidate.hr_id.is_(None)))
-    elif user.role == "用人经理" and user.department:
+    elif user.role == "用人经理" and user.business_line:
+        # 按业务线隔离。此前判断条件写成了 department，而过滤用的是 business_line：
+        # 没填部门但填了业务线的经理会看到全部候选人，隔离形同虚设。
         pos_ids = [p.id for p in (await db.execute(select(Position).where(
             Position.business_line == user.business_line))).scalars().all()]
         if pos_ids:

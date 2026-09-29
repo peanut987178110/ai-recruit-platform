@@ -28,13 +28,25 @@
         </div>
 
         <div class="field">
-          <label class="field-label row" style="gap: 8px">
-            <input type="checkbox" v-model="consent" style="accent-color: var(--brand)" />
-            <span>候选人已明示同意录音（同意记录将写入决策日志）</span>
-          </label>
-          <div class="field-hint">
-            未同意时该模块降级为面试官手动填写摘要，不阻断流程。
+          <!-- 录音同意以候选人在邀请链接中的表态为准 -->
+          <div v-if="linkConsent === '同意'" class="alert alert-ok">
+            <span class="alert-icon">✓</span>
+            <div>候选人已在邀请链接中<b>同意录音</b>，可基于逐字稿生成报告。</div>
           </div>
+          <div v-else-if="linkConsent === '不同意'" class="alert alert-warn">
+            <span class="alert-icon">⚠</span>
+            <div>候选人已在邀请链接中<b>不同意录音</b>，不能基于录音生成报告。请在下方手动填写摘要。</div>
+          </div>
+          <template v-else>
+            <label class="field-label row" style="gap: 8px">
+              <input type="checkbox" v-model="consent" style="accent-color: var(--brand)" />
+              <span>候选人已当面明示同意录音（同意记录将写入决策日志）</span>
+            </label>
+            <div class="field-hint">
+              候选人尚未在邀请链接中表态。仅在面试开场当面取得同意时勾选；
+              未同意时该模块降级为面试官手动填写摘要，不阻断流程。
+            </div>
+          </template>
         </div>
 
         <div class="field">
@@ -44,7 +56,8 @@
           <div class="field-hint">{{ transcript.length }} 字</div>
         </div>
 
-        <VButton variant="primary" :disabled="!transcript || !consent" :loading="building" @click="build">
+        <VButton variant="primary" :disabled="!transcript || !consent || linkConsent === '不同意'"
+                 :loading="building" @click="build">
           生成评估报告
         </VButton>
       </template>
@@ -169,6 +182,7 @@ const sid = Number(route.params.id)
 const r = ref<any>(null)
 const transcript = ref('')
 const consent = ref(false)
+const linkConsent = ref('未回复')
 const building = ref(false)
 const saving = ref(false)
 const scores = ref<Record<string, number>>({})
@@ -177,6 +191,11 @@ const showTranscript = ref(false)
 const degradeInfo = ref<{reason:string;level:string;model:string}|null>(null)
 
 async function load() {
+  try {
+    const p = await interviewApi.prepare(sid)
+    linkConsent.value = p.consent_status || '未回复'
+    consent.value = linkConsent.value === '同意'
+  } catch { /* 准备页信息拿不到不影响写报告 */ }
   try {
     r.value = await interviewApi.getReport(sid)
     scores.value = { ...(r.value.scores || {}) }

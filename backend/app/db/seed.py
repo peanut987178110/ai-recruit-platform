@@ -216,14 +216,28 @@ def normalize_weights(raw: list[int], total: int = 10) -> list[int]:
 
 async def _seed_users(db: AsyncSession) -> None:
     if (await db.execute(select(func.count(User.id)))).scalar_one() > 0:
+        await _fix_demo_names(db)
         return
     from app.core.security import hash_password
 
     pwd = hash_password(DEMO_PASSWORD)
-    for name, uname, uid, bl, dept, role in ITEMS:
-        db.add(User(userid=uid, name=name, role=role, business_line=bl, department=dept,
+    for _label, uname, uid, bl, dept, role in ITEMS:
+        # 用人名而不是角色名作为显示名。此前写成了角色名，两个面试官都叫「业务面试官」，
+        # 安排面试时根本分不清指派给了谁。
+        db.add(User(userid=uid, name=uname, role=role, business_line=bl, department=dept,
                     email=f"{uid}@example.com", password_hash=pwd,
                     created_by="system" if uid == "admin" else "admin"))
+    await db.flush()
+
+
+async def _fix_demo_names(db: AsyncSession) -> None:
+    """老库修正：演示账号的显示名若仍是角色名（旧种子的 bug），改回人名。
+    只改「显示名恰好等于默认角色标签」的账号，用户自己改过的名字不动。"""
+    fix = {uid: (label, uname) for label, uname, uid, *_ in ITEMS}
+    for u in (await db.execute(select(User).where(User.userid.in_(list(fix))))).scalars().all():
+        label, uname = fix[u.userid]
+        if u.name == label and uname and uname != label:
+            u.name = uname
     await db.flush()
 
 
@@ -309,6 +323,30 @@ async def _seed_samples(db: AsyncSession) -> None:
     await db.flush()
 
 
+DEFAULT_BUSINESS_LINES = [
+    ("电商业务线", "交易、商品、营销等电商相关岗位"),
+    ("供应链业务线", "仓储、物流、采购等供应链相关岗位"),
+    ("职能线", "人力、财务、法务等职能岗位"),
+    ("通用", "跨业务线共用的岗位与资料"),
+]
+
+
+async def _seed_business_lines(db: AsyncSession) -> None:
+    """业务线字典。除默认四条外，把库里已在使用的取值也补进来 ——
+    老版本业务线是自由文本，升级后若字典里没有这些值，编辑账号时下拉框会选不中原值。"""
+    from app.db.models import BusinessLine
+    have = {b.name for b in (await db.execute(select(BusinessLine))).scalars().all()}
+    wanted: list[tuple[str, str]] = list(DEFAULT_BUSINESS_LINES)
+    for model in (User, Position, KnowledgeDoc):
+        for (v,) in (await db.execute(select(model.business_line).distinct())).all():
+            if v and v not in {w[0] for w in wanted}:
+                wanted.append((v, "由历史数据自动补录"))
+    for i, (name, desc) in enumerate(wanted):
+        if name not in have:
+            db.add(BusinessLine(name=name, description=desc, sort=i))
+    await db.flush()
+
+
 async def seed_all(db: AsyncSession) -> None:
     await _seed_users(db)
     await _seed_positions(db)
@@ -316,6 +354,7 @@ async def seed_all(db: AsyncSession) -> None:
     await _seed_knowledge(db)
     await _seed_prompts(db)
     await _seed_samples(db)
+    await _seed_business_lines(db)
     await db.commit()
 
 

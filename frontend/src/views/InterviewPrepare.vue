@@ -9,12 +9,36 @@
         <div class="ml-auto row">
           <select v-model.number="planMinutes" class="select" style="width: 130px">
             <option :value="30">30 分钟</option>
+            <option :value="45">45 分钟</option>
             <option :value="60">60 分钟</option>
+            <option :value="90">90 分钟</option>
           </select>
           <VButton size="sm" variant="primary" :loading="genning" icon="✦" @click="generate">
             {{ d.questions?.length ? '重新生成' : '生成题目' }}
           </VButton>
           <VButton size="sm" @click="$router.push(`/interview/${sid}/report`)">评估报告</VButton>
+        </div>
+      </div>
+
+      <!-- 面试方式：面试官在看题的同一页入会，不用再去翻邮件找链接 -->
+      <div v-if="d.mode" class="meet mb-2">
+        <span class="tag" :class="modeTag(d.mode)">{{ d.mode }}面试</span>
+        <span class="small">{{ fmtWhen(d.scheduled_at) }}</span>
+        <template v-if="d.mode === '视频'">
+          <span v-if="d.meeting_code" class="tiny muted">会议号 / 密码：<span class="mono">{{ d.meeting_code }}</span></span>
+          <a v-if="d.meeting_url && d.status === '待面试'" :href="d.meeting_url" target="_blank"
+             rel="noopener noreferrer" class="btn btn-sm btn-ok ml-auto">▣ 进入会议</a>
+        </template>
+        <span v-else-if="d.mode === '现场'" class="small">地点：{{ d.location }}</span>
+        <span v-else class="tiny muted">按候选人简历上的联系方式拨打</span>
+      </div>
+      <div v-if="d.mode && d.consent_status !== '同意'" class="alert alert-warn">
+        <span class="alert-icon">⚠</span>
+        <div v-if="d.consent_status === '不同意'">
+          候选人<b>不同意录音</b>。请不要开启会议录制，面试后在评估报告中手动填写摘要。
+        </div>
+        <div v-else>
+          候选人<b>尚未确认</b>是否同意录音。开场请先当面询问；未明确同意前不要开启录制。
         </div>
       </div>
 
@@ -163,9 +187,11 @@ function byLayer(l: string) {
   return (d.value.questions || []).filter((q: any) => q.layer === l)
 }
 
-async function load() {
+async function load(first = false) {
   try {
-    d.value = await interviewApi.prepare(sid, planMinutes.value)
+    // 首次加载用安排时定的时长，之后才用面试官在下拉框里改的值
+    d.value = await interviewApi.prepare(sid, first ? 0 : planMinutes.value)
+    if (first && d.value.plan_minutes) planMinutes.value = d.value.plan_minutes
   } catch (e) {
     toast.err(e, '加载失败')
   }
@@ -201,6 +227,17 @@ async function generate() {
   }
 }
 
+function modeTag(m: string) {
+  return ({ 视频: 'tag-blue', 现场: 'tag-purple', 电话: 'tag-gray' } as Record<string, string>)[m] || 'tag-gray'
+}
+function fmtWhen(v: string): string {
+  if (!v) return '时间未定'
+  const dt = new Date(v.replace(' ', 'T'))
+  if (isNaN(dt.getTime())) return v
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `${dt.getFullYear()}-${p(dt.getMonth() + 1)}-${p(dt.getDate())} ${p(dt.getHours())}:${p(dt.getMinutes())}`
+}
+
 function toggle(id: number) { expanded.value = expanded.value === id ? null : id }
 
 function startEdit(q: any) { editing.value = q.id; editText.value = q.edited_content || q.content }
@@ -226,10 +263,15 @@ async function act(q: any, action: string) {
   }
 }
 
-onMounted(() => load())
+onMounted(() => load(true))
 </script>
 
 <style scoped>
+.meet {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-0);
+}
+.btn.btn-sm { display: inline-flex; align-items: center; text-decoration: none; }
 .prep-grid { display: grid; grid-template-columns: 340px 1fr; gap: 14px; margin-top: 14px; align-items: start; }
 @media (max-width: 1100px) { .prep-grid { grid-template-columns: 1fr; } }
 

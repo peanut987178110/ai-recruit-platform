@@ -104,6 +104,10 @@ def _is_excluded(rel: Path, profile: str) -> bool:
     # 上传的简历与公司资料可能含真实数据，任何包都不带
     if "data/uploads" in rel.as_posix() and rel.is_file():
         return True
+    # 数据库的任何副本都不带：app.db.bak、app.db.bak-before-xxx、app.db.old……
+    # 只按「app.db」精确匹配会漏掉手工备份，而备份里是完整的候选人数据。
+    if rel.name.startswith("app.db") or ".db." in rel.name or rel.suffix in (".bak", ".sqlite", ".sqlite3"):
+        return True
     if profile == "github":
         posix = rel.as_posix()
         for pat in GITHUB_EXTRA_GLOBS:
@@ -221,6 +225,8 @@ def verify_package(zip_path: Path) -> list[str]:
             low = n.lower()
             if base in SECRET_FILES or base == "secret.key":
                 problems.append(f"含敏感文件：{n}")
+            if base.startswith("app.db") or ".db." in base or base.endswith((".bak", ".sqlite", ".sqlite3")):
+                problems.append(f"含数据库副本：{n}")
             if "/uploads/" in low and not n.endswith(".gitkeep"):
                 problems.append(f"含上传文件：{n}")
             if base.endswith((".log", ".pyc")):

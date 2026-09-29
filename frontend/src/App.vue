@@ -225,7 +225,8 @@ function onDocClick(e: MouseEvent) {
 }
 
 watch(() => route.path, () => {
-  if (!isLogin.value) loadStatus()
+  // 公开页（登录、候选人邀请）没有登录态，不去拉平台状态
+  if (!isLogin.value && !route.meta.public) loadStatus()
 })
 
 onMounted(async () => {

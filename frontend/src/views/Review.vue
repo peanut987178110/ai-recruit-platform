@@ -256,27 +256,9 @@
       </template>
     </VModal>
 
-    <!-- 安排面试 -->
-    <VModal v-if="scheduleOpen" title="安排面试" @close="scheduleOpen = false">
-      <div class="field">
-        <label class="field-label">面试轮次</label>
-        <select v-model="sched.round_name" class="select">
-          <option>初面</option><option>二面</option><option>终面</option>
-        </select>
-      </div>
-      <div class="field">
-        <label class="field-label">时长预算</label>
-        <select v-model.number="sched.plan_minutes" class="select">
-          <option :value="30">30 分钟（生成 8 至 10 题）</option>
-          <option :value="60">60 分钟（生成 12 题以上）</option>
-        </select>
-        <div class="field-hint">题目会按时间预算自动取舍，优先保留覆盖能力缺口的题。</div>
-      </div>
-      <template #foot>
-        <VButton @click="scheduleOpen = false">取消</VButton>
-        <VButton variant="primary" :loading="acting" @click="doSchedule">安排</VButton>
-      </template>
-    </VModal>
+    <!-- 安排面试：指定面试官、时间与方式 -->
+    <ScheduleModal v-if="scheduleOpen" :candidate-id="Number(route.params.id)"
+                   :candidate-name="c?.name" @close="scheduleOpen = false" @done="onScheduled" />
 
     <!-- 标记疑问 -->
     <VModal v-if="doubtOpen" title="标记疑问" @close="doubtOpen = false">
@@ -359,6 +341,7 @@ import VButton from '../components/VButton.vue'
 import VDrawer from '../components/VDrawer.vue'
 import VModal from '../components/VModal.vue'
 import VState from '../components/VState.vue'
+import ScheduleModal from './parts/ScheduleModal.vue'
 import { api, candApi, interviewApi } from '../api'
 import {
   REJECT_REASONS, STATE_HINT, STATE_LABEL, STATUS_TAG, degradeText,
@@ -389,7 +372,6 @@ const reason = ref('')
 const note = ref('')
 const assigneeId = ref(0)
 const fields = ref<Record<string, string>>({})
-const sched = ref({ round_name: '初面', plan_minutes: 30 })
 
 const LOG_KIND: Record<string, string> = {
   ai: 'AI 决策', human: '人工操作', config: '配置变更',
@@ -549,22 +531,10 @@ async function doConfirm() {
   }
 }
 
-async function doSchedule() {
-  acting.value = true
-  try {
-    const r = await interviewApi.create({
-      candidate_id: Number(route.params.id),
-      round_name: sched.value.round_name,
-      plan_minutes: sched.value.plan_minutes,
-    })
-    toast.ok('已安排面试，正在准备题目')
-    scheduleOpen.value = false
-    router.push(`/interview/${r.schedule_id}`)
-  } catch (e) {
-    toast.err(e)
-  } finally {
-    acting.value = false
-  }
+function onScheduled(r: any) {
+  scheduleOpen.value = false
+  toast.ok('已安排面试', '候选人邀请链接可在「面试日程」中复制发送')
+  router.push(`/interview/${r.schedule_id}`)
 }
 
 function onKey(e: KeyboardEvent) {

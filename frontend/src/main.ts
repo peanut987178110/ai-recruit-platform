@@ -24,11 +24,14 @@ import Board from './views/Board.vue'
 import Settings from './views/Settings.vue'
 import Assistant from './views/Assistant.vue'
 import Accounts from './views/Accounts.vue'
+import Invite from './views/Invite.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     { path: '/login', component: Login, meta: { public: true } },
+    // 候选人面试邀请：免登录，凭链接中的随机令牌访问
+    { path: '/invite/:token', component: Invite, meta: { public: true, fullscreen: true, title: '面试邀请' } },
     { path: '/', redirect: '/workbench' },
     { path: '/workbench', component: Workbench, meta: { title: '候选人工作台', sub: 'P-01' } },
     { path: '/candidate/:id', component: Review, meta: { title: '简历复核详情', sub: 'P-02' } },
@@ -58,6 +61,7 @@ router.beforeEach(async (to) => {
   const loggedIn = !!auth.token
   if (!to.meta.public && !loggedIn) return { path: '/login' }
   if (to.path === '/login' && loggedIn) return { path: '/workbench' }
+  if (to.path.startsWith('/invite/')) return true
   if (loggedIn && !currentUser.value) {
     try {
       currentUser.value = await auth.me()

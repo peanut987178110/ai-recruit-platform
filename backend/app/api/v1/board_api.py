@@ -371,10 +371,13 @@ async def add_knowledge(body: dict, db: AsyncSession = Depends(get_db),
     content = (body.get("content") or "").strip()
     if not title or not content:
         raise HTTPException(400, "请填写文档标题与正文")
+    # 知识库检索按业务线隔离，取值必须来自字典，否则这篇文档谁也检索不到
+    from app.api.v1.business_line_api import validate_line
+    line = await validate_line(db, body.get("business_line") or "通用", allow_empty=False)
 
     row = KnowledgeDoc(
         title=title, category=body.get("category", "SOP"),
-        business_line=body.get("business_line", "通用"), content=content,
+        business_line=line, content=content,
         chunks=split_text(content), owner=user.name,
         source_path=f"内部知识库/{body.get('category', 'SOP')}/{title}.md",
     )

@@ -23,6 +23,7 @@ from app.core.deps import (
 from app.core.security import (
     hash_password, make_token, parse_token, password_strength_issue, verify_password,
 )
+from app.api.v1.business_line_api import validate_line
 from app.db.models import DecisionLog, User
 from app.db.session import get_db
 
@@ -115,10 +116,11 @@ async def register(body: RegisterIn, db: AsyncSession = Depends(get_db)):
     exists = (await db.execute(select(User).where(User.userid == uid))).scalar_one_or_none()
     if exists:
         raise HTTPException(400, f"账号「{uid}」已被使用，请换一个")
+    line = await validate_line(db, body.business_line)
 
     u = User(
         userid=uid, name=name or uid, role=body.role,
-        business_line=body.business_line, department=body.department,
+        business_line=line, department=body.department,
         email=body.email, password_hash=hash_password(body.password),
         created_by="self",
     )
@@ -191,10 +193,11 @@ async def create_account(body: RegisterIn, db: AsyncSession = Depends(get_db),
     exists = (await db.execute(select(User).where(User.userid == uid))).scalar_one_or_none()
     if exists:
         raise HTTPException(400, f"账号「{uid}」已存在")
+    line = await validate_line(db, body.business_line)
 
     u = User(
         userid=uid, name=body.name.strip() or uid, role=body.role,
-        business_line=body.business_line, department=body.department,
+        business_line=line, department=body.department,
         email=body.email, password_hash=hash_password(body.password),
         created_by=admin.userid,
     )
@@ -204,6 +207,57 @@ async def create_account(body: RegisterIn, db: AsyncSession = Depends(get_db),
                        summary=f"{admin.userid} 创建了账号 {uid}（{body.role}）"))
     await db.commit()
     return {"ok": True, "user": _out(u).model_dump()}
+
+
+class AccountUpdate(BaseModel):
+    name: str | None = Field(default=None, min_length=1, max_length=32)
+    role: str | None = None
+    business_line: str | None = None
+    department: str | None = Field(default=None, max_length=64)
+    email: str | None = Field(default=None, max_length=128)
+
+
+@router.put("/users/{uid}")
+async def update_account(uid: str, body: AccountUpdate, db: AsyncSession = Depends(get_db),
+                         admin: User = Depends(current_user)):
+    """编辑账号。建号时选错业务线或人员调岗，都需要事后改，而不是删号重建 ——
+    删号重建会丢掉这个人名下的面试记录与带教关系。"""
+    if not (admin.is_super or admin.role == ROLE_HR_LEAD):
+        raise HTTPException(403, "只有超级管理员或 HR 负责人可以编辑账号")
+    u = (await db.execute(select(User).where(User.userid == uid))).scalar_one_or_none()
+    if not u:
+        raise HTTPException(404, "账号不存在")
+    if u.is_super and not admin.is_super:
+        raise HTTPException(403, "不能编辑超级管理员账号")
+
+    changes: list[str] = []
+    if body.role is not None and body.role != u.role:
+        if u.is_super:
+            raise HTTPException(400, "超级管理员的角色不可修改")
+        if body.role not in ALL_ROLES:
+            raise HTTPException(400, f"角色须为：{'、'.join(ALL_ROLES)}")
+        if body.role in (ROLE_ADMIN, ROLE_HR_LEAD) and not admin.is_super:
+            raise HTTPException(403, f"只有超级管理员可以授予「{body.role}」角色")
+        changes.append(f"角色 {u.role}→{body.role}")
+        u.role = body.role
+    if body.business_line is not None and body.business_line != u.business_line:
+        line = await validate_line(db, body.business_line)
+        changes.append(f"业务线 {u.business_line or '不限'}→{line or '不限'}")
+        u.business_line = line
+    if body.department is not None and body.department.strip() != u.department:
+        changes.append(f"部门 {u.department or '—'}→{body.department.strip() or '—'}")
+        u.department = body.department.strip()
+    if body.name is not None and body.name.strip() != u.name:
+        changes.append(f"姓名 {u.name}→{body.name.strip()}")
+        u.name = body.name.strip()
+    if body.email is not None:
+        u.email = body.email.strip()
+
+    if changes:
+        db.add(DecisionLog(kind="access", actor=admin.userid, ability="账号管理",
+                           summary=f"{admin.userid} 修改了账号 {uid}：" + "；".join(changes)))
+    await db.commit()
+    return {"ok": True, "changes": changes, "user": _out(u).model_dump()}
 
 
 @router.post("/users/{uid}/toggle")

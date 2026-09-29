@@ -74,7 +74,10 @@
         </div>
         <div class="field">
           <label class="field-label">业务线</label>
-          <input v-model="form.business_line" class="input" placeholder="例如：电商业务线" />
+          <select v-model="form.business_line" class="select">
+            <option v-for="b in lines" :key="b.name" :value="b.name">{{ b.name }}</option>
+          </select>
+          <div class="field-hint">决定哪条业务线的用人经理能看到该岗位的候选人</div>
         </div>
         <div class="field">
           <label class="field-label">职级区间</label>
@@ -118,7 +121,7 @@ import { useRouter } from 'vue-router'
 import VButton from '../components/VButton.vue'
 import VModal from '../components/VModal.vue'
 import VState from '../components/VState.vue'
-import { modelApi } from '../api'
+import { lineApi, modelApi } from '../api'
 import { fmtDate } from '../api/labels'
 import { toast } from '../components/toast'
 
@@ -154,7 +157,15 @@ async function doCreate() {
   }
 }
 
-onMounted(load)
+// 岗位业务线必须来自字典：自由输入一旦与账号的业务线字面不一致，用人经理就看不到这些候选人
+const lines = ref<{ name: string }[]>([])
+onMounted(async () => {
+  try { lines.value = await lineApi.list() } catch { lines.value = [] }
+  if (lines.value.length && !lines.value.some((l) => l.name === form.value.business_line)) {
+    form.value.business_line = lines.value[0].name
+  }
+  await load()
+})
 </script>
 
 <style scoped>

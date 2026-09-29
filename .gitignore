@@ -6,7 +6,10 @@ __pycache__/
 
 # 数据与密钥
 backend/data/app.db
-backend/data/app.db-*
+backend/data/app.db*
+*.bak
+*.sqlite
+*.sqlite3
 # 令牌签名密钥：首次启动自动生成，泄露后任何人都能伪造登录态
 backend/data/secret.key
 backend/data/uploads/*

@@ -18,7 +18,9 @@ http.interceptors.response.use(
     e.friendly = friendlyError(e)
     // 令牌失效（过期或密钥变更）时清理本地状态并回到登录页，
     // 否则用户会停在一个每点一次都报错的界面上，不知道该怎么办。
-    if (e?.response?.status === 401 && !location.hash.startsWith('#/login')) {
+    // 候选人邀请页没有登录态，不能被踢回登录页
+    if (e?.response?.status === 401 && !location.hash.startsWith('#/login')
+        && !location.hash.startsWith('#/invite')) {
       localStorage.removeItem('auth_token')
       localStorage.removeItem('auth_user')
       location.hash = '#/login'
@@ -123,8 +125,17 @@ export const candApi = {
 
 /* ---------------- M3 面试助手 ---------------- */
 export const interviewApi = {
-  schedules: () => http.get('/interview/schedules').then((r) => r.data),
+  schedules: (params: Record<string, unknown> = {}) =>
+    http.get('/interview/schedules', { params }).then((r) => r.data),
   create: (p: Record<string, unknown>) => http.post('/interview/schedules', p).then((r) => r.data),
+  update: (sid: number, p: Record<string, unknown>) =>
+    http.put(`/interview/schedules/${sid}`, p).then((r) => r.data),
+  cancel: (sid: number, reason: string) =>
+    http.post(`/interview/schedules/${sid}/cancel`, { reason }).then((r) => r.data),
+  resetInvite: (sid: number) =>
+    http.post(`/interview/schedules/${sid}/invite/reset`).then((r) => r.data),
+  interviewers: (candidate_id = 0) =>
+    http.get('/interview/interviewers', { params: { candidate_id } }).then((r) => r.data),
   prepare: (sid: number, plan_minutes = 0) =>
     http.get(`/interview/${sid}/prepare`, { params: { plan_minutes } }).then((r) => r.data),
   generate: (sid: number, plan_minutes: number) =>
@@ -247,4 +258,27 @@ export const planApi = {
       headers: { 'Content-Type': 'multipart/form-data' },
     }).then((r) => r.data),
   deleteMaterial: (id: number) => http.delete(`/training/materials/${id}`).then((r) => r.data),
+}
+
+/* ---------------- 业务线字典 ---------------- */
+export const lineApi = {
+  list: () => http.get('/business-lines').then((r) => r.data),
+  manage: () => http.get('/business-lines/manage').then((r) => r.data),
+  create: (p: Record<string, unknown>) => http.post('/business-lines', p).then((r) => r.data),
+  update: (id: number, p: Record<string, unknown>) =>
+    http.put(`/business-lines/${id}`, p).then((r) => r.data),
+  remove: (id: number, migrate_to = '') =>
+    http.delete(`/business-lines/${id}`, { params: { migrate_to } }).then((r) => r.data),
+}
+
+/* ---------------- 候选人邀请（免登录） ---------------- */
+export const inviteApi = {
+  view: (token: string) => http.get(`/public/invite/${token}`).then((r) => r.data),
+  consent: (token: string, agree: boolean) =>
+    http.post(`/public/invite/${token}/consent`, { agree }).then((r) => r.data),
+}
+
+/** 候选人邀请链接。用当前访问地址拼，部署到哪就指向哪。 */
+export function inviteUrl(token: string): string {
+  return `${location.origin}${location.pathname}#/invite/${token}`
 }

@@ -141,6 +141,9 @@ async def model_versions(mid: int, db: AsyncSession = Depends(get_db),
 async def create_position(payload: PositionIn, db: AsyncSession = Depends(get_db),
                           user: User = Depends(require("model", "edit"))):
     """新建岗位。可从同序列模板派生，派生后能力项与权重完整继承（验收 A1-1）。"""
+    # 岗位的业务线决定哪些用人经理能看到它的候选人，必须来自字典
+    from app.api.v1.business_line_api import validate_line
+    payload.business_line = await validate_line(db, payload.business_line, allow_empty=False)
     dup = (await db.execute(select(Position).where(
         Position.name == payload.name,
         Position.business_line == payload.business_line))).scalars().first()

@@ -43,7 +43,7 @@
               <th style="width: 130px">部门</th>
               <th style="width: 90px">状态</th>
               <th style="width: 140px">最后登录</th>
-              <th style="width: 200px">操作</th>
+              <th style="width: 250px">操作</th>
             </tr>
           </thead>
           <tbody>
@@ -63,6 +63,8 @@
               </td>
               <td class="tiny muted">{{ u.last_login_at ? fmtTime(u.last_login_at) : '从未登录' }}</td>
               <td>
+                <VButton size="sm" variant="ghost" :disabled="u.is_super && !me?.is_super"
+                         @click="openEdit(u)">编辑</VButton>
                 <VButton size="sm" variant="ghost" @click="openReset(u)">重置密码</VButton>
                 <VButton
                   size="sm" variant="ghost"
@@ -79,6 +81,52 @@
           </tbody>
         </table>
       </VState>
+    </div>
+
+    <!-- 业务线：数据隔离的边界，必须是受控字典 -->
+    <div v-if="canManage" class="card mt-3">
+      <div class="card-head">
+        <span class="card-title">业务线</span>
+        <span class="card-desc">
+          用人经理按业务线查看候选人、知识库按业务线检索 —— 账号、岗位、知识库的业务线都从这里选
+        </span>
+        <VButton size="sm" variant="primary" icon="+" class="ml-auto" @click="openLine(null)">新增业务线</VButton>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>名称</th>
+            <th>说明</th>
+            <th style="width: 240px">正在使用</th>
+            <th style="width: 80px">状态</th>
+            <th style="width: 200px">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="b in lineRows" :key="b.id" :class="{ dim: !b.active }">
+            <td class="bold small">{{ b.name }}</td>
+            <td class="tiny muted">{{ b.description || '—' }}</td>
+            <td class="tiny">
+              <template v-if="b.in_use">
+                <span v-for="(n, k) in b.usage" v-show="n" :key="k" class="use">{{ k }} {{ n }}</span>
+              </template>
+              <span v-else class="muted">未被使用</span>
+            </td>
+            <td>
+              <span class="tag" :class="b.active ? 'tag-ok' : 'tag-gray'">{{ b.active ? '启用' : '停用' }}</span>
+            </td>
+            <td>
+              <VButton size="sm" variant="ghost" @click="openLine(b)">编辑</VButton>
+              <VButton size="sm" variant="ghost" @click="toggleLine(b)">{{ b.active ? '停用' : '启用' }}</VButton>
+              <VButton size="sm" variant="ghost" @click="openDelete(b)">删除</VButton>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tiny muted mt-2">
+        改名会同步到所有使用它的账号、岗位与知识库；停用后不能再被新选择，但已有数据不受影响。
+        删除仍在使用的业务线时，需要先指定把这些数据迁移到哪条业务线。
+      </div>
     </div>
 
     <!-- 角色说明 -->
@@ -127,8 +175,13 @@
         <label class="field-label">业务线</label>
         <select v-model="form.business_line" class="select">
           <option value="">不限</option>
-          <option v-for="b in LINES" :key="b">{{ b }}</option>
+          <option v-for="b in lines" :key="b.name" :value="b.name">{{ b.name }}</option>
         </select>
+        <div class="field-hint">
+          决定该账号能看到哪条业务线的数据。
+          <template v-if="canManage">没有需要的业务线？先在下方「业务线」中新增。</template>
+          <template v-else>没有需要的业务线请联系 HR 负责人新增。</template>
+        </div>
       </div>
       <div class="field">
         <label class="field-label">部门</label>
@@ -138,6 +191,95 @@
       <template #foot>
         <VButton @click="createOpen = false">取消</VButton>
         <VButton variant="primary" :loading="busy" @click="doCreate">创建</VButton>
+      </template>
+    </VModal>
+
+    <!-- 编辑账号 -->
+    <VModal v-if="editingUser" :title="`编辑账号「${editingUser.userid}」`" @close="editingUser = null">
+      <div class="field">
+        <label class="field-label">姓名<span class="req">*</span></label>
+        <input v-model.trim="edit.name" class="input" />
+      </div>
+      <div class="field">
+        <label class="field-label">角色</label>
+        <select v-model="edit.role" class="select" :disabled="editingUser.is_super">
+          <option v-for="r in editRoles" :key="r" :value="r">{{ r }}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">业务线</label>
+        <select v-model="edit.business_line" class="select">
+          <option value="">不限</option>
+          <option v-for="b in lines" :key="b.name" :value="b.name">{{ b.name }}</option>
+          <!-- 原值若已停用，仍要显示出来，否则下拉框会显示成「不限」误导人 -->
+          <option v-if="edit.business_line && !lines.some((l) => l.name === edit.business_line)"
+                  :value="edit.business_line">{{ edit.business_line }}（已停用）</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">部门</label>
+        <input v-model.trim="edit.department" class="input" />
+      </div>
+      <div v-if="error" class="alert alert-danger"><span class="alert-icon">✕</span><div>{{ error }}</div></div>
+      <template #foot>
+        <VButton @click="editingUser = null">取消</VButton>
+        <VButton variant="primary" :loading="busy" @click="doEdit">保存</VButton>
+      </template>
+    </VModal>
+
+    <!-- 新增 / 编辑业务线 -->
+    <VModal v-if="lineOpen" :title="lineForm.id ? `编辑业务线「${lineForm.origName}」` : '新增业务线'"
+            @close="lineOpen = false">
+      <div class="field">
+        <label class="field-label">名称<span class="req">*</span></label>
+        <input v-model.trim="lineForm.name" class="input" maxlength="32" placeholder="例如：本地生活业务线" />
+        <div v-if="lineForm.id && lineForm.name !== lineForm.origName" class="field-hint warn-text">
+          改名会同步到所有使用「{{ lineForm.origName }}」的账号、岗位与知识库。
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">说明</label>
+        <input v-model.trim="lineForm.description" class="input" maxlength="200" />
+      </div>
+      <div class="field">
+        <label class="field-label">排序</label>
+        <input v-model.number="lineForm.sort" type="number" class="input" style="max-width: 120px" />
+        <div class="field-hint">数字越小越靠前</div>
+      </div>
+      <div v-if="error" class="alert alert-danger"><span class="alert-icon">✕</span><div>{{ error }}</div></div>
+      <template #foot>
+        <VButton @click="lineOpen = false">取消</VButton>
+        <VButton variant="primary" :loading="busy" :disabled="!lineForm.name" @click="saveLine">保存</VButton>
+      </template>
+    </VModal>
+
+    <!-- 删除业务线 -->
+    <VModal v-if="deleting" :title="`删除业务线「${deleting.name}」`" @close="deleting = null">
+      <template v-if="deleting.in_use">
+        <div class="alert alert-warn">
+          <span class="alert-icon">⚠</span>
+          <div>
+            该业务线仍被
+            <b v-for="(n, k) in deleting.usage" v-show="n" :key="k"> {{ k }} {{ n }} 个 </b>
+            使用。直接删除会让这些数据属于一个不存在的业务线，用人经理将看不到相应候选人。
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">把这些数据迁移到<span class="req">*</span></label>
+          <select v-model="migrateTo" class="select">
+            <option value="" disabled>请选择</option>
+            <option v-for="b in migrateTargets" :key="b.name" :value="b.name">{{ b.name }}</option>
+          </select>
+        </div>
+        <div class="tiny muted">不想迁移？可以改用「停用」：已有数据保持不变，只是不能再被新选择。</div>
+      </template>
+      <div v-else class="small">该业务线没有被任何账号、岗位或知识库使用，可以直接删除。</div>
+      <div v-if="error" class="alert alert-danger mt-2"><span class="alert-icon">✕</span><div>{{ error }}</div></div>
+      <template #foot>
+        <VButton @click="deleting = null">取消</VButton>
+        <VButton variant="danger" :loading="busy" :disabled="deleting.in_use > 0 && !migrateTo" @click="doDelete">
+          {{ deleting.in_use ? '迁移并删除' : '删除' }}
+        </VButton>
       </template>
     </VModal>
 
@@ -165,11 +307,14 @@ import VButton from '../components/VButton.vue'
 import VModal from '../components/VModal.vue'
 import VState from '../components/VState.vue'
 import { auth } from '../api/auth'
-import { currentUser } from '../api'
+import { currentUser, lineApi } from '../api'
 import { fmtTime } from '../api/labels'
 import { toast } from '../components/toast'
 
-const LINES = ['电商业务线', '供应链业务线', '职能线', '通用']
+// 业务线来自字典接口，不再写死在前端 —— 写死的列表与后端一旦不一致，
+// 新增的业务线在这里选不到，删掉的却还能选到。
+const lines = ref<any[]>([])
+const lineRows = ref<any[]>([])
 
 const rows = ref<any[]>([])
 const roles = ref<any[]>([])
@@ -182,6 +327,113 @@ const newPwd = ref('')
 const error = ref('')
 
 const me = computed(() => currentUser.value)
+const canManage = computed(() => !!me.value && (me.value.is_super || me.value.role === 'HR负责人'))
+
+const editingUser = ref<any>(null)
+const edit = ref({ name: '', role: '', business_line: '', department: '' })
+const lineOpen = ref(false)
+const lineForm = ref({ id: 0, name: '', origName: '', description: '', sort: 0 })
+const deleting = ref<any>(null)
+const migrateTo = ref('')
+
+const editRoles = computed(() => {
+  const base = assignable.value || []
+  // 被编辑账号的现有角色即便不在可授予范围内，也要能显示
+  return editingUser.value && !base.includes(editingUser.value.role)
+    ? [editingUser.value.role, ...base] : base
+})
+const migrateTargets = computed(() =>
+  lines.value.filter((l) => !deleting.value || l.name !== deleting.value.name))
+
+async function loadLines() {
+  try { lines.value = await lineApi.list() } catch { lines.value = [] }
+  if (canManage.value) {
+    try { lineRows.value = await lineApi.manage() } catch { lineRows.value = [] }
+  }
+}
+
+function openEdit(u: any) {
+  error.value = ''
+  editingUser.value = u
+  edit.value = { name: u.name, role: u.role, business_line: u.business_line || '', department: u.department || '' }
+}
+
+async function doEdit() {
+  error.value = ''
+  busy.value = true
+  try {
+    const r = await auth.updateAccount(editingUser.value.userid, edit.value)
+    toast.ok(`已保存 ${editingUser.value.userid}`, (r.changes || []).join('；') || '无变更')
+    editingUser.value = null
+    await Promise.all([load(), loadLines()])
+  } catch (e: any) {
+    error.value = e?.friendly || '保存失败'
+  } finally {
+    busy.value = false
+  }
+}
+
+function openLine(b: any) {
+  error.value = ''
+  lineForm.value = b
+    ? { id: b.id, name: b.name, origName: b.name, description: b.description, sort: b.sort }
+    : { id: 0, name: '', origName: '', description: '', sort: lineRows.value.length + 1 }
+  lineOpen.value = true
+}
+
+async function saveLine() {
+  error.value = ''
+  busy.value = true
+  try {
+    const { id, name, description, sort } = lineForm.value
+    if (id) {
+      const r = await lineApi.update(id, { name, description, sort })
+      toast.ok('已保存业务线', (r.changes || []).join('；'))
+    } else {
+      await lineApi.create({ name, description, sort })
+      toast.ok(`已新增业务线「${name}」`)
+    }
+    lineOpen.value = false
+    await Promise.all([load(), loadLines()])
+  } catch (e: any) {
+    error.value = e?.friendly || '保存失败'
+  } finally {
+    busy.value = false
+  }
+}
+
+async function toggleLine(b: any) {
+  try {
+    await lineApi.update(b.id, { active: !b.active })
+    toast.ok(`已${b.active ? '停用' : '启用'}「${b.name}」`)
+    await loadLines()
+  } catch (e) {
+    toast.err(e)
+  }
+}
+
+function openDelete(b: any) {
+  error.value = ''
+  migrateTo.value = ''
+  deleting.value = b
+}
+
+async function doDelete() {
+  error.value = ''
+  busy.value = true
+  try {
+    const target = migrateTo.value
+    const r = await lineApi.remove(deleting.value.id, target)
+    toast.ok(`已删除「${deleting.value.name}」`, r.moved ? `${r.moved} 条数据迁移至「${target}」` : '')
+    deleting.value = null
+    await Promise.all([load(), loadLines()])
+  } catch (e: any) {
+    error.value = e?.friendly || '删除失败'
+  } finally {
+    busy.value = false
+  }
+}
+
 const signupCount = computed(() => roles.value.filter((r) => r.self_signup).length)
 
 const form = ref({
@@ -261,11 +513,16 @@ async function remove(u: any) {
 
 onMounted(async () => {
   try { roles.value = await auth.roles() } catch { /* ignore */ }
-  await load()
+  await Promise.all([load(), loadLines()])
 })
 </script>
 
 <style scoped>
+.use {
+  display: inline-block; margin: 0 6px 2px 0; padding: 1px 7px; border-radius: 10px;
+  background: var(--bg-hover); color: var(--text-1);
+}
+tr.dim td { opacity: 0.55; }
 .role-card {
   padding: 12px 13px; border: 1px solid var(--border);
   border-radius: var(--radius); background: var(--bg-0);

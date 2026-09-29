@@ -124,7 +124,7 @@
             <label class="field-label">业务线</label>
             <select v-model="form.business_line" class="select">
               <option value="">不限</option>
-              <option v-for="b in LINES" :key="b">{{ b }}</option>
+              <option v-for="b in lines" :key="b.name" :value="b.name">{{ b.name }}</option>
             </select>
             <div class="field-hint">决定你能看到哪些候选人（跨业务线不可见）</div>
           </div>
@@ -152,6 +152,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import VButton from '../components/VButton.vue'
 import { auth } from '../api/auth'
+import { lineApi } from '../api'
 import { toast } from '../components/toast'
 
 const router = useRouter()
@@ -173,7 +174,8 @@ const DEMO = [
   { r: '法务审计', u: 'legal1' },
 ]
 
-const LINES = ['电商业务线', '供应链业务线', '职能线', '通用']
+// 业务线来自字典接口（注册前即可访问），不在前端写死
+const lines = ref<{ name: string }[]>([])
 
 const mode = ref<'login' | 'register'>('login')
 const busy = ref(false)
@@ -246,6 +248,7 @@ async function doRegister() {
 }
 
 onMounted(async () => {
+  lineApi.list().then((r: any[]) => { lines.value = r }).catch(() => { lines.value = [] })
   try {
     roles.value = await auth.roles()
   } catch {
