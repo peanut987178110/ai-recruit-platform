@@ -1,0 +1,1345 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>产品经理方法论面试手册</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 16mm 15mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Microsoft YaHei", "微软雅黑", "PingFang SC", sans-serif;
+         color: #1f2933; font-size: 10.2pt; line-height: 1.72; margin: 0; }
+  h1 { font-size: 23pt; margin: 0 0 6px; color: #102a43; }
+  h2 { font-size: 15pt; color: #102a43; margin: 0 0 4px; padding-bottom: 5px;
+       border-bottom: 2px solid #2f6fb3; }
+  h3 { break-after: avoid; page-break-after: avoid; font-size: 11.5pt; color: #2f6fb3; margin: 13px 0 4px; }
+  p { margin: 4px 0 7px; }
+  .cover { height: 245mm; display: flex; flex-direction: column; justify-content: center; }
+  .cover .sub { font-size: 12pt; color: #52606d; margin: 10px 0 26px; line-height: 1.9; }
+  .cover .box { border: 1px solid #c9d6e3; border-radius: 6px; padding: 14px 18px;
+                background: #f5f8fb; font-size: 10pt; }
+
+  .sec { break-before: page; }
+  .tag { display: inline-block; font-size: 8.5pt; padding: 1px 8px; border-radius: 10px;
+         background: #e3edf8; color: #2f6fb3; margin-right: 6px; vertical-align: 2px; }
+  .stage { color: #7b8794; font-size: 9pt; margin-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 9px; font-size: 9.3pt; }
+  th, td { border: 1px solid #cfd8e3; padding: 4px 7px; text-align: left; vertical-align: top; }
+  th { background: #eef3f8; color: #243b53; font-weight: 600; }
+  .proj { background: #f4f9f1; border-left: 4px solid #4f9a3a; padding: 7px 12px; margin: 8px 0;
+          border-radius: 0 4px 4px 0; }
+  .ans { background: #fdf8ec; border-left: 4px solid #d69e2e; padding: 7px 12px; margin: 8px 0;
+         border-radius: 0 4px 4px 0; }
+  .trap { background: #fdf0f0; border-left: 4px solid #c53030; padding: 7px 12px; margin: 8px 0;
+          border-radius: 0 4px 4px 0; }
+  .lbl { font-weight: 700; font-size: 9.2pt; display: block; margin-bottom: 2px; }
+  .proj .lbl { color: #3d7a2c; } .ans .lbl { color: #9c6b12; } .trap .lbl { color: #a12a2a; }
+  .formula { font-family: Consolas, monospace; background: #eef3f8; padding: 3px 9px;
+             border-radius: 4px; font-size: 9.6pt; display: inline-block; margin: 3px 0; }
+  ul, ol { margin: 4px 0 7px; padding-left: 20px; }
+  li { margin: 2px 0; }
+  .toc td { border: none; border-bottom: 1px dotted #cfd8e3; padding: 3px 4px; }
+  .small { font-size: 8.8pt; color: #52606d; }
+  .concept { break-inside: auto; margin-bottom: 14px; }
+  .concept > h3 + p { break-before: avoid; }
+  .proj, .ans, .trap { break-inside: avoid; }
+  .keep { break-inside: avoid; }
+  b { color: #102a43; }
+
+  .theory { background: #eef4fb; border-left: 4px solid #2f6fb3; padding: 8px 12px; margin: 8px 0;
+            border-radius: 0 4px 4px 0; }
+  .theory .lbl { color: #1f5a99; }
+  .theory table { background: #fff; }
+  .theory h4 { font-size: 9.8pt; margin: 7px 0 2px; color: #1f5a99; }
+  .eq { font-family: Consolas, "Cambria Math", monospace; background: #fff; border: 1px solid #c9d8ea;
+        padding: 3px 10px; border-radius: 4px; display: inline-block; margin: 3px 0; font-size: 9.6pt; }
+</style>
+</head>
+<body>
+
+<!-- ======================= 封面 ======================= -->
+<div class="cover">
+  <h1>产品经理方法论面试手册</h1>
+  <div class="sub">
+    20 个高频方法 · 每个都结合「AI 招聘与人才发展平台」项目讲透<br>
+    定义 · 出处 · 原理 · 公式 → 项目里怎么用 → 面试怎么答 → 面试官会怎么追问
+  </div>
+  <div class="box">
+    <b>怎么用这份手册</b>
+    <ol>
+      <li>先读第 0 章「项目速记卡」，把项目的关键数字背下来 —— 所有方法的例子都从这里来。</li>
+      <li>每个方法读五块：<span style="color:#1f5a99"><b>定义与原理</b></span>、<span style="color:#3d7a2c"><b>项目里怎么用</b></span>、
+          <span style="color:#9c6b12"><b>面试示范回答</b></span>、
+          <span style="color:#a12a2a"><b>追问与陷阱</b></span>。</li>
+      <li>最后读第 6 章：面试官最爱问的「把方法串起来讲」。</li>
+    </ol>
+    <b>一条总原则：</b>面试官不考你背定义，考的是<b>「你在什么情况下用它、用它做出了什么决定、它的局限是什么」</b>。
+    只会背定义的回答是 60 分，能讲出局限和取舍的是 90 分。
+  </div>
+</div>
+
+<!-- ======================= 目录 ======================= -->
+<div class="sec">
+<h2>目录</h2>
+<table class="toc">
+<tr><td><b>第 0 章</b></td><td>项目速记卡：面试前必须背熟的数字</td></tr>
+<tr><td><b>第 1 章 · 洞察与分析</b></td><td>PEST · SWOT · 波特五力 · 用户画像 · 用户旅程地图 · 5W2H</td></tr>
+<tr><td><b>第 2 章 · 需求与优先级</b></td><td>Kano · MoSCoW · ICE · RICE</td></tr>
+<tr><td><b>第 3 章 · 目标与指标</b></td><td>北极星指标 · AARRR · 漏斗分析 · 用户生命周期</td></tr>
+<tr><td><b>第 4 章 · 验证与迭代</b></td><td>MVP · A/B 测试 · PDCA · Scrum</td></tr>
+<tr><td><b>第 5 章 · 全局与表达</b></td><td>产品生命周期 · STAR</td></tr>
+<tr><td><b>第 6 章</b></td><td>串联题：怎么把这些方法讲成一个完整故事</td></tr>
+<tr><td><b>第 7 章</b></td><td>高频面试题与示范回答</td></tr>
+<tr><td><b>附录</b></td><td>A 易混淆概念 · B 一页速查 · C 公式速查 · D 出处与提出者</td></tr>
+</table>
+
+<h3>方法和产品阶段的对应关系</h3>
+<table>
+<tr><th>阶段</th><th>要回答的问题</th><th>常用方法</th></tr>
+<tr><td>1. 机会判断</td><td>这个方向值不值得做？</td><td>PEST、波特五力、SWOT</td></tr>
+<tr><td>2. 用户洞察</td><td>谁在用？痛在哪？</td><td>用户画像、用户旅程地图、5W2H</td></tr>
+<tr><td>3. 需求取舍</td><td>先做什么、不做什么？</td><td>Kano、MoSCoW、ICE、RICE</td></tr>
+<tr><td>4. 目标设定</td><td>怎么算做成了？</td><td>北极星指标、AARRR、漏斗分析</td></tr>
+<tr><td>5. 验证上线</td><td>怎么低成本验证？</td><td>MVP、A/B 测试</td></tr>
+<tr><td>6. 交付迭代</td><td>怎么推进与改进？</td><td>Scrum、PDCA</td></tr>
+<tr><td>7. 运营增长</td><td>用户怎么来、怎么留？</td><td>用户生命周期、AARRR</td></tr>
+<tr><td>贯穿全程</td><td>产品处在哪个阶段？怎么讲给面试官？</td><td>产品生命周期、STAR</td></tr>
+</table>
+<p class="small">记住这张表本身就是一个好回答：面试官问「你常用哪些方法」，按阶段讲比罗列名词有说服力得多。</p>
+</div>
+
+<!-- ======================= 第 0 章 ======================= -->
+<div class="sec">
+<h2>第 0 章 · 项目速记卡</h2>
+<p>项目：<b>AI 招聘与人才发展平台</b>。以「岗位能力模型」为底座，在简历筛选、面试提问、培训考核三个环节给出<b>带证据的判断建议</b>，人保留最终决策权。</p>
+
+<h3>业务背景（问「为什么做」时用）</h3>
+<table>
+<tr><th>项</th><th>数字</th></tr>
+<tr><td>公司规模 / 年招聘量</td><td>约 3000 人 / 600–700 人，年简历约 10 万份</td></tr>
+<tr><td>团队</td><td>专职 HR 8 名，业务面试官约 320 名，6 条业务线</td></tr>
+<tr><td>触发事件</td><td>招聘量同比 +34%，HR 编制没增加</td></tr>
+<tr><td>后果</td><td>优质候选人响应时延 1.2 天 → 3.6 天；业务满意度 78 → 61 分</td></tr>
+</table>
+
+<h3>核心问题（问「痛点是什么」时用）</h3>
+<table>
+<tr><th>问题</th><th>证据</th></tr>
+<tr><td>效率触顶</td><td>单份初筛 4 分钟，HR 日处理上限 90 份，日到岸 280 份；面试官备题 25 分钟/场</td></tr>
+<tr><td>标准不一</td><td>同岗不同 HR 通过名单重合度 68%；两名资深 HR 一致率 78%；跨面试官评分标准差 1.1（5 分制）</td></tr>
+<tr><td>结果不佳</td><td>试用期淘汰率 16%；新岗位培训材料准备 2–3 周</td></tr>
+<tr><td><b>问题本质</b></td><td><b>公司没有把录用标准变成组织资产</b> —— 所以核心交付物不是三个功能，而是一套可计算的岗位能力模型</td></tr>
+</table>
+
+<h3>调研（问「怎么做用户研究」时用）</h3>
+<ul>
+  <li>深度访谈 <b>26 人</b>（HR 8、面试官 12、用人经理 4、带教人 2），每次 45–60 分钟</li>
+  <li>现场跟随观察 <b>6 场</b>；ATS 近 <b>12 个月</b>数据回溯；候选人问卷 <b>48 份</b></li>
+  <li><b>关键发现</b>：HR 说初筛「主要看学历」，但观察显示真实注视顺序是<b>项目经历 → 职级跨度 → 跳槽频率</b>，学历只在临界时参考。<br>→ 所以权重用历史样本反推，不让 HR 自己填</li>
+</ul>
+
+<h3>目标（问「指标怎么定」时用）</h3>
+<table>
+<tr><th>指标</th><th>类型</th><th>现状 → 目标</th></tr>
+<tr><td><b>单岗位有效候选人交付周期</b></td><td><b>北极星</b></td><td>6.5 天 → 3 天以内</td></tr>
+<tr><td>单份简历 HR 处理耗时</td><td>效率</td><td>4 分钟 → 60 秒</td></tr>
+<tr><td>AI 与面试官结论一致率</td><td>质量</td><td>≥ 85%（人类两两一致率 78% 作参照）</td></tr>
+<tr><td><b>误杀率</b></td><td>风险</td><td><b>≤ 2%，一票否决</b></td></tr>
+<tr><td>引用准确率</td><td>可信</td><td>≥ 92%</td></tr>
+<tr><td>面试题采纳率</td><td>价值</td><td>≥ 70%</td></tr>
+<tr><td>跨面试官评分标准差</td><td>一致</td><td>1.1 → 0.7</td></tr>
+<tr><td>新人独立上岗 / 试用期通过率</td><td>结果</td><td>45 → 35 天 / 84% → 90%</td></tr>
+</table>
+
+<h3>三个最能打的「故事点」</h3>
+<ol>
+  <li><b>放弃自动拒信</b>：HR 想要，法务否了 —— 2% 误杀率意味着每年约百名本应进面的人被关门；《个人信息保护法》第 24 条要求自动化决策保留人工干预。改为「待定池 + 7 天捞回」，<b>系统里根本没有「拒绝」这个动作</b>。</li>
+  <li><b>证据溯源</b>：用户最大阻力不是「AI 不准」而是「AI 不准还要我背责任」。上线证据溯源后，功能主动使用率 <b>34% → 82%（6 周）</b>，而模型准确率没有显著变化。</li>
+  <li><b>访谈与观察不一致</b>：HR 嘴上说看学历，实际看项目经历 —— 如果照访谈设权重，产品会做出与资深 HR 相反的判断。</li>
+</ol>
+<p class="small">下文所有「项目里怎么用」都基于这张卡片。数字以项目《需求分析文档》为准；标注「示例估算」的是为说明方法而做的演算。</p>
+</div>
+
+<!-- ======================= 第 1 章 ======================= -->
+<div class="sec">
+<h2>第 1 章 · 洞察与分析</h2>
+<p class="small">这一组方法回答：<b>值不值得做、为谁做、痛在哪</b>。</p>
+
+<!-- PEST -->
+<div class="concept">
+<h3><span class="tag">宏观环境</span>1. PEST 分析</h3>
+<p><b>定义</b>：从 <b>P</b>olitical 政治法律、<b>E</b>conomic 经济、<b>S</b>ocial 社会、<b>T</b>echnological 技术四个维度扫描<b>外部宏观环境</b>，判断机会与风险。</p>
+<p><b>什么时候用</b>：立项初期、进入新市场、写 MRD 的「市场背景」时。它看的是<b>企业控制不了的大趋势</b>。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：哈佛教授 Francis Aguilar 1967 年在《Scanning the Business Environment》中提出，最初叫 ETPS。
+常见扩展：<b>PESTEL</b>（加 Environmental 环境、Legal 法律）、STEEPLE（再加 Ethical 伦理）。</p>
+<p><b>原理</b>：企业的机会边界首先由<b>它无法控制</b>的外部环境决定。先看清大环境，再谈自身能力 ——
+在错误的潮水里，再好的产品也会被推着走。</p>
+<h4>四个维度看什么</h4>
+<table>
+<tr><th>维度</th><th>典型因素</th></tr>
+<tr><td>P 政治/法律</td><td>法律法规、监管政策、行业准入、数据与隐私保护、税收</td></tr>
+<tr><td>E 经济</td><td>经济周期、利率汇率、可支配收入、行业景气度、企业预算</td></tr>
+<tr><td>S 社会</td><td>人口结构、文化观念、生活方式、教育水平、公众态度</td></tr>
+<tr><td>T 技术</td><td>新技术成熟度、技术成本曲线、基础设施、替代技术</td></tr>
+</table>
+<h4>操作步骤与量化</h4>
+<ol><li>按四个维度罗列因素</li><li>对每个因素打分</li><li>筛出关键因素</li><li>转化为 SWOT 中的 O（机会）或 T（威胁）</li></ol>
+<span class="eq">因素重要度 = 影响程度(1–5) × 发生概率(1–5)</span>　≥ 15 视为关键因素，必须在方案里回应。
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用</span>
+<table>
+<tr><th>维度</th><th>发现</th><th>对产品的影响</th></tr>
+<tr><td>P 政治法律</td><td>《个人信息保护法》第 24 条：自动化决策需保留人工干预；情绪/性格推断有立法禁止风险</td><td><b>不做自动拒信、不做性格推断</b>；敏感特征（性别、年龄、婚育）不进打分链路</td></tr>
+<tr><td>E 经济</td><td>招聘量 +34% 但 HR 编制冻结，降本增效是管理层 OKR</td><td>效率价值能被管理层买单，项目有预算</td></tr>
+<tr><td>S 社会</td><td>候选人对「被算法单方面否决」高度敏感；雇主品牌重要</td><td>候选人侧零账号、不发拒信、录音须明示同意</td></tr>
+<tr><td>T 技术</td><td>大模型的中文长文本理解与结构化输出已过可用线</td><td>不必自研模型，接入网关 + 按能力分层选型</td></tr>
+</table>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「立项时我用 PEST 扫了外部环境，其中 P 和 T 是决定性的。T 告诉我们<b>能做</b>：模型的中文长文本理解已经到可用线；P 告诉我们<b>不能做什么</b>：个保法第 24 条要求自动化决策保留人工干预，所以我们从一开始就把『自动拒信』排除了。PEST 对我最大的价值不是找机会，而是<b>提前划出了合规红线</b>，避免做了一半被法务叫停。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：PEST 和 SWOT 有什么区别？</b> —— PEST 只看外部宏观；SWOT 的 O/T 也是外部，但还包含内部的 S/W。通常 <b>PEST 的结论是 SWOT 中 O 和 T 的输入</b>。<br>
+<b>陷阱</b>：别四个维度平均用力、每格凑两条。面试官会追问「哪个维度对你的决策影响最大」—— 要能说出主次。
+</div>
+</div>
+
+<!-- 波特五力 -->
+<div class="concept">
+<h3><span class="tag">行业竞争</span>2. 波特五力模型</h3>
+<p><b>定义</b>：分析一个行业的竞争强度与利润空间，五种力量：<b>现有竞争者</b>、<b>潜在进入者</b>、<b>替代品</b>、<b>供应商议价能力</b>、<b>买方议价能力</b>。</p>
+<p><b>什么时候用</b>：判断赛道是否值得进入、定价有没有空间、壁垒在哪。适合商业化产品；纯内部工具用得少，但可以借它思考「为什么不直接买现成的」。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：哈佛商学院 Michael Porter，1979 年《哈佛商业评论》文章《How Competitive Forces Shape Strategy》。</p>
+<p><b>原理</b>：一个行业的<b>长期平均利润</b>不是由企业多努力决定的，而是由五种力量共同挤压的结果 ——
+<b>力量越强，行业利润越薄</b>。所以选赛道比在赛道里努力更重要。</p>
+<h4>每种力量由什么决定</h4>
+<table>
+<tr><th>力量</th><th>强弱的决定因素</th></tr>
+<tr><td>现有竞争者</td><td>竞争者数量与规模、行业增速、差异化程度、固定成本、退出壁垒</td></tr>
+<tr><td>潜在进入者</td><td>进入壁垒：规模经济、资本需求、转换成本、渠道、品牌、政策许可</td></tr>
+<tr><td>替代品</td><td>替代品的性价比、用户转换成本、用户转换意愿</td></tr>
+<tr><td>供应商议价</td><td>供应商集中度、投入品的可替代性、供应商能否向前一体化</td></tr>
+<tr><td>买方议价</td><td>买方集中度、采购量占比、转换成本、价格敏感度、能否向后一体化</td></tr>
+</table>
+<h4>配套：波特三种基本竞争战略</h4>
+<p><b>成本领先</b>（做得最便宜）· <b>差异化</b>（做得不一样）· <b>聚焦</b>（只服务细分市场）。
+五力分析给出行业结构，这三种战略回答「在这个结构里怎么活下来」。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用（按对外商业化视角）</span>
+<table>
+<tr><th>力量</th><th>强度</th><th>分析</th></tr>
+<tr><td>现有竞争者</td><td>高</td><td>ATS 厂商都在加 AI 模块，但多停留在「流程管理 + 简单筛选」</td></tr>
+<tr><td>潜在进入者</td><td>高</td><td>大模型降低了门槛，通用大模型厂商可能直接切入</td></tr>
+<tr><td>替代品</td><td>中</td><td>HR 用通用聊天机器人自己读简历；或继续纯人工</td></tr>
+<tr><td>供应商议价</td><td>中</td><td>模型服务商定价权强；<b>对策：网关 + 多模型路由，不绑死一家</b></td></tr>
+<tr><td>买方议价</td><td>高</td><td>企业采购对价格敏感，且已有 ATS，切换成本高</td></tr>
+</table>
+<b>结论</b>：模型本身不是壁垒（任何人都能调）。壁垒应该放在<b>岗位能力模型 + 回流数据 + 合规可审计</b>上 —— 这些是通用大模型厂商短期做不来的。
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「五力分析里让我最警惕的是『潜在进入者』和『供应商议价』：大模型把门槛拉得很低，模型本身成不了壁垒。所以我们把护城河定在三样东西上：<b>能力模型</b>（企业的录用标准沉淀）、<b>回流数据</b>（否决记录和试用期表现持续校准），以及<b>合规可审计</b>。同时在技术上做了多模型路由，避免被单一供应商卡住。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：内部项目也要做五力分析吗？</b> —— 坦白说用得少。但可以用它回答「为什么自建而不是采购」：采购方案买方议价力弱、数据不在自己手里、能力模型无法沉淀。<b>敢说「这个方法在这里不太适用，原因是……」反而加分。</b>
+</div>
+</div>
+
+<!-- SWOT -->
+<div class="concept">
+<h3><span class="tag">综合战略</span>3. SWOT 分析</h3>
+<p><b>定义</b>：<b>S</b> 优势、<b>W</b> 劣势（内部）；<b>O</b> 机会、<b>T</b> 威胁（外部）。真正有价值的是交叉组合出策略：</p>
+<table>
+<tr><th></th><th>O 机会</th><th>T 威胁</th></tr>
+<tr><td><b>S 优势</b></td><td><b>SO 增长型</b>：用优势抓机会</td><td><b>ST 多元型</b>：用优势抵御威胁</td></tr>
+<tr><td><b>W 劣势</b></td><td><b>WO 扭转型</b>：借机会补短板</td><td><b>WT 防御型</b>：收缩、规避</td></tr>
+</table>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：通常归于 1960 年代斯坦福研究院的 Albert Humphrey；1982 年 Heinz Weihrich 提出
+<b>TOWS 矩阵</b>，把四格交叉成策略，这才是 SWOT 真正有用的部分。</p>
+<p><b>原理</b>：战略 = 用<b>内部可控</b>的能力（S/W）去匹配<b>外部不可控</b>的环境（O/T）。
+单独看哪一格都没有意义，价值在交叉。</p>
+<h4>判别规则</h4>
+<table>
+<tr><th></th><th>有利</th><th>不利</th></tr>
+<tr><td><b>内部（可控）</b></td><td>S 优势</td><td>W 劣势</td></tr>
+<tr><td><b>外部（不可控）</b></td><td>O 机会</td><td>T 威胁</td></tr>
+</table>
+<h4>量化做法：IFE / EFE 矩阵</h4>
+<ol>
+<li>列出关键内部因素（S+W）和外部因素（O+T）</li>
+<li>每个因素给<b>权重</b>，同一矩阵内权重之和 = 1</li>
+<li>每个因素给<b>评分</b> 1–4（4 = 很强优势/很好地应对了机会）</li>
+<li>加权求和</li>
+</ol>
+<span class="eq">加权总分 = Σ（权重ᵢ × 评分ᵢ）</span>　满分 4，<b>2.5 是平均线</b>：
+IFE &gt; 2.5 说明内部偏强，EFE &gt; 2.5 说明对外部环境应对较好。两个分数组合起来就能定位战略象限。
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用</span>
+<table>
+<tr><th>S 优势</th><th>W 劣势</th></tr>
+<tr><td>ATS 积累 3 年投递记录（含通过/拒绝结论与评语），可作监督样本；HR 负责人主动牵头</td><td>录用标准只在个人经验里，无结构化载体；内部 SOP 文档质量参差</td></tr>
+<tr><th>O 机会</th><th>T 威胁</th></tr>
+<tr><td>模型能力过可用线；招聘效率进入管理层 OKR</td><td>个保法合规约束；面试官不信 AI 懂专业；误杀伤害雇主品牌</td></tr>
+</table>
+<b>交叉策略</b>：
+<ul>
+  <li><b>SO</b>：用 3 年历史数据 + 模型能力，<b>反向挖掘</b>能力模型 —— 不靠 HR 拍脑袋填权重</li>
+  <li><b>WO</b>：借项目机会把「个人经验」沉淀成「能力模型」这个组织资产</li>
+  <li><b>ST</b>：用数据与证据溯源应对「AI 不懂专业」的质疑</li>
+  <li><b>WT</b>：标准还不成熟时，<b>不做自动决策</b> —— 一律人工复核兜底</li>
+</ul>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「我做 SWOT 不会停在四格罗列，而是一定落到交叉策略。比如我们的优势是有 3 年历史投递数据，机会是模型能力成熟，SO 组合起来就是『用历史样本反推能力模型权重』。而 WT —— 标准不成熟加上合规威胁 —— 推出了我们最重要的一条防御决策：<b>不做任何自动的不利决定</b>。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>最常见的扣分点</b>：只列四格不出策略。面试官会直接问「所以呢？」<br>
+<b>问：S 和 O 怎么区分？</b> —— S 是<b>你自己有、可控</b>的；O 是<b>外部的、不可控</b>的。「模型能力强」是 O（外部技术进步），不是 S。
+</div>
+</div>
+
+<!-- 用户画像 -->
+<div class="concept">
+<h3><span class="tag">用户洞察</span>4. 用户画像（Persona）</h3>
+<p><b>定义</b>：基于真实调研数据，抽象出<b>有代表性的典型用户</b>，描述其目标、行为、痛点、场景。它不是统计报表，而是让团队对「为谁设计」达成共识的工具。</p>
+<p><b>好画像的标准</b>：来自真实数据、有行为差异（不是按年龄性别切）、能指导设计决策。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：交互设计之父 <b>Alan Cooper</b>，1998 年《The Inmates Are Running the Asylum》（中译《交互设计之路》）。</p>
+<p><b>原理</b>：「<b>为所有人设计，等于没为任何人设计。</b>」团队脑中的「用户」各不相同，
+画像用一个<b>具体的、虚构的典型人物</b>统一认知，让设计讨论从「我觉得用户想要」变成「张敏会怎么做」。</p>
+<h4>必须区分的两个概念（面试高频）</h4>
+<table>
+<tr><th></th><th>Persona（用户角色）</th><th>User Profile（用户标签画像）</th></tr>
+<tr><td>用途</td><td>指导<b>产品设计</b></td><td>指导<b>运营与推荐</b></td></tr>
+<tr><td>来源</td><td>定性：访谈、观察</td><td>定量：行为数据、埋点</td></tr>
+<tr><td>形式</td><td>3–6 个典型人物的故事</td><td>每个用户一组标签（如「高频·价格敏感」）</td></tr>
+<tr><td>数量</td><td>少而精</td><td>每个用户一份，海量</td></tr>
+</table>
+<h4>构建步骤</h4>
+<ol><li>定性调研（访谈、观察）</li><li>提炼<b>行为变量</b>（如使用频次、专业程度、风险偏好）</li>
+<li>把访谈对象映射到变量轴上</li><li>找出聚集的<b>行为模式</b></li><li>每个模式写成一个人物</li>
+<li>补充目标、场景、痛点、一句代表性引言</li><li>选定<b>主要画像</b>（设计时优先满足的那一个）</li></ol>
+<p><b>判断标准</b>：画像要按<b>行为差异</b>划分，而不是按年龄、性别这类人口学属性 ——
+两个 30 岁的人可能用法完全不同。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用：7 类角色，按「核心诉求 + 最大顾虑」刻画</span>
+<table>
+<tr><th>角色</th><th>频次</th><th>核心诉求</th><th>最大顾虑</th></tr>
+<tr><td>招聘 HR</td><td>每日高频</td><td>从海量简历快速找出值得推进的人</td><td><b>漏掉好人被追责；AI 出错算谁的</b></td></tr>
+<tr><td>业务面试官</td><td>每周数次</td><td>面试前快速知道该问什么</td><td>不信 AI 懂专业，怕题目外行</td></tr>
+<tr><td>用人经理</td><td>每月数次</td><td>更快拿到合适的人</td><td>标准被固化，无法破格</td></tr>
+<tr><td>带教人</td><td>每季度</td><td>培训内容标准化</td><td>题库脱离实际，考完还不会干活</td></tr>
+<tr><td>候选人</td><td>单次</td><td>尽快得到反馈、被公平对待</td><td>被算法单方面否决且无从申诉</td></tr>
+<tr><td>法务合规</td><td>审核期</td><td>自动化决策可审计、可解释</td><td>模型隐性学到院校或性别偏见</td></tr>
+</table>
+<b>画像直接导出的设计决策</b>：
+<ul>
+<li>HR 怕担责 → <b>证据溯源 + 一键否决无需理由</b></li>
+<li>面试官时间最稀缺 → 评估走自动转写，<b>不让面试官多填表</b></li>
+<li>用人经理怕被固化 → 设计<b>破格提名通道</b></li>
+<li>候选人怕被否决 → <b>不发拒信，保留 7 天人工捞回</b></li>
+</ul>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「我们的画像不是按年龄性别画的，而是按『核心诉求 + 最大顾虑』画。关键发现是 HR 的最大顾虑不是 AI 不准，而是<b>出错了谁背责任</b>。这直接决定了产品形态：每个分数都必须能点开看原文证据，否决一键完成、不要求填理由。上线后证据溯源功能的主动使用率从 34% 涨到 82%。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：画像数据从哪来？</b> —— 必须答得出调研方法：26 人访谈 + 6 场跟随观察 + 12 个月 ATS 数据 + 48 份问卷。<br>
+<b>加分点</b>：说出「访谈 ≠ 真实行为」。HR 说看学历、实际看项目经历 —— 所以画像要用<b>观察</b>校正<b>自述</b>。
+</div>
+</div>
+
+<!-- 用户旅程地图 -->
+<div class="concept">
+<h3><span class="tag">体验诊断</span>5. 用户旅程地图（User Journey Map）</h3>
+<p><b>定义</b>：以时间轴描绘用户完成一个目标的全过程，每个阶段记录<b>行为、触点、想法、情绪、痛点、机会点</b>。核心价值是找到<b>情绪低谷</b>，那就是机会点。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：源于<b>服务设计</b>领域（1980 年代 Lynn Shostack 的服务蓝图是其前身），后被体验设计广泛采用。</p>
+<p><b>原理</b>：用户对一段体验的评价不是各环节的平均值。心理学家 Daniel Kahneman 的
+<b>峰终定律</b>（Peak-End Rule）指出：人对体验的记忆主要取决于<b>最强烈的时刻（峰）</b>和<b>结束时刻（终）</b>。
+所以旅程地图的重点不是把每一步都做到 80 分，而是<b>消灭最痛的低谷、做好结尾</b>。</p>
+<h4>标准要素（自上而下的泳道）</h4>
+<table>
+<tr><th>层</th><th>内容</th></tr>
+<tr><td>角色与目标</td><td>是谁，要完成什么</td></tr>
+<tr><td>阶段</td><td>旅程的大步骤（横轴）</td></tr>
+<tr><td>行为</td><td>每一步具体做了什么</td></tr>
+<tr><td>触点</td><td>和产品/服务接触的地方（页面、通知、人）</td></tr>
+<tr><td>想法</td><td>用户此刻心里在想什么</td></tr>
+<tr><td><b>情绪曲线</b></td><td>正负情绪的起伏 —— 核心</td></tr>
+<tr><td>痛点 → 机会点</td><td>低谷对应的问题与改进方向</td></tr>
+</table>
+<p><b>和服务蓝图的区别</b>：旅程地图只画用户「前台」看到的；服务蓝图还画<b>后台</b>（员工、系统、支持流程）。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用：招聘 HR 的一份简历旅程（现状）</span>
+<table>
+<tr><th>阶段</th><th>行为</th><th>情绪</th><th>痛点</th><th>机会点 → 产品功能</th></tr>
+<tr><td>收简历</td><td>ATS 里看待处理列表</td><td>😐</td><td>日到岸 280 份，处理上限 90 份</td><td>置信度分层分流</td></tr>
+<tr><td>读简历</td><td>逐份读，平均 4 分钟</td><td>😩 <b>低谷</b></td><td>重复劳动，信息找不到</td><td>结构化解析 + 能力项打分</td></tr>
+<tr><td>做判断</td><td>凭经验决定</td><td>😟 <b>低谷</b></td><td>拿不准，怕担责</td><td><b>证据溯源，点击定位原文</b></td></tr>
+<tr><td>推给面试官</td><td>写推荐理由</td><td>😐</td><td>面试官嫌信息不够</td><td>能力缺口自动带给面试准备页</td></tr>
+<tr><td>被业务质疑</td><td>业务问「为什么推这个人」</td><td>😠 <b>低谷</b></td><td>说不清依据</td><td>决策日志可追溯</td></tr>
+</table>
+<p>同样画了<b>候选人旅程</b>：投递 → 等待（焦虑）→ 面试 → 结果。等待环节是候选人的情绪低谷，所以做了<b>免登录邀请链接</b>，面试时间、入口一目了然。</p>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「我画 HR 的旅程时发现，情绪低谷不在『读简历』，而在『做判断』和『被业务质疑』这两个点 —— 读简历只是累，但判断错了要背责任。所以我们优先做的不是『读得更快』，而是『判断有依据』：每个分数都能点回原文。旅程地图帮我把优先级从效率问题<b>纠正</b>成了信任问题。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：旅程地图和流程图有什么区别？</b> —— 流程图描述<b>系统怎么流转</b>（客观）；旅程地图描述<b>用户怎么感受</b>（主观，含情绪）。<br>
+<b>陷阱</b>：只画现状不画未来。完整做法要画「现状旅程」和「目标旅程」两张，对比说明产品改变了什么。
+</div>
+</div>
+
+<!-- 5W2H -->
+<div class="concept">
+<h3><span class="tag">问题拆解</span>6. 5W2H 分析法</h3>
+<p><b>定义</b>：七个问题把一件事想清楚 —— <b>What</b> 做什么、<b>Why</b> 为什么、<b>Who</b> 谁、<b>When</b> 何时、<b>Where</b> 在哪、<b>How</b> 怎么做、<b>How much</b> 成本/程度多少。</p>
+<p><b>什么时候用</b>：需求澄清、写需求文档开头、接到模糊需求时快速补全信息。它是<b>需求的完整性检查清单</b>。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：二战时美国陆军兵器修理部提出 <b>5W1H</b>，后加入 How much（成本/程度）成为 5W2H。</p>
+<p><b>原理</b>：一个需求或问题说不清楚，几乎总是因为漏掉了其中某个维度。
+5W2H 是一张<b>完备性检查清单</b>，强迫你把隐含假设变成明确回答。</p>
+<table>
+<tr><th>问题</th><th>要回答的</th><th>需求场景下的典型提问</th></tr>
+<tr><td>What</td><td>做什么</td><td>功能是什么？边界在哪？</td></tr>
+<tr><td>Why</td><td>为什么</td><td>解决什么问题？不做会怎样？</td></tr>
+<tr><td>Who</td><td>谁</td><td>谁用？谁受影响？谁负责？</td></tr>
+<tr><td>When</td><td>何时</td><td>什么时候触发？什么时候要上线？</td></tr>
+<tr><td>Where</td><td>在哪</td><td>在哪个页面、哪个端、哪个环节？</td></tr>
+<tr><td>How</td><td>怎么做</td><td>实现方案？交互流程？</td></tr>
+<tr><td>How much</td><td>多少</td><td>成本、工作量、数据量、指标目标是多少？</td></tr>
+</table>
+<p><b>易混淆：5W2H ≠ 5Why</b>。5Why 是丰田生产方式中的<b>根因分析法</b>，对一个问题连问 5 次「为什么」追到根源；
+5W2H 是<b>横向铺开</b>把一件事描述完整。一个求深度，一个求完整。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用：拆解一个真实需求「视频面试怎么登录」</span>
+<p>上线后用户反馈：「视频面试的时候用什么登录？」—— 一句模糊的话，用 5W2H 拆开：</p>
+<table>
+<tr><th>问题</th><th>回答</th></tr>
+<tr><td>What</td><td>候选人和面试官进入视频面试的入口</td></tr>
+<tr><td>Why</td><td>平台没有视频概念，面试官找不到链接，候选人没账号不知道从哪进，录音同意没有采集渠道</td></tr>
+<tr><td>Who</td><td>面试官（有平台账号）、候选人（<b>无账号</b>）、HR（发起者）</td></tr>
+<tr><td>When</td><td>安排面试时生成；面试前候选人确认；面试后 24 小时过期</td></tr>
+<tr><td>Where</td><td>面试官：面试日程页/准备页；候选人：手机打开的邀请链接</td></tr>
+<tr><td>How</td><td><b>不自建音视频</b>，接入腾讯会议/飞书等已有工具；候选人用一次性随机令牌</td></tr>
+<tr><td>How much</td><td>零额外音视频成本；后端 2 个公开接口 + 1 个页面</td></tr>
+</table>
+<p>拆完发现：这不是「缺视频功能」，而是<b>缺信息传递</b> —— 工作量从几个月的自建音视频降到几天。</p>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「接到『视频面试用什么登录』这个反馈时，我用 5W2H 拆了一遍。拆到 Who 的时候发现关键：面试官有账号，<b>候选人没有</b>。拆到 How 的时候决定不自建音视频，接入已有会议工具。最后结论是这根本不是一个视频需求，而是一个『把入口和身份送到对的人手里』的需求 —— 工期从几个月变成几天。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>最容易漏的是 Why 和 How much。</b> 面试官会追问「为什么要做」「成本多少」—— 这两个答不出，说明需求没想清楚。
+</div>
+</div>
+</div>
+
+<!-- ======================= 第 2 章 ======================= -->
+<div class="sec">
+<h2>第 2 章 · 需求与优先级</h2>
+<p class="small">这一组方法回答：<b>需求那么多，先做什么、不做什么</b>。这是面试被问得最多的一组。</p>
+
+<!-- Kano -->
+<div class="concept">
+<h3><span class="tag">需求分类</span>7. Kano 模型</h3>
+<p><b>定义</b>：按「功能有无」与「用户满意度」的关系，把需求分成五类：</p>
+<table>
+<tr><th>类型</th><th>有它</th><th>没它</th><th>一句话</th></tr>
+<tr><td><b>基本型（必备）</b></td><td>不会更满意</td><td><b>非常不满</b></td><td>理所当然，没有就差评</td></tr>
+<tr><td><b>期望型（一维）</b></td><td>越多越满意</td><td>越少越不满</td><td>线性关系，多多益善</td></tr>
+<tr><td><b>兴奋型（魅力）</b></td><td><b>惊喜</b></td><td>无所谓</td><td>超出预期</td></tr>
+<tr><td>无差异型</td><td>无所谓</td><td>无所谓</td><td>做了白做</td></tr>
+<tr><td>反向型</td><td><b>反而不满</b></td><td>满意</td><td>做了反而招骂</td></tr>
+</table>
+<p><b>怎么做</b>：问卷对每个功能问正反两题 —— 「有这个功能你感觉如何？」「没有这个功能你感觉如何？」—— 交叉查表归类。<b>动态性</b>：兴奋型会随时间退化为期望型、再变成基本型。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：东京理工大学教授<b>狩野纪昭</b>（Noriaki Kano），1984 年提出。</p>
+<p><b>原理</b>：传统观点认为「满意」和「不满意」是一条线的两端。Kano 发现二者<b>不对称</b>：
+有些功能做得再好也只能消除不满、带不来满意（必备型），有些功能没有也无所谓、有了却会惊喜（魅力型）。
+所以需求必须<b>分类</b>处理，不能统一用「越多越好」的逻辑。</p>
+<h4>问卷：每个功能问正反两题</h4>
+<p>正向题「<b>如果有</b>这个功能，你感觉如何？」、反向题「<b>如果没有</b>这个功能，你感觉如何？」
+每题 5 个选项：<b>喜欢 / 理所当然 / 无所谓 / 能忍受 / 不喜欢</b>。</p>
+<h4>Kano 评价表（正向 × 反向 → 类型）</h4>
+<table>
+<tr><th>正向 ↓ 反向 →</th><th>喜欢</th><th>理所当然</th><th>无所谓</th><th>能忍受</th><th>不喜欢</th></tr>
+<tr><td><b>喜欢</b></td><td>Q</td><td>A</td><td>A</td><td>A</td><td><b>O</b></td></tr>
+<tr><td><b>理所当然</b></td><td>R</td><td>I</td><td>I</td><td>I</td><td>M</td></tr>
+<tr><td><b>无所谓</b></td><td>R</td><td>I</td><td>I</td><td>I</td><td>M</td></tr>
+<tr><td><b>能忍受</b></td><td>R</td><td>I</td><td>I</td><td>I</td><td>M</td></tr>
+<tr><td><b>不喜欢</b></td><td>R</td><td>R</td><td>R</td><td>R</td><td>Q</td></tr>
+</table>
+<p class="small">A 魅力型 · O 期望型 · M 必备型 · I 无差异型 · R 反向型 · Q 可疑结果（回答自相矛盾，剔除）。
+每个功能取票数最多的类型。</p>
+<h4>Better–Worse 系数（量化排序）</h4>
+<span class="eq">Better（满意系数）= (A + O) ÷ (A + O + M + I)</span><br>
+<span class="eq">Worse（不满系数）= −(O + M) ÷ (A + O + M + I)</span>
+<p>Better 越接近 1，「做了」带来的满意提升越大；Worse 越接近 −1，「不做」带来的不满越大。
+以 |Worse| 为横轴、Better 为纵轴画四象限：<b>右上期望型 → 优先做；右下必备型 → 必须做；左上魅力型 → 有余力做；左下无差异 → 不做</b>。</p>
+<p class="small">算例：某功能 100 份有效问卷，A=30、O=40、M=10、I=20 → Better = 70/100 = 0.70，Worse = −50/100 = −0.50。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用</span>
+<table>
+<tr><th>功能</th><th>Kano 类型</th><th>依据</th></tr>
+<tr><td>简历解析不丢字段、失败不静默丢弃</td><td><b>基本型</b></td><td>丢了就是事故，做好了没人夸</td></tr>
+<tr><td>处理速度（4 分钟 → 60 秒）</td><td><b>期望型</b></td><td>越快越满意，线性</td></tr>
+<tr><td><b>点击能力项，原文自动定位并高亮</b></td><td><b>兴奋型</b></td><td>HR 没想到能这么做；使用率 34% → 82%</td></tr>
+<tr><td>差集出题（只问简历没证明的能力）</td><td>兴奋型</td><td>面试官没想到 AI 能区分「已证明」和「待验证」</td></tr>
+<tr><td><b>AI 给面试官预填评分</b></td><td><b>反向型</b></td><td>面试官觉得被干预、不被信任，且产生锚定效应</td></tr>
+<tr><td><b>自动发拒信</b></td><td><b>对候选人是反向型</b></td><td>候选人不满、法务不满，即便 HR 想要</td></tr>
+</table>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「Kano 对我最有用的不是找兴奋型，而是<b>识别反向型</b>。比如『AI 给面试官预填评分』，看起来能提效，但面试官会觉得自己被替代，而且预填会产生锚定效应，让评价失去独立性。我们明确不做。另一个是自动拒信：对 HR 是期望型，对候选人和法务是反向型 —— <b>同一个功能对不同角色是不同类型</b>，这时候要看谁的代价不可逆。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：兴奋型和期望型怎么区分？</b> —— 用户<b>没想到</b>的是兴奋型，<b>想到了且越多越好</b>的是期望型。<br>
+<b>加分点</b>：主动讲 Kano 的<b>动态性</b> —— 证据溯源现在是兴奋型，等竞品都有了，它会退化为基本型。所以兴奋型是<b>窗口期</b>，不是护城河。<br>
+<b>陷阱</b>：Kano 只解决「分类」，不解决「排序」。同为基本型，先做哪个？还要配合 MoSCoW 或 RICE。
+</div>
+</div>
+
+<!-- MoSCoW -->
+<div class="concept">
+<h3><span class="tag">优先级</span>8. MoSCoW 法则</h3>
+<p><b>定义</b>：把需求分为四档 —— <b>M</b>ust have 必须有、<b>S</b>hould have 应该有、<b>C</b>ould have 可以有、<b>W</b>on't have 这次不做。适合<b>版本范围的快速共识</b>。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：Oracle 的 Dai Clegg 于 1994 年提出，后被纳入敏捷方法 <b>DSDM</b>（动态系统开发方法）。
+名字里的两个 o 只是为了好读，没有含义。</p>
+<p><b>原理</b>：项目三角是「时间、成本、范围」。MoSCoW 来自<b>时间盒（Timebox）</b>思想：
+<b>时间和资源固定，范围可变</b>。当进度吃紧时，从 Could 开始砍，保证 Must 一定交付。</p>
+<h4>判定标准</h4>
+<table>
+<tr><th>档位</th><th>判定问题</th><th>DSDM 建议工作量占比</th></tr>
+<tr><td><b>Must</b></td><td>没有它，这次发布还有意义吗？不合法/不安全/产品不成立？</td><td><b>≤ 60%</b></td></tr>
+<tr><td><b>Should</b></td><td>很重要，但有临时替代方案（手工、绕路）</td><td>约 20%</td></tr>
+<tr><td><b>Could</b></td><td>锦上添花，砍掉影响很小</td><td>约 20%（作为缓冲）</td></tr>
+<tr><td><b>Won't</b></td><td>本次明确不做（不等于永远不做）</td><td>—</td></tr>
+</table>
+<p><b>为什么 Must 不能超过 60%</b>：剩下的 40% 是应对风险的缓冲。Must 占满 100% 时，任何延期都会导致 Must 交付不了，
+整个优先级体系就失效了。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用：27 条需求的定级</span>
+<p>判定标准写死了，避免拍脑袋：</p>
+<table>
+<tr><th>档位</th><th>判定标准</th><th>项目实例</th></tr>
+<tr><td><b>Must</b>（20 条）</td><td>不做则产品不成立</td><td>R-03 无证据的能力项不得给分；R-04 引用溯源；R-08 解析失败不得静默丢弃</td></tr>
+<tr><td><b>Should</b>（5 条）</td><td>显著影响体验但可延后</td><td>R-17 效果看板</td></tr>
+<tr><td><b>Could</b>（2 条）</td><td>有余量则做</td><td>（未实现）</td></tr>
+<tr><td><b>Won't</b></td><td>明确不做并记录理由</td><td>自动拒信、终面决策建议、情绪性格推断</td></tr>
+</table>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「我们 27 条需求用 MoSCoW 定级，关键是<b>先把判定标准定死</b>：Must 就是『不做产品就不成立』。比如『无证据的能力项不得给分』是 Must，因为没有它分数就不可信，产品就没有存在的意义。我认为 MoSCoW 最有价值的其实是 <b>W</b> —— 我们把自动拒信、终面决策建议明确写进 Won't 并记录理由，后面再有人提就能直接拿出依据，不用重新吵一遍。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>最大的坑：所有需求都是 Must。</b> 面试官会问「怎么防止这种情况？」—— 答：Must 一般不超过总工作量的 60%，并且 Must 必须能回答「没有它会怎样」。<br>
+<b>问：MoSCoW 的缺点？</b> —— 只分档不排序，同一档内无法比较；且依赖主观判断。所以档内排序要配合 RICE。
+</div>
+</div>
+
+<!-- ICE -->
+<div class="concept">
+<h3><span class="tag">优先级</span>9. ICE 评分模型</h3>
+<p><b>定义</b>：三个维度各打 1–10 分 —— <b>I</b>mpact 影响力、<b>C</b>onfidence 信心度、<b>E</b>ase 易实现度。</p>
+<p><span class="formula">ICE = Impact × Confidence × Ease</span>（也有取平均的做法）</p>
+<p><b>特点</b>：<b>快</b>。适合增长实验、小功能的快速排序，几分钟就能排出来。缺点是三个维度都靠主观打分。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：「增长黑客」概念提出者 <b>Sean Ellis</b>，用于增长实验的快速排序。</p>
+<p><b>原理</b>：增长团队每周可能有几十个实验想法，没有时间做精细评估。ICE 用三个直觉维度
+做<b>足够好的快速排序</b>，以速度换精度 —— 实验本身会纠正估算误差。</p>
+<h4>公式与评分</h4>
+<span class="eq">ICE = Impact × Confidence × Ease</span>　（也有用平均值 (I + C + E) ÷ 3 的，排序结果基本一致）
+<table>
+<tr><th>维度</th><th>问题</th><th>评分 1–10 的锚点</th></tr>
+<tr><td>Impact 影响</td><td>成功后对目标指标的提升有多大？</td><td>10 = 显著拉动核心指标；1 = 几乎无感</td></tr>
+<tr><td>Confidence 信心</td><td>我有多大把握它会成功？</td><td>8–10 有数据验证；5–7 有类似案例；1–4 纯直觉</td></tr>
+<tr><td>Ease 容易度</td><td>做起来有多容易？</td><td>10 = 几小时；5 = 一两周；1 = 数月</td></tr>
+</table>
+<p class="small">算例：I=7、C=8、E=9 → ICE = 504；I=8、C=5、E=3 → ICE = 120。前者优先。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用（示例估算）：上线后的优化实验排序</span>
+<table>
+<tr><th>实验</th><th>I</th><th>C</th><th>E</th><th>ICE</th><th>说明</th></tr>
+<tr><td>能力项旁加「查看依据(4)」数字提示</td><td>7</td><td>8</td><td>9</td><td><b>504</b></td><td>改动小，已知溯源对信任影响大</td></tr>
+<tr><td>复核页增加 J/K/A/D 快捷键</td><td>6</td><td>7</td><td>9</td><td><b>378</b></td><td>HR 高频重复操作</td></tr>
+<tr><td>待定池到期前提醒</td><td>6</td><td>6</td><td>8</td><td>288</td><td>降低误杀</td></tr>
+<tr><td>面试题按岗位做专属题库</td><td>8</td><td>5</td><td>3</td><td>120</td><td>影响大但不确定、工作量大</td></tr>
+</table>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「上线后的小优化我用 ICE 排，因为它快。比如『能力项旁边显示依据数量』，影响大、信心高 —— 我们已经知道溯源能把使用率从 34% 拉到 82% —— 而且几乎没成本，ICE 排第一。而『岗位专属题库』影响虽然大，但信心低、工作量大，就往后放。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：Confidence 怎么打分才不拍脑袋？</b> —— 给锚点：有数据验证过 = 8–10；有类似案例 = 5–7；纯直觉 = 1–4。<br>
+<b>陷阱</b>：ICE 没有「影响多少人」的维度，一个只影响 5 个人的功能可能和影响 5000 人的得分相同。这正是 RICE 加 Reach 的原因。
+</div>
+</div>
+
+<!-- RICE -->
+<div class="concept">
+<h3><span class="tag">优先级</span>10. RICE 评分模型</h3>
+<p><b>定义</b>：在 ICE 基础上加入覆盖面，并把「易实现」换成「工作量」：</p>
+<table>
+<tr><th>维度</th><th>含义</th><th>常用口径</th></tr>
+<tr><td><b>R</b>each 覆盖</td><td>一段时间内影响多少人/次</td><td>每季度受影响的用户数或事件数</td></tr>
+<tr><td><b>I</b>mpact 影响</td><td>对每个人的影响程度</td><td>3 巨大 / 2 高 / 1 中 / 0.5 低 / 0.25 极低</td></tr>
+<tr><td><b>C</b>onfidence 信心</td><td>对估算的把握</td><td>100% / 80% / 50%</td></tr>
+<tr><td><b>E</b>ffort 工作量</td><td>投入的人月</td><td>人·月</td></tr>
+</table>
+<p><span class="formula">RICE = Reach × Impact × Confidence ÷ Effort</span></p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：客服 SaaS 公司 <b>Intercom</b> 的产品经理 Sean McBride，2016 年在公司博客公开。</p>
+<p><b>原理</b>：ICE 的问题是没考虑<b>影响多少人</b>。RICE 把「价值」拆成「覆盖 × 单人影响 × 把握」，
+再除以成本，本质是计算<b>单位投入的期望收益</b>（性价比）。</p>
+<h4>公式</h4>
+<span class="eq">RICE = Reach × Impact × Confidence ÷ Effort</span>
+<table>
+<tr><th>维度</th><th>口径</th><th>取值标准（Intercom 原版）</th></tr>
+<tr><td>Reach 覆盖</td><td>固定周期内影响的人数/事件数</td><td>真实数字，如「每季度 2000 个用户」</td></tr>
+<tr><td>Impact 影响</td><td>对每个人的影响程度</td><td>3 巨大 · 2 高 · 1 中 · 0.5 低 · 0.25 极低</td></tr>
+<tr><td>Confidence 信心</td><td>对上述估算的把握</td><td>100% 高 · 80% 中 · 50% 低（再低就别做，先调研）</td></tr>
+<tr><td>Effort 工作量</td><td>所有人投入总和</td><td>人·月（含产品、设计、研发、测试）</td></tr>
+</table>
+<p class="small">算例：每季度覆盖 2000 人，Impact = 2，Confidence = 80%，Effort = 4 人月
+→ RICE = 2000 × 2 × 0.8 ÷ 4 = <b>800</b>。另一需求覆盖 500 人、Impact = 3、C = 100%、E = 1 → 1500，后者优先。</p>
+<p><b>为什么 Confidence 下限是 50%</b>：低于 50% 说明你对估算几乎没把握，这时该做的是调研而不是排期。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用（示例估算）：Should/Could 级需求的档内排序</span>
+<table>
+<tr><th>需求</th><th>R（季度）</th><th>I</th><th>C</th><th>E</th><th>RICE</th></tr>
+<tr><td>简历证据溯源（R-04）</td><td>25000 份</td><td>3</td><td>80%</td><td>2</td><td><b>30000</b></td></tr>
+<tr><td>面试差集出题（R-09）</td><td>~450 场</td><td>2</td><td>80%</td><td>1.5</td><td>480</td></tr>
+<tr><td>业务线字典管理（R-26）</td><td>14 个账号</td><td>1</td><td>100%</td><td>0.5</td><td>28</td></tr>
+<tr><td>内部人才库激活</td><td>存量简历</td><td>2</td><td>50%</td><td>4</td><td>（下期）</td></tr>
+</table>
+<p class="small">口径说明：年简历 10 万 ÷ 4 = 2.5 万/季；年招 600–700 人、按多轮面试估算场次。数字用于说明方法。</p>
+<p><b>注意</b>：业务线字典 RICE 极低，但它是<b>数据隔离的边界</b>，出错会导致用人经理静默看不到候选人。所以它不靠 RICE 进版本，而是靠 <b>MoSCoW 的 Must（合规底线）</b>。</p>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「我用 RICE 做档内排序，因为它比 ICE 多了 Reach。简历溯源每季度覆盖 2.5 万份简历，面试出题只覆盖几百场，RICE 差了两个数量级。但我也会说明 RICE 的边界：<b>业务线字典</b>的 RICE 很低，可它是数据隔离的边界，出错会让经理静默地看不到候选人 —— 这种<b>合规与风险类需求不能靠 RICE 排，要靠底线判断</b>。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：ICE 和 RICE 怎么选？</b> —— 实验多、要快就 ICE；功能影响面差异大、要说服别人就 RICE。<br>
+<b>问：RICE 的局限？</b> —— ① 低估<b>风险类、合规类、技术债</b>需求（Reach 和 Impact 都难量化）；② 不考虑<b>战略价值</b>；③ 不考虑依赖关系。所以最终排序 = RICE 分数 + 战略判断 + 底线约束。<b>能说出这句就是高分。</b>
+</div>
+</div>
+
+<div class="keep">
+<h3>四个方法怎么配合用（面试常考）</h3>
+<table>
+<tr><th>方法</th><th>回答的问题</th><th>在本项目里的分工</th></tr>
+<tr><td>Kano</td><td>这是哪一类需求？</td><td>识别出「预填评分」是反向型 → 不做</td></tr>
+<tr><td>MoSCoW</td><td>这一版做不做？</td><td>27 条需求定档；Won't 记录不做的理由</td></tr>
+<tr><td>RICE</td><td>同档内谁先做？</td><td>Should 档内排序</td></tr>
+<tr><td>ICE</td><td>小实验怎么快速排？</td><td>上线后的优化实验</td></tr>
+</table>
+<p>另外，项目在场景选型阶段用的是<b>自定义加权评分</b>（价值 35% / 能力匹配 30% / 数据 20% / 容错 15%，<b>容错低于 3 分一票否决</b>）。这是 RICE 思路针对 AI 产品的改造：AI 场景最关键的不是工作量，而是<b>模型能不能稳定做到</b>和<b>出错能不能挽回</b>。自动拒信加权分很高，但容错只有 1 分，直接否决。</p>
+</div>
+</div>
+
+<!-- ======================= 第 3 章 ======================= -->
+<div class="sec">
+<h2>第 3 章 · 目标与指标</h2>
+<p class="small">这一组方法回答：<b>怎么算做成了、问题出在哪一步</b>。</p>
+
+<!-- 北极星 -->
+<div class="concept">
+<h3><span class="tag">核心指标</span>11. 北极星指标（North Star Metric）</h3>
+<p><b>定义</b>：最能反映产品为用户创造的<b>核心价值</b>的唯一指标，全团队对齐的方向。</p>
+<p><b>好北极星的标准</b>：① 反映用户价值而不是公司收入；② 是先行指标，能预测长期成功；③ 团队行为能影响它；④ 简单易懂。</p>
+<p><b>必须配护栏指标</b>：单一指标会被「刷」，护栏指标防止为了北极星牺牲别的东西。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：Sean Ellis 提出；产品分析公司 <b>Amplitude</b> 将其体系化为 North Star Framework。
+相近概念是《精益数据分析》中的 <b>OMTM</b>（One Metric That Matters，第一关键指标）。</p>
+<p><b>原理</b>：团队如果同时追多个指标，资源会被拆散，甚至互相打架（增长团队拉新、体验团队嫌打扰）。
+北极星指标是<b>用户价值与商业价值的交汇点</b> —— 用户得到价值，公司长期才能得到收入。</p>
+<h4>好北极星的五条标准</h4>
+<ol><li><b>反映用户价值</b>：用户获得的价值，而不是公司的收入</li><li><b>先行指标</b>：能预示长期成功，而不是事后结果</li>
+<li><b>可行动</b>：团队的工作能影响它</li><li><b>可理解</b>：一句话说清楚</li><li><b>可衡量</b>：能稳定统计</li></ol>
+<h4>北极星框架 = 1 个北极星 + 3–5 个输入指标</h4>
+<p>北极星不能直接被「做」，要拆成团队能直接推动的<b>输入指标</b>，形成指标树：</p>
+<span class="eq">交付周期 = 初筛等待时长 + 初筛处理时长 + 面试安排时长 + 面试反馈时长</span>
+<h4>护栏指标（Counter Metric）</h4>
+<p>任何单一指标都可以被「刷」（古德哈特定律：<b>当一个指标变成目标，它就不再是好指标</b>）。
+护栏指标用来监控「为了北极星牺牲了什么」，触线即叫停。</p>
+<p><b>相关拆解方法 OSM</b>：Objective 目标 → Strategy 策略 → Measurement 度量，用来从业务目标推导出指标。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用</span>
+<p><b>北极星：单岗位有效候选人交付周期</b> —— 从 JD 发布到产出 3 名通过初面候选人所需天数，<b>6.5 天 → 3 天以内</b>。</p>
+<p><b>为什么选它</b>：业务方唯一真正关心的是「多久能给我合适的人」，而不是任何单点效率指标。</p>
+<p><b>为什么不选别的</b>：</p>
+<table>
+<tr><th>候选指标</th><th>不选的原因</th></tr>
+<tr><td>单份简历处理耗时</td><td>只衡量效率，HR 可以靠「多否决」把耗时压下来，却伤害质量</td></tr>
+<tr><td>AI 采纳率</td><td>可以被刷：放宽阈值、推更多人就能提高</td></tr>
+<tr><td>处理简历数</td><td>虚荣指标，量大不等于招到人</td></tr>
+</table>
+<p><b>护栏指标</b>：误杀率 ≤ 2%（<b>一票否决</b>）、一致率 ≥ 85%、引用准确率 ≥ 92%、试用期通过率 ≥ 90%。<br>
+—— 如果为了缩短交付周期而放宽筛选，误杀率和试用期通过率会报警。</p>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「我们的北极星是『单岗位有效候选人交付周期』，从 6.5 天降到 3 天。我没选『简历处理耗时』，因为 HR 完全可以靠多否决人来压低耗时，反而伤害质量；也没选『AI 采纳率』，因为放宽阈值就能刷上去。交付周期是业务方真正感知的结果。同时我配了护栏：<b>误杀率 2% 一票否决</b> —— 为了快而误杀候选人，指标再好也不准放量。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：北极星怎么拆解到团队？</b> —— 用指标树：交付周期 = 初筛等待时长 + 初筛处理时长 + 面试安排时长 + 面试反馈时长。每段对应一个团队/功能。<br>
+<b>问：交付周期是滞后指标怎么办？</b> —— 配先行指标：简历响应时延（1.2 天 → 3.6 天就是早期信号）。<br>
+<b>陷阱</b>：说出「北极星 = DAU」这种通用答案。<b>B 端工具的北极星通常是「客户的业务结果」</b>，而不是活跃度。
+</div>
+</div>
+
+<!-- AARRR -->
+<div class="concept">
+<h3><span class="tag">增长模型</span>12. AARRR 海盗模型</h3>
+<p><b>定义</b>：用户增长的五个阶段 —— <b>A</b>cquisition 获取、<b>A</b>ctivation 激活、<b>R</b>etention 留存、<b>R</b>evenue 变现、<b>R</b>eferral 推荐。每一层都是一个漏斗环节，用来找增长瓶颈。</p>
+<p><b>适用</b>：C 端或 SaaS 增长。<b>内部工具要改造使用</b> —— 用户不是「获取」来的，而是被分配的。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：硅谷投资人 <b>Dave McClure</b>（500 Startups 创始人），2007 年演讲《Startup Metrics for Pirates》。
+因为缩写 AARRR 读起来像海盗的「Arrr」而得名。</p>
+<p><b>原理</b>：把增长拆成五个<b>依次发生</b>的环节，每个环节一个转化率。增长问题总是卡在某一层，
+找到最薄弱的那一层集中投入，比全面撒网有效。</p>
+<h4>各层核心公式</h4>
+<table>
+<tr><th>层</th><th>核心指标</th><th>公式</th></tr>
+<tr><td>获取</td><td>获客成本 CAC</td><td>CAC = 获客总花费 ÷ 新增用户数</td></tr>
+<tr><td>激活</td><td>激活率</td><td>激活率 = 完成关键行为的新用户 ÷ 新用户数</td></tr>
+<tr><td>留存</td><td>N 日留存率</td><td>N 日留存 = 第 N 日仍活跃的用户 ÷ 首日新增用户</td></tr>
+<tr><td>变现</td><td>ARPU、LTV</td><td>ARPU = 收入 ÷ 用户数；LTV ≈ ARPU × 毛利率 ÷ 月流失率</td></tr>
+<tr><td>推荐</td><td>K 因子（病毒系数）</td><td>K = 每个用户发出的邀请数 × 邀请转化率</td></tr>
+</table>
+<h4>两个判断线</h4>
+<p><span class="eq">LTV ÷ CAC ≥ 3</span>　健康：一个用户带来的价值至少是获取成本的 3 倍。<br>
+<span class="eq">K &gt; 1</span>　产品可以自然增长（每个用户带来超过一个新用户）。</p>
+<p class="small">算例：每人平均邀请 4 人，转化率 20% → K = 0.8 &lt; 1，靠推荐无法自增长，需要付费获客补充。</p>
+<p><b>变体 RARRA</b>（Thomas Petit 等提出）：把<b>留存</b>放第一位。理由是留存不住时，拉新越多流失越多，漏底有洞。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用：改造成「内部推广漏斗」</span>
+<table>
+<tr><th>阶段</th><th>原义</th><th>在内部工具里的含义</th><th>指标 / 动作</th></tr>
+<tr><td>Acquisition</td><td>获客</td><td>业务线接入</td><td>先开高招聘量部门约 18% 流量灰度</td></tr>
+<tr><td>Activation</td><td>激活</td><td>HR 第一次<b>真正采信</b>一个 AI 结论</td><td>首次点开证据并采纳；陪跑讲解</td></tr>
+<tr><td>Retention</td><td>留存</td><td>持续用，没有回到纯人工</td><td>功能主动使用率 34% → 82%</td></tr>
+<tr><td>Revenue</td><td>变现</td><td><b>业务价值兑现</b></td><td>交付周期缩短、HR 节省工时</td></tr>
+<tr><td>Referral</td><td>推荐</td><td>其他业务线主动要求接入</td><td>按业务线逐步全量</td></tr>
+</table>
+<p><b>瓶颈在 Activation</b>：HR 被分配用了系统（A1 完成），但不信任、不采纳 —— 这一层断了，后面都不会发生。所以证据溯源是<b>激活功能</b>，不是锦上添花。</p>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「AARRR 原本是 C 端增长模型，内部工具不能照搬，因为用户是被分配的，不需要『获客』。我把它改成内部推广漏斗，发现<b>瓶颈在激活</b>：HR 登录了，但不采信 AI 结论。激活的定义我定成『第一次点开证据并采纳』。针对这一层做了证据溯源，主动使用率从 34% 到了 82%。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>加分点</b>：主动说「这个模型不完全适用，我做了改造」。照搬 AARRR 去讲内部工具，会被认为没思考。<br>
+<b>问：激活怎么定义？</b> —— 找到「Aha 时刻」：用户第一次感受到核心价值的那个行为。本项目是「第一次因为看了证据而改变了判断」。
+</div>
+</div>
+
+<!-- 漏斗分析 -->
+<div class="concept">
+<h3><span class="tag">数据分析</span>13. 漏斗分析</h3>
+<p><b>定义</b>：把一个目标流程拆成连续步骤，计算每一步的转化率，<b>找流失最严重的环节</b>。</p>
+<p><span class="formula">步骤转化率 = 本步人数 ÷ 上一步人数　　整体转化率 = 末步人数 ÷ 首步人数</span></p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>原理</b>：任何目标都要经过一串有序步骤，每一步都有人流失。<b>整体转化率是各步转化率的乘积</b>，
+所以最薄弱的那一步决定了上限 —— 改进转化率最低的一步，通常回报最大。</p>
+<h4>公式</h4>
+<span class="eq">第 k 步转化率 = 第 k 步人数 ÷ 第 k−1 步人数</span><br>
+<span class="eq">整体转化率 = 末步人数 ÷ 首步人数 = 各步转化率的连乘</span><br>
+<span class="eq">流失率 = 1 − 转化率</span>
+<p class="small">算例：1000 人 → 600 人 → 300 人 → 150 人。各步转化 60%、50%、50%；整体 = 0.6 × 0.5 × 0.5 = 15%。
+若把第二步提到 70%，整体变成 0.6 × 0.7 × 0.5 = 21%，<b>提升 40%</b>。</p>
+<h4>做漏斗必须定清楚的三件事</h4>
+<ol><li><b>窗口期</b>：用户在多长时间内完成才算转化（如 7 天内）</li>
+<li><b>是否有序</b>：必须按顺序完成，还是只要都完成即可</li>
+<li><b>统计主体</b>：按「人」去重还是按「次」计数</li></ol>
+<h4>辛普森悖论（分维度看的原因）</h4>
+<p>两组数据各自的趋势，合并后可能<b>完全反过来</b>。例：A 方案在业务线甲转化 80%（8/10）、乙 30%（30/100）；
+B 方案在甲 70%（70/100）、乙 20%（2/10）。<b>分开看 A 都更好</b>，但合并后 A = 38/110 = 35%，B = 72/110 = 65%，
+<b>合并看 B 更好</b>。原因是两组的样本构成不同。所以漏斗一定要拆维度。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用：招聘主链路漏斗（对应系统状态机）</span>
+<table>
+<tr><th>步骤</th><th>系统状态</th><th>关注什么</th></tr>
+<tr><td>1. 简历进入</td><td>待解析</td><td>来源分布</td></tr>
+<tr><td>2. 解析成功</td><td>待打分</td><td><b>解析失败率</b> —— 失败必须转人工，不得静默丢弃</td></tr>
+<tr><td>3. 分层</td><td>高分档 / 中间档 / 低分档</td><td>三档占比是否合理</td></tr>
+<tr><td>4. 复核采纳</td><td>待安排面试</td><td>中间档采纳率</td></tr>
+<tr><td>5. 面试通过</td><td>—</td><td>各档进面后的通过率</td></tr>
+<tr><td>6. 试用期通过</td><td>—</td><td>84% → 90%</td></tr>
+</table>
+<p><b>漏斗里最有价值的一条「逆流」</b>：<b>待定池 → 人工捞回 → 面试通过</b>。这些人是系统差点误杀的，单独拉出来每周复盘，是发现模型偏差最直接的入口。</p>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「我们的漏斗和系统状态机是一一对应的，所以每一步都能直接查。我特别关注两个点：一是第 2 步的解析失败 —— 我们规定失败必须进人工队列，绝不能静默丢掉，否则漏斗里会『凭空少人』而没人发现；二是一条<b>逆流</b>：从待定池被捞回、后来还通过了面试的人。他们是差点被误杀的实证，我们单独每周复盘。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：转化率下降了怎么排查？</b> —— 四步：① 确认数据口径没变；② 按维度拆（业务线、岗位、来源、时间）；③ 定位到具体步骤；④ 看那一步的用户行为/系统变更。<br>
+<b>陷阱</b>：<b>只看整体转化率</b>。整体看起来正常，可能是某条业务线暴跌、另一条暴涨抵消了 —— 这叫辛普森悖论，一定要分维度看。
+</div>
+</div>
+
+<!-- 用户生命周期 -->
+<div class="concept">
+<h3><span class="tag">用户运营</span>14. 用户生命周期</h3>
+<p><b>定义</b>：用户从接触产品到离开的全过程，通常分为<b>引入期 → 成长期 → 成熟期 → 休眠期 → 流失期</b>。不同阶段用户需求不同，运营策略也不同。</p>
+<p><b>和产品生命周期的区别</b>：用户生命周期是<b>单个用户</b>的旅程；产品生命周期是<b>整个产品</b>在市场上的阶段。（详见第 15 节）</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>原理</b>：用户在不同阶段的需求、价值和风险都不同，<b>统一运营是浪费</b>：
+对新用户讲高级功能听不懂，对老用户发新手引导嫌打扰。生命周期把用户分阶段，每阶段一个运营目标。</p>
+<h4>阶段与目标</h4>
+<table>
+<tr><th>阶段</th><th>判定（示例）</th><th>运营目标</th></tr>
+<tr><td>引入期</td><td>首次使用 ~ 完成关键行为前</td><td>促激活（到达 Aha 时刻）</td></tr>
+<tr><td>成长期</td><td>开始重复使用</td><td>培养习惯、提升频次</td></tr>
+<tr><td>成熟期</td><td>高频、稳定</td><td>提升价值、挖掘深度</td></tr>
+<tr><td>休眠期</td><td>活跃度明显下降</td><td>预警与唤醒</td></tr>
+<tr><td>流失期</td><td>N 天未活跃</td><td>召回或复盘原因</td></tr>
+</table>
+<p><b>流失怎么定义</b>：N 不能拍脑袋，取决于产品的<b>自然使用周期</b>。日用型产品可能 7 天，
+月度报销工具可能 60 天。常用做法：看「回访间隔」分布，取 90% 用户的回访间隔作为 N。</p>
+<h4>RFM 模型：识别用户处在哪个阶段</h4>
+<p><b>R</b>ecency 最近一次使用距今多久 · <b>F</b>requency 使用频次 · <b>M</b>onetary 价值贡献。
+三个维度各分高/低，组合出 8 类用户。<b>R 低（很久没来）而 F、M 曾经高</b>的，就是最该唤醒的「沉睡的重要用户」。</p>
+<h4>生命周期价值</h4>
+<span class="eq">LTV = 每期平均贡献 × 平均生命周期长度 ≈ ARPU ÷ 流失率</span>
+<p class="small">算例：月 ARPU 100 元、月流失率 5% → 平均生命周期 1/5% = 20 个月 → LTV ≈ 2000 元。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用：HR 用户的生命周期</span>
+<table>
+<tr><th>阶段</th><th>特征</th><th>策略</th></tr>
+<tr><td>引入期</td><td>刚被分配使用，怀疑 AI</td><td><b>陪跑</b>：每天一起看 10 份，现场解释「为什么这么判」</td></tr>
+<tr><td>成长期</td><td>开始点证据、偶尔采纳</td><td>引导形成「先看依据再决定」的习惯；培训「未体现 ≠ 不会」</td></tr>
+<tr><td>成熟期</td><td>高频使用，形成依赖</td><td>快捷键提效；收集误判样本反哺模型</td></tr>
+<tr><td>休眠期</td><td><b>回到纯人工</b>（在别处记笔记、私下排面试）</td><td>这是最强的负反馈信号，要回访原因</td></tr>
+<tr><td>流失期</td><td>不再登录</td><td>复盘是产品问题还是流程问题</td></tr>
+</table>
+<p><b>候选人的生命周期</b>则很短：投递 → 等待 → 面试 → 结果。所以策略是「<b>不建立长期关系</b>」—— 一次性邀请链接，不注册账号，面试结束 24 小时后链接失效。</p>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「对 HR 这类用户，我最关注的不是流失，而是<b>休眠期</b> —— 系统里还在登录，但实际判断已经回到线下了，比如自己在 Excel 里另记一套。这比不登录更危险，因为数据上看不出来。对候选人则相反，他们的生命周期就一次面试，所以我们刻意<b>不建立长期关系</b>：不注册账号，用一次性链接 —— 少收集个人信息本身也是合规要求。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：怎么识别休眠？</b> —— 定义行为阈值：比如「登录但 7 天内采纳数为 0」或「证据查看率骤降」。<br>
+<b>陷阱</b>：和产品生命周期混淆。面试官很爱问「这两个有什么区别」。
+</div>
+</div>
+</div>
+
+<!-- ======================= 第 4 章 ======================= -->
+<div class="sec">
+<h2>第 4 章 · 验证与迭代</h2>
+<p class="small">这一组方法回答：<b>怎么低成本验证、怎么持续交付、怎么不断改进</b>。</p>
+
+<!-- MVP -->
+<div class="concept">
+<h3><span class="tag">验证</span>15. MVP（最小可行产品）</h3>
+<p><b>定义</b>：用<b>最小成本</b>构建一个能<b>验证核心假设</b>的产品版本。重点在「可行」—— 不是半成品，而是能完整走通核心价值的最小闭环。</p>
+<p><b>经典比喻</b>：要造汽车，MVP 不是先造一个轮子，而是先造一辆滑板车 —— 每一版都能完整地「从 A 到 B」。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：Frank Robinson 2001 年提出该术语，<b>Eric Ries</b> 在 2011 年《精益创业》中推广。</p>
+<p><b>原理：构建 — 测量 — 学习（Build–Measure–Learn）循环</b>。创业最大的浪费是做出没人要的东西。
+MVP 的目标不是「做一个简陋的产品」，而是<b>用最少的投入获得「经过验证的认知」</b>（validated learning），
+并<b>缩短一次循环的时间</b> —— 循环越快，试错越便宜。</p>
+<h4>常见的 MVP 类型</h4>
+<table>
+<tr><th>类型</th><th>做法</th><th>验证什么</th></tr>
+<tr><td>冒烟测试 / 落地页</td><td>只做介绍页和「预约」按钮</td><td>有没有人想要</td></tr>
+<tr><td><b>绿野仙踪</b>（Wizard of Oz）</td><td>用户以为是自动的，<b>背后其实是人在做</b></td><td>流程和价值是否成立</td></tr>
+<tr><td>礼宾式（Concierge）</td><td>明面上人工为少数用户提供服务</td><td>需求细节</td></tr>
+<tr><td>单一功能</td><td>只做核心的一个功能</td><td>核心价值</td></tr>
+</table>
+<p>本项目 MVP 里「面试逐字稿先手动粘贴、下游链路全自动」就接近<b>绿野仙踪</b>：用人工替代暂时做不了的转写环节，先验证后面的价值是否成立。</p>
+<h4>何时算验证通过：PMF</h4>
+<p>Product-Market Fit（产品市场匹配）。Sean Ellis 的 <b>40% 测试</b>：问用户「如果不能再用这个产品，你会有多失望？」
+回答「<b>非常失望</b>」的比例 <b>≥ 40%</b>，通常意味着达到 PMF。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用</span>
+<p><b>要验证的核心假设</b>：「带证据的 AI 判断，能让 HR 愿意采信」。</p>
+<table>
+<tr><th>MVP 里做了</th><th>MVP 里没做</th></tr>
+<tr><td>简历解析 + 能力项打分 + <b>证据溯源</b></td><td>面试录音实时转写（外接，先手动粘贴逐字稿）</td></tr>
+<tr><td>三档分层 + 人工复核</td><td>内部人才库激活</td></tr>
+<tr><td>待定池 + 捞回</td><td>JD 智能撰写</td></tr>
+<tr><td>6 个岗位的示例能力模型</td><td>42 个岗位的完整模型</td></tr>
+</table>
+<p><b>录音转写的取舍很典型</b>：转写依赖外部语音服务 + 候选人同意的合规话术，属于外部依赖。MVP 里<b>把转写之后的链路（归类、锚点对照、报告生成）全部做完</b>，转写先用手动粘贴替代。接入任意转写服务后，只需把文本塞进同一个入口，下游不用改。</p>
+<p><b>验证方式：影子模式</b> —— AI 打分但不展示给 HR，先记录 HR 自己的判断再比对。这样拿到的一致率才是干净的；先展示 AI 分数，测出来的「一致」里有锚定效应。</p>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「我们 MVP 要验证的只有一个假设：带证据的 AI 判断，HR 愿不愿意信。所以证据溯源是 MVP 里不能砍的，而面试录音转写被砍了 —— 但不是不做，是把<b>转写之后的整条链路先做完</b>，转写本身先手动粘贴。这样接入语音服务时下游零改动。验证用影子模式：AI 打分但不给 HR 看，否则测出来的一致率会被锚定效应污染。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：MVP 和 Demo / 原型的区别？</b> —— 原型验证「做出来长什么样」，MVP 验证「用户愿不愿意用、核心价值成不成立」。MVP 必须给<b>真实用户</b>用、拿到<b>真实数据</b>。<br>
+<b>陷阱</b>：把 MVP 理解成「先做简单版本」。面试官要听到的是<b>你要验证的假设是什么</b>，砍功能是为假设服务的。
+</div>
+</div>
+
+<!-- A/B -->
+<div class="concept">
+<h3><span class="tag">验证</span>16. A/B 测试</h3>
+<p><b>定义</b>：把用户<b>随机</b>分成两组，一组用原方案（A，对照组），一组用新方案（B，实验组），比较核心指标，判断差异是否<b>统计显著</b>。</p>
+<p><b>关键步骤</b>：① 提出假设 → ② 确定核心指标和护栏指标 → ③ 计算样本量 → ④ 随机分流 → ⑤ 跑够周期 → ⑥ 显著性检验 → ⑦ 决策。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>原理：随机对照实验 + 假设检验</b>。随机分组让两组除了「方案不同」以外其他条件统计上相同，
+所以指标差异可以归因于方案本身。再用统计检验判断差异是否只是偶然波动。</p>
+<h4>假设检验的四个概念</h4>
+<table>
+<tr><th>概念</th><th>含义</th><th>常用取值</th></tr>
+<tr><td>原假设 H₀</td><td>两组没有差异</td><td>—</td></tr>
+<tr><td>显著性水平 α</td><td><b>第一类错误</b>：实际没效果却判为有效（误报）</td><td>0.05</td></tr>
+<tr><td>统计功效 1−β</td><td>实际有效时能检测出来的概率；β 是<b>第二类错误</b>（漏报）</td><td>0.8</td></tr>
+<tr><td>p 值</td><td>假设 H₀ 成立时，观察到当前或更极端结果的概率</td><td>p &lt; α 则拒绝 H₀</td></tr>
+</table>
+<p><b>p 值常见误读</b>：p = 0.03 <b>不是</b>「方案无效的概率是 3%」，而是「如果方案真的无效，看到这么大差异的概率只有 3%」。</p>
+<h4>两比例的 Z 检验</h4>
+<span class="eq">z = (p₁ − p₂) ÷ √[ p̄(1 − p̄)(1/n₁ + 1/n₂) ]</span>　p̄ 为合并转化率；|z| &gt; 1.96 即 α = 0.05 下显著。
+<h4>样本量估算（α = 0.05、功效 0.8 的经验公式）</h4>
+<span class="eq">每组样本量 n ≈ 16 × p(1 − p) ÷ δ²</span>　p 为基线转化率，δ 为想检测出的最小提升（MDE）。
+<p class="small">算例：面试题采纳率基线 70%，想检测出 5 个百分点的提升 → n ≈ 16 × 0.7 × 0.3 ÷ 0.05² = <b>每组约 1344 道题</b>。
+想检测 2 个百分点的提升，需要约 8400 道 —— <b>MDE 减半，样本量翻四倍</b>。</p>
+<h4>常见陷阱</h4>
+<p><b>偷看（peeking）</b>：每天看结果、一显著就停，会让误报率远超 5%，必须跑满事先算好的样本量。
+<b>AA 测试</b>：两组用同一方案先跑一轮，验证分流和统计本身没问题。<b>新奇效应</b>：新功能早期数据偏高，至少跑满 1–2 个完整周期。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用</span>
+<p><b>提示词灰度</b>：同一个 AI 能力可以并行两个提示词版本（<code>canary_version</code> + <code>canary_ratio</code>），按比例分流。</p>
+<p><b>发布卡点</b>：每次改提示词或换模型，先在全量评测集跑一遍，<b>任一核心指标下降超过 2 个百分点即阻止上线</b>（已实现为代码卡点，不靠人工判断）。</p>
+<p><b>B 端做 A/B 的特殊困难</b>：</p>
+<ul>
+  <li><b>样本少</b>：HR 只有 8 人，按「人」随机根本没有统计意义 → 改为按<b>简历</b>随机分流</li>
+  <li><b>相互干扰</b>：同一个 HR 一会儿看 A 一会儿看 B，会被前一个影响 → 同一个 HR 在实验期内固定一组</li>
+  <li><b>有些东西不能测</b>：比如「自动拒信」不能拿真实候选人做实验，误杀不可逆</li>
+</ul>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「我们的 A/B 主要用在提示词迭代上：两个版本按比例灰度，同时有一道硬卡点 —— 在评测集上任一核心指标掉超过 2 个百分点，发布直接被拦。B 端做 A/B 最大的问题是样本少，HR 只有 8 个人，按人分流没有统计意义，所以改成按简历随机。还有一条原则：<b>不可逆的东西不做 A/B</b>，比如自动拒信，误杀了就收不回来。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：怎么判断结果可信？</b> —— 看 p 值（通常 &lt; 0.05）和置信区间；样本量要事先算好，<b>不能看到显著就提前停</b>（偷看问题）。<br>
+<b>问：A/B 结果显著但指标没涨怎么办？</b> —— 区分统计显著和业务显著：提升 0.1% 统计上显著，但可能不值得上线成本。<br>
+<b>问：新奇效应？</b> —— 新功能刚上线用户会因为好奇多点，要跑够周期（通常 ≥ 2 周）。
+</div>
+</div>
+
+<!-- PDCA -->
+<div class="concept">
+<h3><span class="tag">持续改进</span>17. PDCA 循环（戴明环）</h3>
+<p><b>定义</b>：<b>P</b>lan 计划 → <b>D</b>o 执行 → <b>C</b>heck 检查 → <b>A</b>ct 处理（标准化成功经验，遗留问题进入下一轮）。螺旋上升，每转一圈质量提升一次。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：统计学家 Walter Shewhart 1930 年代提出，<b>W. Edwards Deming</b> 1950 年代在日本推广，
+因此又叫<b>戴明环</b>。是全面质量管理（TQM）的基础方法。</p>
+<p><b>原理</b>：质量不是一次做对的，而是<b>持续逼近</b>的。两个特征：<b>大环套小环</b>（公司、部门、个人各有自己的 PDCA，层层嵌套）；
+<b>阶梯式上升</b>（每转一圈把成果固化为标准，下一圈从更高的起点开始）。</p>
+<h4>完整的八个步骤</h4>
+<table>
+<tr><th>阶段</th><th>步骤</th></tr>
+<tr><td rowspan="4"><b>P 计划</b></td><td>① 分析现状，找出问题</td></tr>
+<tr><td>② 分析产生问题的各种原因（可用鱼骨图、5Why）</td></tr>
+<tr><td>③ 找出主要原因（可用帕累托图 —— 20% 的原因导致 80% 的问题）</td></tr>
+<tr><td>④ 针对主因制定措施（可用 5W2H 写计划）</td></tr>
+<tr><td><b>D 执行</b></td><td>⑤ 按计划执行</td></tr>
+<tr><td><b>C 检查</b></td><td>⑥ 对照目标检查效果</td></tr>
+<tr><td rowspan="2"><b>A 处理</b></td><td>⑦ <b>标准化</b>：成功经验固化为规范、流程、版本</td></tr>
+<tr><td>⑧ 遗留问题转入下一个 PDCA 循环</td></tr>
+</table>
+<p><b>最常被忽略的是第 ⑦ 步</b>：不标准化，下一圈又会回到原来的水平，PDCA 就变成了原地转圈。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用：能力模型的季度迭代</span>
+<table>
+<tr><th>阶段</th><th>动作</th></tr>
+<tr><td><b>P 计划</b></td><td>根据上季度一致率、误杀率，定本季度要调的能力项与目标</td></tr>
+<tr><td><b>D 执行</b></td><td>调整锚点描述或权重；发新版提示词</td></tr>
+<tr><td><b>C 检查</b></td><td>评测集回归（下降 &gt;2 个百分点阻断）；线上看一致率、误杀率；<b>每周复盘捞回样本</b></td></tr>
+<tr><td><b>A 处理</b></td><td>有效的固化为新版能力模型；无效的回滚，问题进入下一轮</td></tr>
+</table>
+<p><b>数据来源</b>：HR 的否决记录 + 新人试用期表现持续回流。这让模型迭代<b>不依赖人工重新标注</b>，新岗位接入从 3 周缩短到 2 天。</p>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「能力模型是按 PDCA 迭代的，周期是季度。关键在 C 这一步：我们有两个检查 —— 离线评测集回归（掉 2 个百分点就阻断）和线上捞回样本复盘。A 这一步很多人会忽略『标准化』：有效的调整要固化进能力模型的新版本，并且记录是哪个版本，否则下一次出问题就没法归因。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：PDCA 和 Scrum 的关系？</b> —— PDCA 是<b>改进思想</b>，Scrum 是<b>交付框架</b>。Scrum 的每个 Sprint（计划会→开发→评审会→回顾会）本身就是一个 PDCA 循环。<br>
+<b>陷阱</b>：只说四个字母。要讲出「C 用什么数据检查」和「A 怎么固化」。
+</div>
+</div>
+
+<!-- Scrum -->
+<div class="concept">
+<h3><span class="tag">敏捷交付</span>18. Scrum</h3>
+<p><b>定义</b>：一种敏捷开发框架，用固定周期（Sprint，通常 1–4 周）迭代交付。</p>
+<table>
+<tr><th>类别</th><th>内容</th></tr>
+<tr><td><b>3 个角色</b></td><td>Product Owner（产品负责人，管 Backlog 优先级）· Scrum Master（守流程、排障碍）· 开发团队</td></tr>
+<tr><td><b>3 个工件</b></td><td>Product Backlog 产品待办 · Sprint Backlog 迭代待办 · Increment 可交付增量</td></tr>
+<tr><td><b>5 个事件</b></td><td>Sprint · 计划会 · 每日站会（15 分钟）· 评审会（看成果）· 回顾会（看过程）</td></tr>
+</table>
+<p><b>产品经理在 Scrum 里通常担任 PO</b>：维护 Backlog、定优先级、写用户故事和验收标准、在评审会上验收。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：Ken Schwaber 与 Jeff Sutherland，1995 年提出，规范见官方《Scrum 指南》。
+名字来自橄榄球的「争球」—— 整个团队一起推进。</p>
+<p><b>原理：经验过程控制</b>。复杂产品开发无法事先精确规划，所以用短周期<b>频繁交付 → 检视 → 调整</b>来逼近目标。
+三大支柱：<b>透明</b>（大家看到同样的信息）、<b>检视</b>（频繁检查进展）、<b>适应</b>（发现偏差立即调整）。</p>
+<h4>敏捷宣言的四条价值观（2001）</h4>
+<p><b>个体和互动</b>高于流程和工具 · <b>可工作的软件</b>高于详尽的文档 ·
+<b>客户合作</b>高于合同谈判 · <b>响应变化</b>高于遵循计划。（右边也有价值，只是左边更重要）</p>
+<h4>用户故事与 INVEST 原则</h4>
+<span class="eq">作为〈角色〉，我想要〈功能〉，以便〈价值〉</span>
+<p>好的用户故事满足 INVEST：<b>I</b>ndependent 独立 · <b>N</b>egotiable 可协商 · <b>V</b>aluable 有价值 ·
+<b>E</b>stimable 可估算 · <b>S</b>mall 足够小 · <b>T</b>estable 可测试。</p>
+<h4>估算与度量</h4>
+<p><b>故事点</b>：用相对大小而非小时估算，常用斐波那契数列 <b>1, 2, 3, 5, 8, 13</b>（越大越不确定，所以间隔越大）。<br>
+<span class="eq">速率 Velocity = 每个 Sprint 实际完成的故事点</span>　取近 3 个 Sprint 的平均值用于规划下一个 Sprint。<br>
+<b>燃尽图</b>：横轴时间、纵轴剩余工作量，实际线高于理想线说明进度落后。</p>
+<h4>DoR 与 DoD</h4>
+<p><b>DoR（就绪的定义）</b>：需求满足什么条件才能进 Sprint（有验收标准、已估算、无阻塞依赖）。
+<b>DoD（完成的定义）</b>：做到什么程度才算完成（代码评审、测试通过、文档更新……）。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用</span>
+<ul>
+  <li><b>Backlog</b>：27 条需求（R-01 ~ R-27），MoSCoW 定级 + RICE 档内排序</li>
+  <li><b>AI 产品对 Scrum 的改造：「完成的定义」（DoD）加了一条效果门槛</b>。功能全通不算完成，必须<b>评测集上效果达标</b>才算 —— 因为 AI 功能即使按钮都能点，输出质量不达标同样不可用</li>
+  <li><b>验收双线并行</b>：功能验收 + 效果验收（一致率、误杀率、引用准确率），两者都过才允许放量</li>
+  <li><b>用户故事例子</b>：「作为招聘 HR，我想点击能力项就看到简历原文对应位置，以便在 10 秒内判断该不该采信这个分数。」验收：300ms 内定位高亮；引用准确率 ≥ 92%</li>
+</ul>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「我在团队里是 PO 角色。AI 产品用 Scrum 有一个必须的改造：<b>完成的定义要加效果门槛</b>。普通功能按钮能点、流程能走就算完成，但 AI 功能流程全通、输出质量不行，一样不能用。所以我们的 DoD 里写了：评测集上一致率、误杀率、引用准确率达标才算 Done。这让研发从一开始就知道『做到什么程度』。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：需求在 Sprint 中途变了怎么办？</b> —— 原则上 Sprint 内范围冻结，新需求进 Backlog 下个 Sprint 排；紧急需求由 PO 判断，必须换出同等工作量。<br>
+<b>问：评审会和回顾会的区别？</b> —— 评审会看<b>产品</b>（做出了什么），回顾会看<b>团队过程</b>（怎么做得更好）。<br>
+<b>问：Scrum 和看板（Kanban）区别？</b> —— Scrum 固定周期、有角色；看板持续流动、限制在制品数量。运维/客服类需求更适合看板。
+</div>
+</div>
+</div>
+
+<!-- ======================= 第 5 章 ======================= -->
+<div class="sec">
+<h2>第 5 章 · 全局与表达</h2>
+
+<!-- 产品生命周期 -->
+<div class="concept">
+<h3><span class="tag">战略阶段</span>19. 产品生命周期（PLC）</h3>
+<p><b>定义</b>：产品在市场上从诞生到退出的四个阶段。<b>不同阶段，产品经理的核心任务完全不同</b>：</p>
+<table>
+<tr><th>阶段</th><th>特征</th><th>PM 核心任务</th><th>关键指标</th></tr>
+<tr><td><b>引入期</b></td><td>用户少，验证价值</td><td>验证需求、找到 PMF、MVP</td><td>留存、核心行为完成率</td></tr>
+<tr><td><b>成长期</b></td><td>用户快速增长</td><td>扩功能、扩用户、建壁垒</td><td>增长率、转化率</td></tr>
+<tr><td><b>成熟期</b></td><td>增长放缓、竞争激烈</td><td>精细化运营、提效降本、挖新场景</td><td>利润、效率、留存</td></tr>
+<tr><td><b>衰退期</b></td><td>用户流失</td><td>转型、收缩、找第二曲线</td><td>成本、流失率</td></tr>
+</table>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：Theodore Levitt 1965 年《哈佛商业评论》文章《Exploit the Product Life Cycle》；
+Raymond Vernon 1966 年从国际贸易角度提出。</p>
+<p><b>原理</b>：产品的销量（或用户量）随时间呈 <b>S 形曲线</b> —— 起步慢、中段快速增长、后期饱和、最终下滑。
+不同阶段的竞争格局和用户构成都不同，所以<b>产品策略必须随阶段切换</b>。</p>
+<h4>阶段判定（经验法：看增长率）</h4>
+<table>
+<tr><th>阶段</th><th>增长率特征（经验值）</th><th>利润</th></tr>
+<tr><td>引入期</td><td>增长缓慢，不稳定</td><td>通常为负</td></tr>
+<tr><td>成长期</td><td>年增长率 &gt; 10%，加速</td><td>转正并上升</td></tr>
+<tr><td>成熟期</td><td>增长率在 0–10%，放缓</td><td>最高，开始承压</td></tr>
+<tr><td>衰退期</td><td>负增长</td><td>下降</td></tr>
+</table>
+<h4>配套理论：创新扩散与鸿沟</h4>
+<p>Everett Rogers 的<b>创新扩散理论</b>把用户按接受新事物的先后分为五类：
+创新者 2.5% · 早期采用者 13.5% · 早期大众 34% · 晚期大众 34% · 落后者 16%。</p>
+<p>Geoffrey Moore《跨越鸿沟》指出：早期采用者和早期大众之间有一道<b>鸿沟</b>。
+前者愿意为愿景尝鲜，后者只要<b>成熟、可靠、有人用过</b>的方案。很多产品死在这里。</p>
+<p>对应本项目：主动牵头的 HR 负责人是<b>早期采用者</b>，320 名业务面试官里大多是<b>早期大众</b> ——
+跨越鸿沟靠的是证据溯源（可信）和「先在高招聘量部门跑出数据」（有人用过）。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里怎么用：项目处在「引入期 → 成长期」交界</span>
+<table>
+<tr><th>阶段</th><th>本项目对应</th><th>里程碑</th></tr>
+<tr><td>引入期（已完成）</td><td>需求分析、PRD、核心模块开发、功能验收</td><td>R-01 ~ R-27 已交付</td></tr>
+<tr><td>引入期（当前）</td><td><b>灰度验证</b>：高招聘量部门约 18% 流量</td><td>核心指标达标且无 P1 缺陷</td></tr>
+<tr><td>成长期（下一步）</td><td>全量推广到 6 条业务线</td><td>各业务线接入、采纳率达标</td></tr>
+<tr><td>成长期（下期）</td><td>内部人才库激活、校招与外包场景</td><td>—</td></tr>
+</table>
+<p><b>因为处在引入期，所以现在最重要的是验证而不是扩功能</b>：内部人才库激活（加权 3.8 分）明确放到下期。</p>
+</div>
+
+<div class="ans"><span class="lbl">面试示范回答</span>
+「这个产品目前在引入期末尾，正在灰度验证。引入期的核心任务是验证价值，所以我们克制住了扩功能的冲动 —— 像内部人才库激活这种评分不低的场景，我们放到了下期。判断能否进入成长期的标准很明确：核心指标达标、误杀率不超过 2%、没有 P1 缺陷。」
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>问：怎么判断产品进入了下一阶段？</b> —— 用数据而不是感觉：引入期→成长期看 PMF 信号（留存稳定、用户自发推荐）；成长期→成熟期看增长率持续放缓。<br>
+<b>问：产品生命周期和用户生命周期的区别？</b> —— 前者是<b>产品在市场</b>的阶段（宏观），后者是<b>单个用户</b>在产品里的阶段（微观）。
+</div>
+</div>
+
+<!-- STAR -->
+<div class="concept">
+<h3><span class="tag">面试表达</span>20. STAR 法则</h3>
+<p><b>定义</b>：讲经历的结构 —— <b>S</b>ituation 情境、<b>T</b>ask 任务、<b>A</b>ction 行动、<b>R</b>esult 结果。面试官问「讲一个你……的经历」时用。</p>
+<p><b>时间分配</b>：S+T 占 20%，<b>A 占 60%</b>，R 占 20%。大多数人讲反了 —— 背景讲 3 分钟，行动一句话带过。</p>
+<p><b>进阶：STAR-L</b> —— 加一个 <b>L</b>earning（反思）。讲出「如果重来我会怎么做」，比讲成绩更能体现成长性。</p>
+
+<div class="theory"><span class="lbl">定义 · 出处 · 原理 · 公式</span>
+<p><b>出处</b>：源于<b>行为面试法</b>（Behavioral Interview），工业心理学家 Tom Janz 等人在 1980 年代推广。</p>
+<p><b>原理</b>：「<b>过去的行为是预测未来行为的最好依据。</b>」相比问「如果遇到 X 你会怎么做」（可以编），
+问「讲一次你真实遇到 X 的经历」更难伪造，追问几层细节就能分辨真假。
+STAR 是面试官用来<b>拆解你的回答</b>的结构，你按它来讲，面试官就能快速找到他要打分的信息。</p>
+<h4>四要素与时间分配</h4>
+<table>
+<tr><th>要素</th><th>回答什么</th><th>时长占比</th></tr>
+<tr><td>S 情境</td><td>什么背景，为什么难（给数字）</td><td rowspan="2">约 20%</td></tr>
+<tr><td>T 任务</td><td><b>你</b>的职责与目标</td></tr>
+<tr><td><b>A 行动</b></td><td><b>你</b>具体做了什么、为什么这么做</td><td><b>约 60%</b></td></tr>
+<tr><td>R 结果</td><td>量化结果 + 对业务的意义</td><td>约 20%</td></tr>
+</table>
+<h4>变体</h4>
+<p><b>STAR-L</b>：加 Learning（反思与成长）· <b>CAR</b>：Challenge–Action–Result（更紧凑）·
+<b>SOAR</b>：Situation–Obstacle–Action–Result（强调障碍）。</p>
+<p><b>面试官的追问模式</b>通常是「漏斗式」：先听 STAR，再逐层追问细节 —— 「当时有哪些选项？」「为什么没选另一个？」
+「如果重来会怎么做？」准备时每个故事都要能扛住三层追问。</p>
+</div>
+
+<div class="proj"><span class="lbl">项目里的 STAR 示范：「讲一个你坚持了不受欢迎决定的经历」</span>
+<p><b>S 情境</b>：AI 招聘平台评审时，HR 侧强烈要求低分候选人自动发拒信 —— 招聘量涨了 34%，HR 编制没增加，他们想彻底解放人力。</p>
+<p><b>T 任务</b>：我要决定这个需求做不做。它的业务价值很高，HR 是核心用户，直接拒绝会影响他们对项目的支持。</p>
+<p><b>A 行动</b>：</p>
+<ol>
+  <li><b>量化代价</b>：我们的误杀率红线是 2%，年简历 10 万份，意味着每年约百名本应进面的人会被直接关门，而且拒信发出不可撤回</li>
+  <li><b>找法务确认</b>：《个人信息保护法》第 24 条要求自动化决策保留人工干预通道</li>
+  <li><b>在场景评分里设一票否决</b>：容错空间低于 3 分直接否决，自动拒信容错只有 1 分</li>
+  <li><b>给替代方案而不是只说不</b>：自动分流到待定池 + 7 天人工捞回窗口。HR 的人力同样被解放，但保留了挽回机会</li>
+  <li><b>落到系统设计</b>：状态机里根本没有「已拒绝」状态，系统不提供任何拒绝动作</li>
+</ol>
+<p><b>R 结果</b>：HR 接受了替代方案。捞回机制还带来意外收获 —— 「捞回后通过面试」的案例成了发现模型偏差最直接的数据来源，每周单独复盘。</p>
+<p><b>L 反思</b>：拒绝一个需求时，<b>用对方关心的代价说话</b>比讲原则有效。我没说「这不合规」，而是说「每年会误伤上百个候选人，其中可能有你们最想要的人」—— HR 最怕的恰恰是漏掉好人。</p>
+</div>
+
+<div class="trap"><span class="lbl">追问与陷阱</span>
+<b>陷阱一：用「我们」讲 Action</b>。面试官要听的是<b>你</b>做了什么。团队的事要说清自己的角色。<br>
+<b>陷阱二：Result 没有数字</b>。「效果很好」不如「使用率 34% → 82%」。<br>
+<b>陷阱三：编故事</b>。面试官会连续追问三层细节（「当时法务具体怎么说的？」「HR 一开始什么反应？」），编的故事撑不过第二层。<b>只讲自己真正经历过的。</b>
+</div>
+</div>
+</div>
+
+<!-- ======================= 第 6 章 ======================= -->
+<div class="sec">
+<h2>第 6 章 · 串联题：把方法讲成一个完整故事</h2>
+<p>面试官最爱问：「<b>你是怎么从 0 到 1 做这个产品的？</b>」—— 这是考你能不能把方法串起来。<b>不要按方法罗列，要按决策推进。</b></p>
+
+<div class="ans"><span class="lbl">示范回答（约 3 分钟）</span>
+<p><b>① 发现问题</b>：「起因是招聘量涨了 34%，HR 编制没加，优质候选人响应从 1.2 天拖到 3.6 天，业务满意度从 78 掉到 61。」</p>
+<p><b>② 判断机会（PEST）</b>：「我先看了外部环境：技术上模型的中文长文本理解已经过可用线；法规上个保法第 24 条要求自动化决策保留人工干预 —— 这一条提前划出了红线。」</p>
+<p><b>③ 用户研究（画像 + 旅程）</b>：「访谈了 26 人、跟了 6 场现场。最关键的发现是两个：一是 HR 说看学历，实际看项目经历；二是他们最大的顾虑不是 AI 不准，而是出错了谁背责任。旅程地图上的情绪低谷也在『做判断』而不在『读简历』。」</p>
+<p><b>④ 定义问题本质</b>：「所以我判断这不是一个『加筛选工具』的需求，病根是<b>公司没有把录用标准变成组织资产</b>。核心交付物是岗位能力模型，三个功能只是它的出口。」</p>
+<p><b>⑤ 需求取舍（加权评分 + Kano + MoSCoW）</b>：「23 个场景按价值、模型能力、数据、容错四维评分，容错低于 3 分一票否决 —— 自动拒信就这样被否了。Kano 帮我识别出『AI 预填面试评分』是反向型。最后 27 条需求用 MoSCoW 定级。」</p>
+<p><b>⑥ 定目标（北极星 + 护栏）</b>：「北极星是单岗位交付周期，6.5 天降到 3 天；护栏里误杀率 2% 一票否决。」</p>
+<p><b>⑦ 验证（MVP + 影子模式）</b>：「MVP 只验证一个假设：带证据的判断 HR 愿不愿意信。用影子模式测一致率，避免锚定效应污染数据。」</p>
+<p><b>⑧ 交付迭代（Scrum + PDCA）</b>：「Scrum 的完成定义里加了效果门槛；上线后能力模型按季度 PDCA 迭代，捞回样本每周复盘。」</p>
+<p><b>⑨ 结果</b>：「证据溯源上线后，功能主动使用率 6 周内从 34% 到 82%，期间模型准确率没有显著变化 —— 说明解决的确实是信任问题，不是准确率问题。」</p>
+</div>
+
+<h3>这个回答为什么能打</h3>
+<ul>
+  <li><b>每个方法都推动了一个决策</b>，而不是为了用方法而用</li>
+  <li><b>有反直觉的发现</b>（访谈 ≠ 观察；用户怕的是担责不是不准）—— 体现洞察力</li>
+  <li><b>有明确的「不做」</b>（自动拒信、预填评分）—— 体现判断力</li>
+  <li><b>结果用数字收尾</b>，并且<b>解释了数字的含义</b>（准确率没变但使用率涨了 → 证明是信任问题）</li>
+</ul>
+</div>
+
+<!-- ======================= 第 7 章 ======================= -->
+<div class="sec">
+<h2>第 7 章 · 高频面试题与示范回答</h2>
+
+<h3>Q1：需求太多，资源不够，你怎么排优先级？</h3>
+<div class="ans">「分三层。<b>第一层是底线</b>：合规、安全、数据隔离类需求不参与排序，直接做 —— 比如业务线字典，RICE 很低，但它是数据隔离边界。<b>第二层用 MoSCoW 定档</b>，判定标准事先写死，Must 必须回答得出『没有它产品是否成立』。<b>第三层档内用 RICE 排序</b>。最后会和战略目标对一下：当前在引入期，验证价值的需求优先于扩展功能的需求。」</div>
+
+<h3>Q2：业务方提了一个你认为不该做的需求，怎么办？</h3>
+<div class="ans">「先不急着拒绝，搞清楚背后的真实诉求。比如 HR 要自动拒信，真实诉求是『解放人力』。然后<b>用对方关心的代价说话</b> —— 2% 误杀率意味着每年上百个好候选人被关门，HR 最怕的就是漏掉好人。最后<b>给替代方案</b>：待定池加 7 天捞回，人力同样解放，但保留挽回机会。拒绝需求但满足诉求。」</div>
+
+<h3>Q3：上线后数据不好，怎么分析？</h3>
+<div class="ans">「四步。① <b>先查数据本身</b>：口径变了没、埋点丢了没。② <b>拆维度</b>：按业务线、岗位、时间拆，避免整体平均掩盖局部问题。③ <b>定位漏斗环节</b>：我们的漏斗和状态机对应，能直接定位到哪一步。④ <b>区分原因</b>：比如一致率下降，要先分清是模型变差、样本分布变了、还是阈值漂移 —— 样本变了的话调提示词是白费力气。」</div>
+
+<h3>Q4：AI 产品经理和传统产品经理有什么区别？</h3>
+<div class="ans">「我觉得有三点。<b>一、需求要描述失败</b>：传统需求写功能流程，AI 需求还要写模型输出契约和『失败时产品怎么表现』—— 我们规定降级必须在界面明示，不能静默返回一个看起来正常的兜底结果。<b>二、验收要量化效果</b>：功能全通不算完，一致率、误杀率达标才算。<b>三、上线是开始不是结束</b>：AI 的质量是在真实数据里长出来的，要持续回流、持续校准。」</div>
+
+<h3>Q5：你怎么做用户调研？怎么保证结论可信？</h3>
+<div class="ans">「<b>多种方法交叉验证</b>。我们用了深度访谈、现场观察、历史数据回溯、问卷四种。原因是单一方法会有偏差 —— 访谈里 HR 说看学历，但现场观察显示他们实际先看项目经历。如果只信访谈，产品会做出和资深 HR 相反的判断。所以最后用历史投递样本反推权重，而不是让 HR 自己填。」</div>
+
+<h3>Q6：怎么定北极星指标？</h3>
+<div class="ans">「三个问题：它反映用户价值吗？团队能影响它吗？它会不会被刷？我们最终选了『单岗位有效候选人交付周期』，因为这是业务方唯一真正关心的。没选『简历处理耗时』是因为能被刷 —— 多否决就能压低耗时。然后一定配护栏：误杀率 2% 一票否决。」</div>
+
+<h3>Q7：你项目里最大的失败或遗憾是什么？</h3>
+<div class="ans">「交付后试用阶段发现了三个缺陷：面试全挂在同一个面试官名下、业务线是写死的无法增删、视频面试候选人不知道从哪进。<b>它们的共同点是都没报错</b> —— 功能都通，只是结果不对。比如安排面试时后端会静默默认第一个面试官。反思是：<b>缺省值会掩盖『用户没选』这件事</b>。现在我做评审时会专门问三个问题：用户没选时会发生什么？按字符串过滤的地方会不会不一致？每个角色的完整路径走通了吗？」</div>
+
+<h3>Q8：如何和研发、算法沟通？</h3>
+<div class="ans">「核心是<b>PM 定义『什么算对』，研发决定『怎么做到』</b>。『准确率要高一点』是无效需求。我会给出：输出契约（结果体、证据体、元信息的字段和枚举值）、失败时的行为、量化的验收门槛。尤其要先定『失败时返回什么』—— 这一条漏掉，研发会顺手返回一个默认值，那就是静默降级的源头。」</div>
+</div>
+
+<!-- ======================= 附录 ======================= -->
+<div class="sec">
+<h2>附录 A · 易混淆概念对照（面试官最爱问「区别」）</h2>
+<table>
+<tr><th>概念对</th><th>核心区别</th></tr>
+<tr><td>ICE vs RICE</td><td>RICE 多了 <b>Reach 覆盖面</b>，且用 Effort 代替 Ease；ICE 快，RICE 更能说服人</td></tr>
+<tr><td>Kano vs MoSCoW</td><td>Kano 是<b>分类</b>（需求属于哪类），MoSCoW 是<b>定档</b>（这版做不做）</td></tr>
+<tr><td>PEST vs SWOT</td><td>PEST 只看<b>外部宏观</b>；SWOT 内外都看，PEST 是 SWOT 中 O/T 的输入</td></tr>
+<tr><td>SWOT vs 波特五力</td><td>SWOT 看<b>自己</b>的处境；五力看<b>行业</b>的竞争结构</td></tr>
+<tr><td>用户画像 vs 用户旅程</td><td>画像回答「<b>是谁</b>」；旅程回答「<b>经历了什么、哪里痛</b>」</td></tr>
+<tr><td>用户旅程 vs 流程图</td><td>旅程是用户<b>主观感受</b>（含情绪）；流程图是系统<b>客观流转</b></td></tr>
+<tr><td>AARRR vs 漏斗分析</td><td>AARRR 是一个<b>特定的</b>增长漏斗模型；漏斗分析是<b>通用方法</b>，可用于任何流程</td></tr>
+<tr><td>用户生命周期 vs 产品生命周期</td><td>前者是<b>单个用户</b>的阶段（微观）；后者是<b>产品在市场</b>的阶段（宏观）</td></tr>
+<tr><td>MVP vs 原型</td><td>原型验证「<b>长什么样</b>」；MVP 验证「<b>用户用不用、价值成不成立</b>」，必须真实用户真实数据</td></tr>
+<tr><td>PDCA vs Scrum</td><td>PDCA 是<b>改进思想</b>；Scrum 是<b>交付框架</b>，每个 Sprint 就是一个 PDCA</td></tr>
+<tr><td>北极星 vs KPI</td><td>北极星是<b>唯一的</b>价值方向；KPI 可以有很多，用于考核具体工作</td></tr>
+<tr><td>统计显著 vs 业务显著</td><td>统计显著 = 差异不是偶然；业务显著 = 差异<b>值得</b>上线成本</td></tr>
+</table>
+
+<h2 style="margin-top:20px">附录 B · 一页速查</h2>
+<table>
+<tr><th>方法</th><th>一句话</th><th>本项目一个例子</th></tr>
+<tr><td>PEST</td><td>外部宏观四维扫描</td><td>个保法第 24 条 → 不做自动拒信</td></tr>
+<tr><td>波特五力</td><td>行业竞争强度</td><td>模型不是壁垒，能力模型+回流数据才是</td></tr>
+<tr><td>SWOT</td><td>内外交叉出策略</td><td>SO：用 3 年历史数据反推能力模型</td></tr>
+<tr><td>用户画像</td><td>典型用户的诉求与顾虑</td><td>HR 最怕的是背责任，不是 AI 不准</td></tr>
+<tr><td>用户旅程</td><td>找情绪低谷</td><td>低谷在「做判断」，不在「读简历」</td></tr>
+<tr><td>5W2H</td><td>需求完整性检查</td><td>视频面试 → Who 拆出候选人没账号</td></tr>
+<tr><td>Kano</td><td>需求分类</td><td>AI 预填评分是反向型</td></tr>
+<tr><td>MoSCoW</td><td>版本定档</td><td>27 条需求，Won't 写明不做理由</td></tr>
+<tr><td>ICE</td><td>快速实验排序</td><td>「查看依据」数字提示排第一</td></tr>
+<tr><td>RICE</td><td>带覆盖面的排序</td><td>业务线字典 RICE 低但是底线</td></tr>
+<tr><td>北极星</td><td>唯一价值方向 + 护栏</td><td>交付周期 6.5→3 天；误杀率 2% 否决</td></tr>
+<tr><td>AARRR</td><td>增长五阶段</td><td>瓶颈在激活：第一次采信</td></tr>
+<tr><td>漏斗分析</td><td>找流失环节</td><td>逆流：捞回后通过面试</td></tr>
+<tr><td>用户生命周期</td><td>单个用户的阶段</td><td>最危险的是休眠，不是流失</td></tr>
+<tr><td>MVP</td><td>验证核心假设</td><td>转写外接，下游链路先做完</td></tr>
+<tr><td>A/B 测试</td><td>随机对照验证</td><td>回归掉 2 个百分点阻断发布</td></tr>
+<tr><td>PDCA</td><td>螺旋改进</td><td>能力模型季度迭代</td></tr>
+<tr><td>Scrum</td><td>敏捷交付框架</td><td>DoD 加效果门槛</td></tr>
+<tr><td>产品生命周期</td><td>产品在市场的阶段</td><td>引入期末，灰度验证中</td></tr>
+<tr><td>STAR</td><td>讲经历的结构</td><td>放弃自动拒信的故事</td></tr>
+</table>
+
+
+<h2 style="margin-top:20px">附录 C · 公式速查</h2>
+<table>
+<tr><th>方法</th><th>公式</th><th>判断线 / 取值</th></tr>
+<tr><td>PEST</td><td>因素重要度 = 影响程度 × 发生概率</td><td>各 1–5 分，≥ 15 为关键</td></tr>
+<tr><td>SWOT（IFE/EFE）</td><td>加权总分 = Σ 权重 × 评分</td><td>权重和 = 1，评分 1–4，2.5 为平均线</td></tr>
+<tr><td>Kano</td><td>Better = (A+O)/(A+O+M+I)；Worse = −(O+M)/(A+O+M+I)</td><td>|Worse| 大 → 不做会不满</td></tr>
+<tr><td>MoSCoW</td><td>—</td><td>Must ≤ 60% 工作量</td></tr>
+<tr><td>ICE</td><td>I × C × E</td><td>各 1–10 分</td></tr>
+<tr><td>RICE</td><td>Reach × Impact × Confidence ÷ Effort</td><td>Impact 3/2/1/0.5/0.25；C 100/80/50%；E 人月</td></tr>
+<tr><td>AARRR · 获取</td><td>CAC = 获客花费 ÷ 新增用户</td><td>—</td></tr>
+<tr><td>AARRR · 留存</td><td>N 日留存 = 第 N 日活跃 ÷ 首日新增</td><td>—</td></tr>
+<tr><td>AARRR · 变现</td><td>LTV ≈ ARPU × 毛利率 ÷ 流失率</td><td>LTV / CAC ≥ 3</td></tr>
+<tr><td>AARRR · 推荐</td><td>K = 人均邀请数 × 邀请转化率</td><td>K &gt; 1 可自增长</td></tr>
+<tr><td>漏斗</td><td>整体转化率 = 各步转化率连乘</td><td>改最弱一步回报最大</td></tr>
+<tr><td>生命周期</td><td>平均生命周期 = 1 ÷ 流失率</td><td>月流失 5% → 20 个月</td></tr>
+<tr><td>PMF</td><td>「非常失望」占比</td><td>≥ 40%</td></tr>
+<tr><td>A/B · 检验</td><td>z = (p₁−p₂) ÷ √[p̄(1−p̄)(1/n₁+1/n₂)]</td><td>|z| &gt; 1.96 显著（α = 0.05）</td></tr>
+<tr><td>A/B · 样本量</td><td>n ≈ 16 × p(1−p) ÷ δ²（每组）</td><td>α = 0.05、功效 0.8；MDE 减半 → 样本 ×4</td></tr>
+<tr><td>Scrum</td><td>速率 = 每 Sprint 完成故事点</td><td>取近 3 个 Sprint 平均</td></tr>
+<tr><td>产品生命周期</td><td>以增长率判阶段</td><td>&gt;10% 成长，0–10% 成熟，&lt;0 衰退</td></tr>
+<tr><td>创新扩散</td><td>—</td><td>2.5% / 13.5% / 34% / 34% / 16%</td></tr>
+</table>
+
+<h2 style="margin-top:20px">附录 D · 出处与提出者（被问「谁提出的」时用）</h2>
+<table>
+<tr><th>方法</th><th>提出者</th><th>年份</th></tr>
+<tr><td>PEST</td><td>Francis Aguilar</td><td>1967</td></tr>
+<tr><td>波特五力</td><td>Michael Porter</td><td>1979</td></tr>
+<tr><td>SWOT / TOWS</td><td>Albert Humphrey（通常归属）/ Heinz Weihrich</td><td>1960s / 1982</td></tr>
+<tr><td>用户画像</td><td>Alan Cooper</td><td>1998</td></tr>
+<tr><td>峰终定律</td><td>Daniel Kahneman</td><td>1990s</td></tr>
+<tr><td>Kano 模型</td><td>狩野纪昭</td><td>1984</td></tr>
+<tr><td>MoSCoW</td><td>Dai Clegg（Oracle）</td><td>1994</td></tr>
+<tr><td>ICE / 北极星指标</td><td>Sean Ellis</td><td>2010s</td></tr>
+<tr><td>RICE</td><td>Sean McBride（Intercom）</td><td>2016</td></tr>
+<tr><td>AARRR</td><td>Dave McClure</td><td>2007</td></tr>
+<tr><td>MVP / 精益创业</td><td>Frank Robinson / Eric Ries</td><td>2001 / 2011</td></tr>
+<tr><td>PDCA</td><td>Walter Shewhart / W. Edwards Deming</td><td>1930s / 1950s</td></tr>
+<tr><td>Scrum</td><td>Ken Schwaber、Jeff Sutherland</td><td>1995</td></tr>
+<tr><td>产品生命周期</td><td>Theodore Levitt / Raymond Vernon</td><td>1965 / 1966</td></tr>
+<tr><td>创新扩散 / 跨越鸿沟</td><td>Everett Rogers / Geoffrey Moore</td><td>1962 / 1991</td></tr>
+</table>
+<p class="small" style="margin-top:14px">最后一句：方法是工具不是答案。面试里最打动人的，永远是「<b>我用这个方法发现了一件反直觉的事，于是做了一个别人没想到的决定</b>」。</p>
+</div>
+
+</body>
+</html>
