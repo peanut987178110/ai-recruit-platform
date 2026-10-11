@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>AI 招聘与人才发展平台 · 线框图</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+         background:#f4f5f7; color:#2b2f36; margin:0; padding:32px 24px; }
+  .doc { max-width:1180px; margin:0 auto 26px; }
+  h1 { font-size:23px; margin:0 0 6px; }
+  .sub { color:#6b7280; font-size:13px; line-height:1.7; }
+  .screen { max-width:1180px; margin:0 auto 30px; page-break-inside:avoid; }
+  .screen > h2 { font-size:14px; margin:0 0 7px; display:flex; align-items:center; gap:8px; }
+  .no { background:#2b2f36; color:#fff; border-radius:4px; padding:1px 7px; font-size:11px; font-weight:600; }
+  .frame { background:#fff; border:1px solid #d7dae0; border-radius:8px; overflow:hidden; }
+  .frame-head { display:flex; align-items:center; gap:10px; padding:9px 14px;
+                border-bottom:1px solid #e5e7eb; background:#fbfbfc; font-size:12px; color:#6b7280; }
+  .frame-head .logo { width:14px; height:14px; border:1.5px solid #2b2f36; border-radius:3px; }
+  .frame-head .title { color:#1f2937; font-weight:600; }
+  .spacer { margin-left:auto; }
+  .body { padding:14px; display:flex; gap:12px; }
+  .side { width:124px; border-right:1px dashed #e5e7eb; padding-right:12px;
+          display:flex; flex-direction:column; gap:5px; flex-shrink:0; }
+  .side .item { font-size:11px; color:#6b7280; padding:4px 8px; border-radius:4px; }
+  .side .item.on { background:#eef2ff; color:#3b5bdb; font-weight:600; }
+  .main { flex:1; display:flex; flex-direction:column; gap:10px; min-width:0; }
+  .box { border:1px solid #cbd0d8; border-radius:5px; padding:8px 10px;
+         font-size:11px; color:#4b5563; background:#fff; }
+  .box.fill { background:#f7f8fa; }
+  .box.dash { border-style:dashed; color:#9aa1ac; }
+  .box.ai { border-color:#c4b5fd; background:#faf8ff; }
+  .box.warn { border-color:#fcd34d; background:#fffbeb; }
+  .h { font-size:12px; font-weight:700; color:#1f2937; }
+  .muted { color:#9aa1ac; } .tiny { font-size:10px; } .sm { font-size:11px; }
+  .mono { font-family: ui-monospace, Consolas, monospace; }
+  .pill { display:inline-block; border:1px solid #cbd0d8; border-radius:99px;
+          padding:1px 8px; font-size:10px; color:#4b5563; }
+  .pill.solid { background:#2b2f36; color:#fff; border-color:#2b2f36; }
+  .pill.ai { border-color:#a78bfa; color:#6d28d9; background:#f5f3ff; }
+  .pill.ok { border-color:#86efac; color:#15803d; background:#f0fdf4; }
+  .pill.warn { border-color:#fcd34d; color:#b45309; background:#fffbeb; }
+  .btn { display:inline-block; border:1px solid #2b2f36; border-radius:5px;
+         padding:3px 12px; font-size:11px; }
+  .btn.primary { background:#2b2f36; color:#fff; }
+  .btn.ghost { border-color:#cbd0d8; color:#6b7280; }
+  .lines { display:flex; flex-direction:column; gap:5px; }
+  .lines i { display:block; height:6px; background:#eceef1; border-radius:3px; }
+  .lines i.w60 { width:60%; } .lines i.w80 { width:80%; } .lines i.w40 { width:40%; }
+  table.tbl { width:100%; border-collapse:collapse; font-size:11px; }
+  .tbl th, .tbl td { border-bottom:1px solid #eceef1; padding:6px 8px;
+                     text-align:left; color:#4b5563; }
+  .tbl th { color:#9aa1ac; font-weight:600; font-size:10px; background:#fbfbfc; }
+  .note { font-size:12px; color:#5b6472; margin:8px 2px 0; line-height:1.8; }
+  .ann { display:inline-flex; align-items:center; justify-content:center;
+         width:15px; height:15px; border-radius:50%; background:#3b5bdb;
+         color:#fff; font-size:9px; margin-right:5px; vertical-align:1px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .col { display:flex; flex-direction:column; gap:8px; }
+  .kv { display:flex; gap:8px; font-size:11px; padding:3px 0; }
+  .kv b { min-width:60px; color:#9aa1ac; font-weight:500; flex-shrink:0; }
+  .phone { width:320px; margin:0 auto; }
+</style>
+</head>
+<body>
+
+<div class="doc">
+  <h1>AI 招聘与人才发展平台 · 线框图</h1>
+  <p class="sub">
+    共 20 个页面。灰度线稿只表达<b>结构与信息层级</b>，不代表视觉风格。<br>
+    紫色框 = AI 产出区域（必须可溯源、可编辑、禁止静默降级）；黄色框 = 合规或风险提示。
+  </p>
+</div>
+
+<!-- ================= P-01 ================= -->
+<section class="screen" id="p01">
+  <h2><span class="no">P-01</span> 登录 / 自助注册</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">AI 招聘平台</span><span class="spacer"></span><span class="tiny">v1.0</span></div>
+    <div class="body">
+      <div class="main" style="max-width:420px;margin:0 auto">
+        <div class="row" style="gap:0"><span class="pill solid">登录</span><span class="pill">注册</span></div>
+        <div class="box">
+          <div class="kv"><b>账号</b><span class="muted">请输入账号</span></div>
+          <div class="kv"><b>密码</b><span class="muted">请输入密码</span></div>
+          <div class="row" style="margin-top:6px"><span class="btn primary">登 录</span><span class="tiny muted">忘记密码请联系管理员</span></div>
+        </div>
+        <div class="box fill">
+          <div class="h" style="margin-bottom:6px">演示账号一键填充</div>
+          <div class="row"><span class="pill">admin</span><span class="pill">hr1</span><span class="pill">hr_lead</span><span class="pill">mgr1</span></div>
+          <div class="row"><span class="pill">interviewer1</span><span class="pill">mentor1</span><span class="pill">legal1</span><span class="pill">newbie1</span></div>
+        </div>
+        <div class="box dash tiny">注册仅开放 4 种角色：招聘HR / 业务面试官 / 用人经理 / 带教人<br>系统管理员与 HR 负责人必须由管理员创建</div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>注册时业务线必须<b>从字典选择</b>而非手填 —— 业务线是数据隔离的边界，字面不一致会让用人经理静默地看不到候选人。</p>
+</section>
+
+<!-- ================= P-02 ================= -->
+<section class="screen" id="p02">
+  <h2><span class="no">P-02</span> 候选人工作台（列表）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">候选人工作台</span><span class="spacer"></span><span class="tiny">P-01</span></div>
+    <div class="body">
+      <div class="side">
+        <div class="item on">候选人工作台</div>
+        <div class="item">待定池</div>
+        <div class="item">面试日程</div>
+        <div class="item">培训考核</div>
+        <div class="item">岗位能力模型</div>
+        <div class="item">效果看板</div>
+        <div class="item">账号管理</div>
+      </div>
+      <div class="main">
+        <div class="row">
+          <span class="btn primary">＋ 导入简历</span>
+          <span class="pill">全部 128</span><span class="pill">待复核 23</span>
+          <span class="pill">待安排面试 41</span><span class="pill">待定池 12</span>
+          <span class="spacer"></span>
+          <span class="box dash tiny" style="padding:3px 10px">关键词搜索</span>
+        </div>
+        <table class="tbl">
+          <thead><tr><th>候选人</th><th>岗位</th><th>总分</th><th>置信度</th><th>档位</th><th>状态</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td>张伟</td><td>后端开发工程师</td><td>82.2</td><td>0.75</td><td><span class="pill ok">高分档</span></td><td>待安排面试</td><td><span class="btn ghost">查看</span></td></tr>
+            <tr><td>李娜</td><td>后端开发工程师</td><td>58.4</td><td>0.62</td><td><span class="pill warn">中间档</span></td><td>待复核</td><td><span class="btn ghost">复核</span></td></tr>
+            <tr><td>王强</td><td>产品经理</td><td>38.1</td><td>0.71</td><td><span class="pill">低分档</span></td><td>待定池</td><td><span class="btn ghost">查看</span></td></tr>
+          </tbody>
+        </table>
+        <div class="row tiny muted"><span>共 128 条 · 第 1 / 13 页</span><span class="spacer"></span><span class="pill ghost">上一页</span><span class="pill">1</span><span class="pill">2</span><span class="pill">下一页</span></div>
+        <div class="box warn tiny"><b>数据可见范围由查询层隔离，不依赖前端隐藏：</b>面试官仅见被指派候选人 · 招聘HR 见本人负责岗位 · 用人经理见本业务线 · HR负责人见全部</div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>中间档（总分 45–75）<b>禁用批量通过</b> —— 这部分恰是模型最没把握的样本，有意增加操作成本。</p>
+</section>
+
+<!-- ================= P-03 ================= -->
+<section class="screen" id="p03">
+  <h2><span class="no">P-03</span> 简历复核详情（左原文 / 右打分）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">简历复核详情</span><span class="spacer"></span><span class="pill">待安排面试</span><span class="pill warn">中间档</span></div>
+    <div class="body">
+      <div class="main" style="flex:1.5">
+        <div class="row"><span class="h">简历原文</span><span class="spacer"></span><span class="box dash tiny" style="padding:2px 8px">关键词高亮</span></div>
+        <div class="box" style="min-height:190px">
+          <div class="lines" style="margin-bottom:10px"><i></i><i class="w80"></i><i class="w60"></i></div>
+          <div class="box ai" style="padding:6px 8px">2021.03–至今　某电商平台<br>负责交易链路订单中心重构，P99 时延从 480ms 降到 92ms</div>
+          <div class="lines" style="margin:10px 0"><i class="w80"></i><i></i><i class="w40"></i></div>
+          <div class="box ai" style="padding:6px 8px">2024 年牵头订单分库分表，迁移期间零停机</div>
+        </div>
+      </div>
+      <div class="main" style="flex:1">
+        <div class="row"><span class="h">匹配分</span><span class="spacer"></span><span style="font-size:22px;font-weight:700">82.2</span><span class="tiny muted">/100</span></div>
+        <div class="kv"><b>置信度</b><span>0.75　<tspan class="tiny muted">仅用于分流，不展示给业务方</tspan></span></div>
+        <div class="col">
+          <div class="box"><div class="row"><b class="sm">高并发系统设计</b><span class="spacer"></span><span class="pill ok">命中 9.0/10</span></div><div class="tiny muted" style="margin-top:4px">查看依据 (4)</div></div>
+          <div class="box"><div class="row"><b class="sm">项目管理与复盘</b><span class="spacer"></span><span class="pill ok">命中 8.0/10</span></div><div class="tiny muted" style="margin-top:4px">查看依据 (2)</div></div>
+          <div class="box"><div class="row"><b class="sm">可观测性</b><span class="spacer"></span><span class="pill warn">部分命中 5.0/10</span></div><div class="tiny muted" style="margin-top:4px">有部分证据，需确认深度</div></div>
+          <div class="box"><div class="row"><b class="sm">团队协作</b><span class="spacer"></span><span class="pill">未体现</span></div><div class="tiny muted" style="margin-top:4px">不给分，也不计入分母</div></div>
+        </div>
+        <div class="row">
+          <span class="btn primary">采纳</span><span class="btn">否决</span><span class="btn ghost">标记疑问</span>
+        </div>
+        <div class="box warn tiny">否决原因必选：能力不匹配 / 经验不足 / 简历造假疑似 / 岗位已关闭 / 其他<br><span class="muted">原因仅用于优化模型，不用于考核 HR</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>点能力项 → 左侧原文 300ms 内定位高亮证据。<span class="ann">2</span>采纳与否决<b>不设默认选中</b>，防无意识批量放行。<span class="ann">3</span>「未体现」≠「不符合」：前者是信息缺失，后者是能力不足，混淆会把表述简略的人误判为能力差。</p>
+</section>
+
+<!-- ================= P-04 ================= -->
+<section class="screen" id="p04">
+  <h2><span class="no">P-04</span> 待定池</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">待定池</span><span class="spacer"></span><span class="tiny">保留 7 天</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="row"><span class="pill">全部 12</span><span class="pill">即将归档 3</span><span class="pill">已捞回 5</span><span class="spacer"></span><span class="box dash tiny" style="padding:3px 10px">按归档时间排序</span></div>
+        <table class="tbl">
+          <thead><tr><th>候选人</th><th>否决原因</th><th>进池时间</th><th>剩余</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td>王强</td><td>能力不匹配</td><td>10-04</td><td><span class="pill warn">2 天</span></td><td><span class="btn ghost">捞回</span></td></tr>
+            <tr><td>赵敏</td><td>经验不足</td><td>10-06</td><td>4 天</td><td><span class="btn ghost">捞回</span></td></tr>
+          </tbody>
+        </table>
+        <div class="box warn tiny"><b>捞回后通过面试的案例 = 一次「差点被误杀」的实证</b>。这条链路单独列表，每周由 HR 负责人复盘，不混在总体指标里被平均掉。</div>
+        <div class="box fill tiny"><b>归档不等于拒绝，也不发送任何通知。</b>系统内不存在「拒绝」这个动作，是否告知由 HR 在 ATS 另行操作 —— 平台不承担不利决定的执行。</div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>这是整个产品里法务边界最硬的一处：<b>不做拒绝，只做归档</b>。</p>
+</section>
+
+<!-- ================= P-05 ================= -->
+<section class="screen" id="p05">
+  <h2><span class="no">P-05</span> 岗位能力模型（列表）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">岗位能力模型</span><span class="spacer"></span><span class="tiny">P-05</span></div>
+    <div class="body">
+      <div class="side"><div class="item">岗位列表</div><div class="item on">能力项配置</div><div class="item">否决项</div><div class="item">提示词版本</div></div>
+      <div class="main">
+        <div class="row"><span class="btn primary">＋ 新建岗位</span><span class="spacer"></span><span class="pill">在招 6</span><span class="pill">已关闭 2</span></div>
+        <table class="tbl">
+          <thead><tr><th>岗位</th><th>序列</th><th>业务线</th><th>职级</th><th>能力项</th><th>模型版本</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td>后端开发工程师</td><td>技术</td><td>电商业务线</td><td>P6–P7</td><td>8 项</td><td>v3</td><td><span class="btn ghost">编辑</span></td></tr>
+            <tr><td>产品经理</td><td>产品</td><td>电商业务线</td><td>P6–P7</td><td>7 项</td><td>v2</td><td><span class="btn ghost">编辑</span></td></tr>
+          </tbody>
+        </table>
+        <div class="box fill tiny">可从同序列模板派生，派生后能力项与权重完整继承</div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>业务线从字典选择 —— 岗位的业务线决定哪些用人经理能看到它的候选人。</p>
+</section>
+
+<!-- ================= P-06 ================= -->
+<section class="screen" id="p06">
+  <h2><span class="no">P-06</span> 能力项编辑（权重 / 证据类型 / 否决项）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">后端开发工程师 · 能力项</span><span class="spacer"></span><span class="pill">模型 v3</span><span class="pill ai">AI 建议</span></div>
+    <div class="body">
+      <div class="main">
+        <table class="tbl">
+          <thead><tr><th>能力项</th><th>权重</th><th>证据类型</th><th>极性</th><th>AI 建议</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td>高并发系统设计</td><td>1.5</td><td>project</td><td>正向</td><td><span class="pill ai">建议降至 1.3</span></td><td><span class="btn ghost">编辑</span></td></tr>
+            <tr><td>可观测性</td><td>0.8</td><td>skill</td><td>正向</td><td><span class="pill ai">建议升至 1.1</span></td><td><span class="btn ghost">编辑</span></td></tr>
+            <tr><td>简历真实性</td><td>—</td><td>—</td><td><span class="pill warn">否决项</span></td><td class="muted">—</td><td><span class="btn ghost">编辑</span></td></tr>
+          </tbody>
+        </table>
+        <div class="box warn tiny">约束：<b>否决项 ≤ 3 个</b>。否决项不是用来「扣分」的，而是用来触发人工复核。</div>
+        <div class="box ai"><b class="sm">AI 权重建议（季度复盘产出）</b>
+          <div class="tiny muted" style="margin-top:5px">依据：近 90 天采纳/否决记录 + 试用期表现回流 · 一致率 0.81 · 样本量 128</div>
+          <div class="row" style="margin-top:7px"><span class="btn">接受</span><span class="btn ghost">忽略</span><span class="tiny muted">采纳与否都会写入决策日志</span></div>
+        </div>
+        <div class="box fill tiny"><b>否决项分两个方向：</b>正向否决 = 缺了就不合格（如无对应资质）；负向否决 = 命中即需人工复核（如频繁跳槽）。二者混用会让评分失去意义。</div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>AI 只能<b>建议</b>权重，改不改由 HR 判定；每次采纳都留痕，供事后归因。</p>
+</section>
+
+<!-- ================= P-07 ================= -->
+<section class="screen" id="p07">
+  <h2><span class="no">P-07</span> 面试日程</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">面试日程</span><span class="spacer"></span><span class="tiny">面试官仅可见被指派给自己的场次</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="row"><span class="pill solid">待面试</span><span class="pill">已完成</span><span class="pill">已取消</span><span class="pill">全部</span><span class="spacer"></span><span class="btn">⟳ 刷新</span></div>
+        <table class="tbl">
+          <thead><tr><th>候选人</th><th>轮次</th><th>面试时间</th><th>面试官</th><th>方式</th><th>录音同意</th><th>状态</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>张伟</b><div class="tiny muted">后端开发工程师</div></td>
+              <td><span class="pill">三面</span></td>
+              <td>09-30 周三 10:00<div class="tiny muted">30 分钟 · 21 小时后</div></td>
+              <td>陈志远<div class="tiny muted mono">interviewer1</div></td>
+              <td><span class="pill">视频</span><div class="tiny muted mono">888 666 222</div></td>
+              <td><span class="pill">未回复</span></td>
+              <td><span class="pill ok">待面试</span></td>
+              <td><span class="btn primary">进入会议</span> <span class="btn">出题</span><div class="tiny" style="margin-top:3px">复制候选人链接 · 重发链接 · 改期/改派 · 取消</div></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="grid2">
+          <div class="box"><b class="sm">视频面试怎么进 · 面试官</b><ol class="tiny muted" style="margin:6px 0 0;padding-left:16px;line-height:1.9"><li>用自己的平台账号登录</li><li>本页或准备页点「进入会议」</li><li>一边面试一边看题目与锚点</li><li>结束后生成评估报告</li></ol></div>
+          <div class="box"><b class="sm">视频面试怎么进 · 候选人</b><ol class="tiny muted" style="margin:6px 0 0;padding-left:16px;line-height:1.9"><li><b>无需账号</b>，HR 发送邀请链接</li><li>打开可看时间、方式、会议入口</li><li>开始前确认是否同意录音</li><li>取消或重发后旧链接立即失效</li></ol></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>面试官<b>必须显式选择</b>：此前缺省会静默挂到第一个面试官名下，所有面试都堆给同一人。<span class="ann">2</span>同一面试官时间冲突<b>只提示不拦截</b>。</p>
+</section>
+
+<!-- ================= P-08 ================= -->
+<section class="screen" id="p08">
+  <h2><span class="no">P-08</span> 面试准备页（分层题目 + 评分锚点）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">张伟</span><span class="tiny">后端开发工程师 · 三面</span><span class="spacer"></span><span class="pill">30 分钟</span><span class="btn primary">✦ 生成题目</span><span class="btn">评估报告</span></div>
+    <div class="body">
+      <div class="main" style="flex:0.7">
+        <div class="box"><div class="row"><span class="pill">视频面试</span><span class="sm">09-30 周三 10:00</span><span class="spacer"></span><span class="btn primary">进入会议</span></div><div class="tiny muted" style="margin-top:5px">会议号 888 666 222</div></div>
+        <div class="box warn tiny"><b>候选人尚未确认是否同意录音。</b>开场请先当面询问；未明确同意前不要开启录制。</div>
+        <div class="h">能力项缺口</div>
+        <div class="box"><div class="row"><b class="sm">可观测性</b><span class="spacer"></span><span class="pill warn">部分命中</span></div><div class="tiny muted">权重 8% · 有部分证据，需确认深度</div></div>
+        <div class="box"><div class="row"><b class="sm">团队协作</b><span class="spacer"></span><span class="pill">未体现</span></div><div class="tiny muted">权重 6% · 简历未提及，需在面试中验证</div></div>
+        <div class="tiny muted">按权重降序，权重高的更需要面试验证</div>
+      </div>
+      <div class="main" style="flex:1.3">
+        <div class="row"><span class="h">面试题目</span><span class="pill">7 道</span><span class="pill">预计 28 分钟</span><span class="spacer"></span><span class="tiny muted">面试官操作即采纳率来源</span></div>
+        <div class="tiny muted">基础考察 2 道</div>
+        <div class="box"><div class="row"><span class="pill">可观测性</span><span class="spacer"></span><span class="tiny muted">4 分钟</span></div>
+          <div class="sm" style="margin-top:5px">你们线上报警的平均响应时间是多少？告警是谁在看？</div>
+          <div class="box ai tiny" style="margin-top:6px"><b>出题依据</b><br>简历写了熔断与限流，但没提监控与告警链路</div>
+          <div class="row tiny" style="margin-top:6px"><span class="pill ok">高：有明确 SLA 与值班机制</span><span class="pill warn">中：有监控无值班</span></div>
+          <div class="row" style="margin-top:6px"><span class="btn primary">采纳</span><span class="btn">编辑</span><span class="btn ghost">删除</span><span class="spacer"></span><span class="tiny muted">展开锚点</span></div>
+        </div>
+        <div class="tiny muted">项目深挖 3 道 · 压力追问 1 道 · 真实性验证 1 道</div>
+        <div class="box fill tiny">已拦截 1 道涉及敏感话题的题目（整条丢弃并记录日志）</div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>出题输入是<b>差集</b>：优先针对简历未体现或部分命中的能力项。<span class="ann">2</span>题目与锚点属于 AI 产出，可采纳/编辑/删除，且<b>不预填任何评分</b>。</p>
+</section>
+
+<!-- ================= P-09 ================= -->
+<section class="screen" id="p09">
+  <h2><span class="no">P-09</span> 面试评估报告</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">评估报告</span><span class="tiny">张伟 · 三面</span><span class="spacer"></span><span class="pill">已完成</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="box ok tiny" style="border-color:#86efac;background:#f0fdf4">候选人已在邀请链接中<b>同意录音</b>，可基于逐字稿生成报告。</div>
+        <div class="box"><div class="kv"><b>面试逐字稿</b><span class="muted tiny">粘贴录音转写文本</span></div><div class="lines" style="margin-top:6px"><i></i><i class="w80"></i><i class="w60"></i></div><div class="row" style="margin-top:8px"><span class="btn primary">生成评估报告</span></div></div>
+        <div class="grid2">
+          <div class="box ai"><b class="sm">AI 参考区（不预填分数）</b>
+            <div class="tiny" style="margin-top:6px;line-height:1.9">
+              可观测性：候选人提到有告警但无值班机制<br>
+              团队协作：未覆盖，建议补充追问
+            </div>
+          </div>
+          <div class="box"><b class="sm">面试官评分区</b>
+            <div class="tiny muted" style="margin-top:6px;line-height:1.9">
+              可观测性　<input class="box" style="width:44px;padding:1px 4px;display:inline-block"> / 10<br>
+              团队协作　<input class="box" style="width:44px;padding:1px 4px;display:inline-block"> / 10<br>
+              结论　<input class="box" style="width:150px;padding:1px 4px;display:inline-block">
+            </div>
+            <div class="row" style="margin-top:8px"><span class="btn primary">提交评分</span></div>
+          </div>
+        </div>
+        <div class="box warn tiny"><b>AI 参考区与面试官评分区在视觉上必须分开。</b>预填会产生锚定效应，使面试官倾向于微调而非独立判断，直接损害评价独立性。</div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>逐字稿转写后自动归类到能力项并对照锚点，目标是让面试官<b>零额外操作</b>即产出结构化评价。<span class="ann">2</span>候选人明确「不同意」时，面试官不能勾选覆盖，只能走手动摘要。</p>
+</section>
+
+<!-- ================= P-10 ================= -->
+<section class="screen" id="p10">
+  <h2><span class="no">P-10</span> 培训方案（列表）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">培训考核</span><span class="spacer"></span><span class="tiny">P-10</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="row"><span class="btn primary">＋ 生成新方案</span><span class="spacer"></span><span class="pill">草稿 2</span><span class="pill">已发布 4</span></div>
+        <table class="tbl">
+          <thead><tr><th>方案</th><th>岗位</th><th>章节</th><th>题库</th><th>状态</th><th>指派</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td>新人 90 天上手计划</td><td>后端开发工程师</td><td>6 章</td><td>48 题</td><td><span class="pill ok">已发布</span></td><td>3 人</td><td><span class="btn ghost">查看</span></td></tr>
+            <tr><td>产品岗基础训练</td><td>产品经理</td><td>5 章</td><td>—</td><td><span class="pill">草稿</span></td><td>—</td><td><span class="btn ghost">继续编辑</span></td></tr>
+          </tbody>
+        </table>
+        <div class="box fill tiny">每月汇总一次方案效果 → 上报给 HR 负责人 → 用于下一版方案与能力模型调整</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= P-11 ================= -->
+<section class="screen" id="p11">
+  <h2><span class="no">P-11</span> 方案生成与配置（资料驱动）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">生成培训方案</span><span class="spacer"></span><span class="tiny">草稿</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="grid3">
+          <div class="box"><div class="tiny muted">方案名称</div><div class="sm">新人 90 天上手计划</div></div>
+          <div class="box"><div class="tiny muted">目标岗位</div><div class="sm">后端开发工程师</div></div>
+          <div class="box"><div class="tiny muted">培训窗口</div><div class="sm">90 天</div></div>
+        </div>
+        <div class="box"><b class="sm">参考资料（可多选）</b>
+          <div class="row" style="margin-top:6px"><span class="pill solid">订单幂等设计规范</span><span class="pill solid">支付链路 SOP</span><span class="pill">新人制度手册</span><span class="spacer"></span><span class="btn ghost">＋ 上传</span></div>
+          <div class="tiny muted" style="margin-top:6px">未勾选时，系统自动引用资料库中未被其它方案占用的文件，<b>并明确提示引用了哪几份</b></div>
+        </div>
+        <div class="box warn tiny">检出「答案：B」式的答案泄漏会提示先清理 —— 会显著拉低题目质量（仅警告，不阻断）</div>
+        <div class="grid2">
+          <div class="box"><b class="sm">大纲章节（与能力项一一对应）</b>
+            <div class="tiny" style="margin-top:6px;line-height:2">1 订单幂等设计 → 高并发系统设计<br>2 支付链路与对账 → 业务理解<br>3 线上排障 → 可观测性</div>
+          </div>
+          <div class="box"><b class="sm">题库与考试规则</b>
+            <div class="tiny" style="margin-top:6px;line-height:2">单选 12 · 多选 6 · 判断 6 · 主观 2<br>限时 60 分钟 · 限次 1 次 · 及格 75 分<br>每题标注出处段落</div>
+          </div>
+        </div>
+        <div class="row"><span class="btn primary">生成</span><span class="btn">预览</span><span class="spacer"></span><span class="tiny muted">生成质量异常时明确返回警告，而不是让用户自己数题目数量</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>资料驱动是这一模块的核心：大纲与题目都要能追溯到具体资料的段落。<span class="ann">2</span>生成结果是<b>草稿</b>，必须由带教人确认发布。</p>
+</section>
+
+<!-- ================= P-12 ================= -->
+<section class="screen" id="p12">
+  <h2><span class="no">P-12</span> 我的培训（新人视角）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">我的培训</span><span class="tiny">林小雨</span><span class="spacer"></span><span class="tiny">只显示指派给自己的内容</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="box"><div class="row"><b>新人 90 天上手计划</b><span class="spacer"></span><span class="pill">第 3 / 6 章</span><span class="pill warn">窗口剩 41 天</span></div>
+          <div class="lines" style="margin-top:8px"><i></i><i class="w60"></i></div></div>
+        <div class="grid3">
+          <div class="box"><div class="tiny muted">已完成章节</div><div style="font-size:18px;font-weight:700">2</div></div>
+          <div class="box"><div class="tiny muted">待学习</div><div style="font-size:18px;font-weight:700">4</div></div>
+          <div class="box"><div class="tiny muted">考核成绩</div><div style="font-size:18px;font-weight:700">—</div></div>
+        </div>
+        <table class="tbl">
+          <thead><tr><th>章节</th><th>对应能力项</th><th>状态</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td>1 订单幂等设计</td><td>高并发系统设计</td><td><span class="pill ok">已完成</span></td><td><span class="btn ghost">复习</span></td></tr>
+            <tr><td>2 支付链路与对账</td><td>业务理解</td><td><span class="pill ok">已完成</span></td><td><span class="btn ghost">复习</span></td></tr>
+            <tr><td>3 线上排障</td><td>可观测性</td><td><span class="pill">进行中</span></td><td><span class="btn primary">继续学习</span></td></tr>
+          </tbody>
+        </table>
+        <div class="box fill tiny">新人看不到任何候选人数据 —— 这是最小权限：新人没有招聘职责</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= P-13 ================= -->
+<section class="screen" id="p13">
+  <h2><span class="no">P-13</span> 在线考试（全屏，防作弊）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">在线考试</span><span class="tiny">订单幂等设计</span><span class="spacer"></span><span class="pill warn">剩余 42:18</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="box fill tiny">第 4 / 26 题　　单选　2 分</div>
+        <div class="box" style="min-height:56px"><div class="sm">订单幂等设计中，同一个幂等键重复请求时，服务端应当如何处理？</div></div>
+        <div class="col">
+          <div class="box"><span class="pill">A</span> 直接返回上一次的结果，不重复执行业务逻辑</div>
+          <div class="box"><span class="pill">B</span> 重新执行业务逻辑并覆盖上一次结果</div>
+          <div class="box"><span class="pill">C</span> 抛出异常，由调用方重试</div>
+          <div class="box"><span class="pill">D</span> 记录日志后返回空结果</div>
+        </div>
+        <div class="row"><span class="btn">上一题</span><span class="btn">下一题</span><span class="spacer"></span><span class="btn primary">交卷</span></div>
+        <div class="box warn tiny"><b>服务端强制：</b>答案不下发（判卷全在服务端）· 开考即冻结试卷（刷新/换设备恢复同一份，不重新计时、不换题）· 每人随机组卷 + 选项乱序 · 超时不可提交
+          <br><span class="muted">客户端只上报信号（切屏、粘贴、失焦等）作为线索，<b>不据此自动判失败</b> —— 误杀的代价远高于漏放</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>选项乱序后，判分时<b>必须把答案反映射回题库原序</b>；漏掉这一步，每一道客观题都会判错。</p>
+</section>
+
+<!-- ================= P-14 ================= -->
+<section class="screen" id="p14">
+  <h2><span class="no">P-14</span> 考核复核（带教人，含风险信号）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">考核复核</span><span class="spacer"></span><span class="tiny">按风险分降序</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="row"><span class="pill solid">待复核 6</span><span class="pill">可疑</span><span class="pill">关注</span><span class="pill">正常</span></div>
+        <table class="tbl">
+          <thead><tr><th>新人</th><th>方案</th><th>得分</th><th>风险分</th><th>信号</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td>林小雨</td><td>90 天上手计划</td><td>88</td><td><span class="pill ok">3.0</span></td><td class="tiny muted">切屏 1 次</td><td><span class="btn">复核</span></td></tr>
+            <tr><td>郑浩然</td><td>90 天上手计划</td><td>62</td><td><span class="pill warn">18.5</span></td><td class="tiny muted">切屏 5 次 · 粘贴 2 次 · 全程未聚焦</td><td><span class="btn primary">复核</span></td></tr>
+          </tbody>
+        </table>
+        <div class="grid2">
+          <div class="box"><b class="sm">信号明细</b>
+            <div class="tiny muted" style="margin-top:6px;line-height:1.95">
+              切屏 / 页面隐藏　5 次（封顶计 10 分）<br>
+              粘贴　　　　　　2 次（封顶计 4 分）<br>
+              开发者工具　　　未检出<br>
+              答题速度　　　　前 5 题平均 6.2 秒（偏快）
+            </div>
+          </div>
+          <div class="box"><b class="sm">终评</b>
+            <div class="tiny muted" style="margin-top:6px;line-height:1.95">
+              客观题自动判分　52 / 70<br>
+              主观题要点覆盖　待你终评<br>
+              终评分数　<input class="box" style="width:50px;padding:1px 4px;display:inline-block"> / 100
+            </div>
+            <div class="row" style="margin-top:8px"><span class="btn primary">提交终评</span><span class="btn ghost">作废重考（返还机会）</span></div>
+          </div>
+        </div>
+        <div class="box warn tiny"><b>风险分只用于排序，不自动判失败。</b>接电话切出去、输入法弹窗、笔记本合盖都会触发信号 —— 最终由人看证据决定。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= P-15 ================= -->
+<section class="screen" id="p15">
+  <h2><span class="no">P-15</span> 效果看板（数据回流）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">效果看板</span><span class="spacer"></span><span class="tiny">近 90 天 · 全部业务线</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="grid4">
+          <div class="box"><div class="tiny muted">一致率（AI 与 HR）</div><div style="font-size:19px;font-weight:700">0.81</div><div class="tiny muted">目标 ≥ 0.75</div></div>
+          <div class="box"><div class="tiny muted">误杀率（捞回后通过）</div><div style="font-size:19px;font-weight:700">3.2%</div><div class="tiny muted">目标 ≤ 5%</div></div>
+          <div class="box"><div class="tiny muted">题目采纳率</div><div style="font-size:19px;font-weight:700">72%</div><div class="tiny muted">目标 ≥ 60%</div></div>
+          <div class="box"><div class="tiny muted">简历处理耗时 P95</div><div style="font-size:19px;font-weight:700">18s</div><div class="tiny muted">目标 ≤ 30s</div></div>
+        </div>
+        <div class="grid2">
+          <div class="box" style="min-height:104px"><b class="sm">分层占比趋势</b><div class="lines" style="margin-top:8px"><i></i><i class="w80"></i><i class="w60"></i><i class="w40"></i></div><div class="tiny muted" style="margin-top:6px">高分档 / 中间档 / 低分档</div></div>
+          <div class="box" style="min-height:104px"><b class="sm">能力项一致率排行</b><div class="tiny muted" style="margin-top:8px;line-height:1.95">高并发系统设计　0.88<br>项目管理与复盘　　0.79<br>可观测性　　　　　0.61 ← 建议重新校准锚点</div></div>
+        </div>
+        <div class="box warn tiny"><b>每周专项复盘：捞回记录。</b>捞回后通过面试的案例是一次「差点被误杀」的实证，是发现误杀模式最直接的入口。<br><span class="muted">每季度按一致率与误杀率复盘能力项权重 → 产出模型新版本</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>看板的价值不在「好看」，而在于<b>每个指标都能对应一个动作</b>：一致率低 → 校准锚点；误杀率高 → 调整阈值；采纳率低 → 改出题策略。</p>
+</section>
+
+<!-- ================= P-16 ================= -->
+<section class="screen" id="p16">
+  <h2><span class="no">P-16</span> 账号管理（含业务线字典）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">账号管理</span><span class="spacer"></span><span class="pill">admin</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="row"><span class="btn primary">＋ 新建账号</span><span class="spacer"></span><span class="box dash tiny" style="padding:3px 10px">搜索账号 / 姓名</span></div>
+        <table class="tbl">
+          <thead><tr><th>账号</th><th>姓名</th><th>角色</th><th>业务线</th><th>部门</th><th>状态</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">hr1</td><td>张敏</td><td><span class="pill">招聘HR</span></td><td>电商业务线</td><td>—</td><td><span class="pill ok">启用</span></td><td class="tiny">编辑 · 重置密码 · 停用</td></tr>
+            <tr><td class="mono">interviewer1</td><td>陈志远</td><td><span class="pill">业务面试官</span></td><td>电商业务线</td><td>交易研发部</td><td><span class="pill ok">启用</span></td><td class="tiny">编辑 · 重置密码 · 停用</td></tr>
+            <tr><td class="mono">interviewer2</td><td>刘一帆</td><td><span class="pill">业务面试官</span></td><td>供应链业务线</td><td>供应链技术部</td><td><span class="pill ok">启用</span></td><td class="tiny">编辑 · 重置密码 · 停用</td></tr>
+          </tbody>
+        </table>
+        <div class="h">业务线字典</div>
+        <table class="tbl">
+          <thead><tr><th>名称</th><th>正在使用</th><th>状态</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr><td>电商业务线</td><td class="tiny">账号 6 · 岗位 3 · 知识库 4</td><td><span class="pill ok">启用</span></td><td class="tiny">编辑 · 停用 · 删除</td></tr>
+            <tr><td>供应链业务线</td><td class="tiny">账号 2 · 岗位 2</td><td><span class="pill ok">启用</span></td><td class="tiny">编辑 · 停用 · 删除</td></tr>
+          </tbody>
+        </table>
+        <div class="box fill tiny">改名会<b>级联同步</b>到所有账号、岗位与知识库；删除仍在使用的业务线时，必须先指定把这些数据<b>迁移</b>到哪条，否则拒绝删除（可改用停用）。</div>
+        <div class="box warn tiny">业务线是数据隔离的边界：账号填「电商业务线」、岗位填「电商线」，字符串对不上，用人经理一个候选人都看不到，<b>而且没有任何报错</b>。</div>
+        <div class="grid3">
+          <div class="box tiny"><b>招聘HR</b><span class="pill ok" style="margin-left:6px">可自助注册</span><div class="muted">本人负责岗位的候选人</div></div>
+          <div class="box tiny"><b>业务面试官</b><span class="pill ok" style="margin-left:6px">可自助注册</span><div class="muted">仅被指派面试的候选人</div></div>
+          <div class="box tiny"><b>系统管理员</b><span class="pill" style="margin-left:6px">仅超管创建</span><div class="muted">不可查看简历正文</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= P-17 ================= -->
+<section class="screen" id="p17">
+  <h2><span class="no">P-17</span> 阈值与参数（含模型网关）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">阈值与参数</span><span class="spacer"></span><span class="tiny">仅系统管理员</span></div>
+    <div class="body">
+      <div class="side"><div class="item on">模型网关</div><div class="item">分层阈值</div><div class="item">权限矩阵</div><div class="item">提示词版本</div></div>
+      <div class="main">
+        <div class="box"><b class="sm">模型网关</b>
+          <div class="kv" style="margin-top:6px"><b>网关地址</b><span class="mono">https://your-gateway.example.com</span></div>
+          <div class="kv"><b>API Key</b><span class="mono">sk-••••••••••••••••</span></div>
+          <div class="kv"><b>可用模型</b><span class="pill ok">已连接 · 72 个可选</span></div>
+        </div>
+        <div class="box"><b class="sm">按能力分层选型</b>
+          <div class="grid3" style="margin-top:6px">
+            <div class="tiny">简历解析　<span class="pill">中型模型</span></div>
+            <div class="tiny">出题　　　<span class="pill">大型模型</span></div>
+            <div class="tiny">判卷　　　<span class="pill">中型模型</span></div>
+            <div class="tiny">向量嵌入　<span class="pill">嵌入模型</span></div>
+            <div class="tiny">图片简历　<span class="pill">视觉模型</span></div>
+            <div class="tiny">备用模型　<span class="pill">中型模型</span></div>
+          </div>
+        </div>
+        <div class="box"><b class="sm">分层阈值</b>
+          <div class="tiny" style="margin-top:6px;line-height:2">高分档　总分 ≥ <b>75</b> 且置信度 ≥ <b>0.85</b> → 直接进待安排面试<br>中间档　总分 ≥ <b>45</b> → 待复核（强制人工）<br>低分档　总分 &lt; 45 或命中否决项 → 待定池</div>
+        </div>
+        <div class="box warn tiny">配置错误时<b>不要静默降级</b>：网关不可用应明确提示「模型未配置，已转人工」，而不是返回一套看起来正常的默认结果。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= P-18 ================= -->
+<section class="screen" id="p18">
+  <h2><span class="no">P-18</span> 智能体助手（对话式入口）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">智能体助手</span><span class="spacer"></span><span class="tiny">可调度 11 项能力</span></div>
+    <div class="body">
+      <div class="main" style="max-width:640px">
+        <div class="box fill"><b class="sm">你可以这样问我</b>
+          <div class="row tiny" style="margin-top:6px"><span class="pill">帮我看一下这位候选人的风险点</span><span class="pill">这个岗位的权重合理吗</span><span class="pill">最近一周误杀了几个人</span></div>
+        </div>
+        <div class="box"><div class="tiny muted">我</div><div class="sm" style="margin-top:4px">张伟的简历里，哪些能力项是没体现的？</div></div>
+        <div class="box ai"><div class="tiny muted">助手</div>
+          <div class="sm" style="margin-top:4px">张伟的简历覆盖了 6 / 8 项能力。未体现 2 项：团队协作（权重 6%）、可观测性（部分命中，权重 8%）。</div>
+          <div class="tiny muted" style="margin-top:7px">依据：简历原文 2 处 · 能力模型 v3</div>
+          <div class="row" style="margin-top:7px"><span class="btn">查看原文依据</span><span class="btn ghost">为这两项生成面试题</span></div>
+        </div>
+        <div class="box"><div class="row"><span class="box dash" style="flex:1;padding:6px 10px">输入问题…</span><span class="btn primary">发送</span></div></div>
+        <div class="box warn tiny">助手只能<b>查询与建议</b>，不能直接改变候选人状态。任何写操作都要生成「待确认动作」，由人点确认后执行。</div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>这一条是 AI 产品的通用原则：<b>自然语言入口不改变权限边界</b>，助手能做的事必须和当前登录角色能做的一致。</p>
+</section>
+
+<!-- ================= P-19 ================= -->
+<section class="screen" id="p19">
+  <h2><span class="no">P-19</span> 候选人面试邀请（免登录 · 手机）</h2>
+  <div class="frame" style="background:#eef0f3">
+    <div class="body">
+      <div class="phone">
+        <div class="box" style="padding:16px">
+          <div class="row tiny muted"><span style="width:8px;height:8px;border-radius:50%;background:#3b5bdb;display:inline-block"></span>面试邀请</div>
+          <div class="h" style="font-size:15px;margin:12px 0 4px">张伟，您好</div>
+          <div class="sm" style="margin-bottom:12px">您的 <b>后端开发工程师</b> 三面已安排，信息如下。</div>
+          <div class="box fill">
+            <div class="kv"><b>时间</b><span>2026 年 9 月 30 日（周三）10:00</span></div>
+            <div class="kv"><b>时长</b><span>约 30 分钟</span></div>
+            <div class="kv"><b>方式</b><span>视频面试</span></div>
+            <div class="kv"><b>会议号</b><span class="mono">888 666 222</span></div>
+          </div>
+          <div class="btn primary" style="display:block;text-align:center;padding:10px;margin:12px 0 6px;font-size:13px">▣ 进入视频会议</div>
+          <div class="tiny muted">建议提前 5 分钟进入并检查摄像头与麦克风</div>
+          <div class="box fill" style="margin-top:12px">
+            <b class="sm">关于面试录音</b>
+            <div class="tiny" style="margin-top:5px;line-height:1.85">录音仅用于本岗位的面试评估，不会用于其他用途。<b>是否同意完全由您决定，不同意不会影响面试结果。</b></div>
+            <div class="row" style="margin-top:8px"><span class="btn" style="flex:1;text-align:center">同意录音</span><span class="btn" style="flex:1;text-align:center">不同意</span></div>
+          </div>
+          <div class="tiny muted" style="margin-top:12px">本链接仅用于您本人的这场面试，请勿转发。如时间不便，请回复发送邀请的 HR。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="note"><span class="ann">1</span>候选人不是平台用户，<b>不为一场面试注册账号</b>。<span class="ann">2</span>链接只含本场信息，不含面试官、题目、评分、简历；伪造/过期/取消统一返回同一提示，不泄露「这个令牌曾经存在」。<span class="ann">3</span>录音同意分三态：未回复 / 同意 / 不同意 —— 前两者对面试官意味着不同的动作。</p>
+</section>
+
+<!-- ================= P-20 ================= -->
+<section class="screen" id="p20">
+  <h2><span class="no">P-20</span> 决策日志（只追加）</h2>
+  <div class="frame">
+    <div class="frame-head"><span class="logo"></span><span class="title">决策日志</span><span class="spacer"></span><span class="tiny">只追加，不可编辑</span></div>
+    <div class="body">
+      <div class="main">
+        <div class="row"><span class="pill solid">全部</span><span class="pill">筛选</span><span class="pill">否决</span><span class="pill">录音合规</span><span class="pill">账号管理</span><span class="spacer"></span><span class="box dash tiny" style="padding:3px 10px">按时间 / 候选人 / 操作人</span></div>
+        <table class="tbl">
+          <thead><tr><th>时间</th><th>类型</th><th>操作人</th><th>摘要</th><th>模型版本</th></tr></thead>
+          <tbody>
+            <tr><td class="tiny">09-29 14:22</td><td><span class="pill ok">采纳</span></td><td>张敏</td><td class="tiny">采纳张伟的简历筛选结果，总分 82.2</td><td class="tiny mono">v3 / p1.4</td></tr>
+            <tr><td class="tiny">09-29 14:40</td><td><span class="pill">面试安排</span></td><td>张敏</td><td class="tiny">为张伟安排三面：面试官 陈志远，视频，30 分钟</td><td class="tiny muted">—</td></tr>
+            <tr><td class="tiny">09-29 15:02</td><td><span class="pill warn">录音合规</span></td><td>候选人（邀请链接）</td><td class="tiny">候选人同意第 29 场面试录音</td><td class="tiny muted">—</td></tr>
+            <tr><td class="tiny">09-29 16:11</td><td><span class="pill warn">账号管理</span></td><td class="admin</td><td class="tiny">修改账号 interviewer2：业务线 供应链业务线 → 电商业务线</td><td class="tiny muted">—</td></tr>
+            <tr><td class="tiny">09-29 16:30</td><td><span class="pill">降级</span></td><td>系统</td><td class="tiny">出题模型超时，降级为备用模型并已在界面明示</td><td class="tiny mono">v2 / p1.4</td></tr>
+          </tbody>
+        </table>
+        <div class="box fill tiny">日志记录<b>当时的模型版本与提示词版本</b>。效果波动时能归因到具体版本，离线回归才有对比基准。</div>
+        <div class="box warn tiny">日志本身<b>不可编辑，仅可追加</b> —— 可编辑的日志在争议场景下不具备证明力。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
